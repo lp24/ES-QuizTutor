@@ -16,11 +16,11 @@ import pt.ulisboa.tecnico.socialsoftware.tutor.exceptions.ErrorMessage
 @DataJpaTest
 class CreateQuestionTest extends SpockTest {
     def "create an open answer question with no image"() {
-        expected: "false"
+        expect: false
     }
 
     def "create an open answer question with an image"() {
-        expected: "false"
+        expect: false
     }
 
     def "create a multiple choice question with no image and one option"() {
