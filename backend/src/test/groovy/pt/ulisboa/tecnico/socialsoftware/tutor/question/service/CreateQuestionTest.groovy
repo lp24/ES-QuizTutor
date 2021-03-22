@@ -397,6 +397,26 @@ class CreateQuestionTest extends SpockTest {
     }
 
 
+    def "create multiple choice question with order"(){
+        expect: false
+    }
+    def "create multiple choice question with order without option"(){
+        expect: false
+    }
+    def "create multiple choice question with order without images"(){
+        expect: false
+    }
+    def "cannot create multiple choice question with order without two options"(){
+        expect: false
+    }
+    def "cannot create multiple choice question with order without minimum two correct options"(){
+        expect: false
+    }
+
+
+
+
+
     @Unroll
     def "fail to create any question for invalid/non-existent course (#nonExistentId)"(Integer nonExistentId) {
         given: "any multiple choice question dto"
