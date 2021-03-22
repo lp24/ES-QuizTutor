@@ -15,6 +15,13 @@ import pt.ulisboa.tecnico.socialsoftware.tutor.exceptions.ErrorMessage
 
 @DataJpaTest
 class CreateQuestionTest extends SpockTest {
+    def "create an open answer question with no image"() {
+        expected: "false"
+    }
+
+    def "create an open answer question with an image"() {
+        expected: "false"
+    }
 
     def "create a multiple choice question with no image and one option"() {
         given: "a questionDto"
@@ -399,7 +406,7 @@ class CreateQuestionTest extends SpockTest {
 
     @Unroll
     def "fail to create any question for invalid/non-existent course (#nonExistentId)"(Integer nonExistentId) {
-        given: "any multiple choice question dto"
+        given: "any question dto"
         def questionDto = new QuestionDto()
         when:
         questionService.createQuestion(nonExistentId, questionDto)
