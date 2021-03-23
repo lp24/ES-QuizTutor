@@ -398,7 +398,39 @@ class CreateQuestionTest extends SpockTest {
 
 
     def "create multiple choice question with order"(){
-        expect: false
+        given: "a questionDto"
+        def questionDto = new QuestionDto()
+        questionDto.setKey(1)
+        questionDto.setTitle(QUESTION_1_TITLE)
+        questionDto.setContent(QUESTION_1_CONTENT)
+        questionDto.setStatus(Question.Status.AVAILABLE.name())
+        questionDto.setQuestionDetailsDto(new MultipleOrderedChoiceQuestionDto())
+        and: 'a optionId'
+        def optionDto = new OptionDto()
+        optionDto.setContent(OPTION_1_CONTENT)
+        optionDto.setCorrect(true)
+        def options = new ArrayList<OptionDto>()
+        options.add(optionDto)
+        questionDto.getQuestionDetailsDto().setOptions(options)
+
+        when:
+        questionService.createQuestion(externalCourse.getId(), questionDto)
+
+        then: "the correct question is inside the repository"
+        questionRepository.count() == 1L
+        def result = questionRepository.findAll().get(0)
+        result.getId() != null
+        result.getKey() == 1
+        result.getStatus() == Question.Status.AVAILABLE
+        result.getTitle() == QUESTION_1_TITLE
+        result.getContent() == QUESTION_1_CONTENT
+        result.getImage() == null
+        result.getQuestionDetails().getOptions().size() == 1
+        result.getCourse().getName() == COURSE_1_NAME
+        externalCourse.getQuestions().contains(result)
+        def resOption = result.getQuestionDetails().getOptions().get(0)
+        resOption.getContent() == OPTION_1_CONTENT
+        resOption.isCorrect()
     }
     def "create multiple choice question with order without option"(){
         expect: false
