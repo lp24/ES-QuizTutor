@@ -26,4 +26,12 @@ class ImportExportMultipleOrderedChoiceQuestionsTest extends SpockTest {
         expect:false
     }
 
+    def 'failed to export and import questions to xml'(){
+        expect:false
+    }
+
+    def 'failed to export question to latex'(){
+        expect:false
+    }
+
 }
