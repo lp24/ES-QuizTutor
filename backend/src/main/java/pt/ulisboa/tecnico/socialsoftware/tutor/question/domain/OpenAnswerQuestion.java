@@ -6,17 +6,22 @@ import pt.ulisboa.tecnico.socialsoftware.tutor.answer.dto.StatementAnswerDetails
 import pt.ulisboa.tecnico.socialsoftware.tutor.answer.dto.StatementQuestionDetailsDto;
 import pt.ulisboa.tecnico.socialsoftware.tutor.impexp.domain.Visitor;
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.Updator;
+import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.CodeOrderQuestionDto;
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.OpenAnswerQuestionDto;
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.QuestionDetailsDto;
 
-import javax.validation.constraints.Null;
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
+@DiscriminatorValue(Question.QuestionTypes.OPEN_ANSWER_QUESTION)
 public class OpenAnswerQuestion extends QuestionDetails {
-    public OpenAnswerQuestion(/*empty*/) {}
 
-    public OpenAnswerQuestion(Question question, OpenAnswerQuestionDto questionDto) {
+    public OpenAnswerQuestion( ) {super(); }
+
+    public OpenAnswerQuestion(Question question, OpenAnswerQuestionDto openAnswerQuestionDto) {
             super(question);
+            update(openAnswerQuestionDto);
     }
 
     public CorrectAnswerDetailsDto getCorrectAnswerDetailsDto(){return null;}
@@ -34,6 +39,9 @@ public class OpenAnswerQuestion extends QuestionDetails {
     public String getCorrectAnswerRepresentation(){return null;}
 
     public String getAnswerRepresentation(List<Integer> selectedIds){return null;}
+
+    public void update(OpenAnswerQuestionDto questionDetails) {
+    }
 
     @Override
     public void accept(Visitor visitor) {

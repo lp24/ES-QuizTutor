@@ -9,6 +9,8 @@ import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.ImageDto
 
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.QuestionDto
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.OpenAnswerQuestionDto
+import java.util.List
+
 
 @DataJpaTest
 class ImportExportOpenAnswerQuestionsTest extends SpockTest {
