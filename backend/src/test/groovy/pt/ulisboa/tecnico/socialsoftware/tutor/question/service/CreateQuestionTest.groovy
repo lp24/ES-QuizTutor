@@ -397,8 +397,40 @@ class CreateQuestionTest extends SpockTest {
     }
 
 
-    def "create multiple choice question with order"(){
-        expect: false
+    def "create multiple choice question with order of relevance"(){
+        given: "a questionDto"
+        def questionDto = new QuestionDto()
+        questionDto.setKey(1)
+        questionDto.setTitle(QUESTION_1_TITLE)
+        questionDto.setContent(QUESTION_1_CONTENT)
+        questionDto.setStatus(Question.Status.AVAILABLE.name())
+        questionDto.setQuestionDetailsDto(new MultipleChoiceOrderQuestionDto())
+
+        and: '2 optionId'
+        def optionDto1 = new OptionDto()
+        def optionDto2 = new OptionDto()
+        optionDto1.setContent(OPTION_1_CONTENT)
+        optionDto2.setContent(OPTION_2_CONTENT)
+        optionDto1.setCorrect(true)
+        def options = new ArrayList<OptionDto>()
+        options.add(optionDto1)
+        options.add(optionDto2)
+        questionDto.getQuestionDetailsDto().setOptions(options)
+
+        when:
+        questionService.createQuestion(externalCourse.getId(), questionDto)
+
+        then: "the correct question is inside the repository"
+        questionRepository.count() == 1L
+        def result = questionRepository.findAll().get(0)
+        result.getId() != null
+        result.getKey() == 1
+        result.getStatus() == Question.Status.AVAILABLE
+        result.getTitle() == QUESTION_1_TITLE
+        result.getContent() == QUESTION_1_CONTENT
+        result.getImage() == null
+
+
     }
     def "create multiple choice question with order without option"(){
         expect: false
@@ -407,10 +439,22 @@ class CreateQuestionTest extends SpockTest {
         expect: false
     }
     def "cannot create multiple choice question with order without two options"(){
-        expect: false
+
+        when:
+        def result = questionService.createQuestion(externalCourse.getId(), questionDto)
+
+        then: "exception is thrown"
+        def exception = thrown(TutorException)
+        exception.getErrorMessage() == ErrorMessage.NO_CORRECT_OPTION
     }
     def "cannot create multiple choice question with order without minimum two correct options"(){
-        expect: false
+
+        when:
+        def result = questionService.createQuestion(externalCourse.getId(), questionDto)
+
+        then: "exception is thrown"
+        def exception = thrown(TutorException)
+        exception.getErrorMessage() == ErrorMessage.NO_CORRECT_OPTION
     }
 
 

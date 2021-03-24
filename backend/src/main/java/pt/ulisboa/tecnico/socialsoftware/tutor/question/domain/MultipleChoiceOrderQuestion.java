@@ -13,7 +13,7 @@ import java.util.List;
 public class MultipleChoiceOrderQuestion extends MultipleChoiceQuestion {
 
     public void orderOption(Option option) {
-        options.Order(option);
+        // options.Order(option);
     }
 
 
