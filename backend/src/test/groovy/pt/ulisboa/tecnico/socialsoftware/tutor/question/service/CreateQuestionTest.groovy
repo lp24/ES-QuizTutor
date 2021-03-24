@@ -397,7 +397,9 @@ class CreateQuestionTest extends SpockTest {
     }
 
 
+
     def "create multiple choice question with order of relevance"(){
+
         given: "a questionDto"
         def questionDto = new QuestionDto()
         questionDto.setKey(1)
@@ -415,6 +417,7 @@ class CreateQuestionTest extends SpockTest {
         def options = new ArrayList<OptionDto>()
         options.add(optionDto1)
         options.add(optionDto2)
+
         questionDto.getQuestionDetailsDto().setOptions(options)
 
         when:
@@ -429,7 +432,6 @@ class CreateQuestionTest extends SpockTest {
         result.getTitle() == QUESTION_1_TITLE
         result.getContent() == QUESTION_1_CONTENT
         result.getImage() == null
-
 
     }
     def "create multiple choice question with order without option"(){
@@ -455,6 +457,11 @@ class CreateQuestionTest extends SpockTest {
         then: "exception is thrown"
         def exception = thrown(TutorException)
         exception.getErrorMessage() == ErrorMessage.NO_CORRECT_OPTION
+
+    }
+    def "cannot create multiple choice question with order without minimum two correct options"(){
+        expect: false
+
     }
 
 
