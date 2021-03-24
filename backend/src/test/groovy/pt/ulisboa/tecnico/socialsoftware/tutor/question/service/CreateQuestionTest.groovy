@@ -399,21 +399,23 @@ class CreateQuestionTest extends SpockTest {
 
 
     def "create multiple choice question with order of relevance"(){
-
         given: "a questionDto"
         def questionDto = new QuestionDto()
         questionDto.setKey(1)
         questionDto.setTitle(QUESTION_1_TITLE)
         questionDto.setContent(QUESTION_1_CONTENT)
         questionDto.setStatus(Question.Status.AVAILABLE.name())
-        questionDto.setQuestionDetailsDto(new MultipleChoiceOrderQuestionDto())
+        questionDto.setQuestionDetailsDto(new MultipleOrderedChoiceQuestionDto())
 
         and: '2 optionId'
         def optionDto1 = new OptionDto()
         def optionDto2 = new OptionDto()
         optionDto1.setContent(OPTION_1_CONTENT)
         optionDto2.setContent(OPTION_2_CONTENT)
+        optionDto1.setRelevance(OPTION_1_RELEVANCE)
+        optionDto2.setRelevance(OPTION_2_RELEVANCE)
         optionDto1.setCorrect(true)
+        optionDto2.setCorrect(true)
         def options = new ArrayList<OptionDto>()
         options.add(optionDto1)
         options.add(optionDto2)

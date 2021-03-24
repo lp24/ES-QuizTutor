@@ -14,12 +14,15 @@ import static pt.ulisboa.tecnico.socialsoftware.tutor.exceptions.ErrorMessage.IN
 import static pt.ulisboa.tecnico.socialsoftware.tutor.exceptions.ErrorMessage.INVALID_SEQUENCE_FOR_OPTION;
 
 @Entity
-@Table(name = "options")
-public class Option implements DomainEntity {
+@Table(name = "options_with_relevance")
+public class OptionWithRelevance extends Option {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Column
+    private Integer relevance=0;
 
     @Column(nullable = false)
     private Integer sequence;
@@ -37,10 +40,10 @@ public class Option implements DomainEntity {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "option", fetch = FetchType.LAZY, orphanRemoval = true)
     private final Set<MultipleChoiceAnswer> questionAnswers = new HashSet<>();
 
-    public Option() {
+    public OptionWithRelevance() {
     }
 
-    public Option(OptionDto option) {
+    public OptionWithRelevance(OptionDto option) {
         setSequence(option.getSequence());
         setContent(option.getContent());
         setCorrect(option.isCorrect());
@@ -54,6 +57,10 @@ public class Option implements DomainEntity {
     public Integer getId() {
         return id;
     }
+
+    public Integer getRelevance() { return relevance; }
+
+    public  void setRelevance(Integer relevance) { this.relevance = relevance; }
 
     public Integer getSequence() {
         return sequence;

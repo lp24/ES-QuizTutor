@@ -2,6 +2,7 @@ package pt.ulisboa.tecnico.socialsoftware.tutor.question.dto;
 
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.CodeFillInOption;
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.Option;
+import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.OptionWithRelevance;
 
 import java.io.Serializable;
 
@@ -16,6 +17,12 @@ public class OptionDto implements Serializable {
     }
 
     public OptionDto(Option option) {
+        this.id = option.getId();
+        this.sequence = option.getSequence();
+        this.content = option.getContent();
+        this.correct = option.isCorrect();
+    }
+    public OptionDto(OptionWithRelevance option) {
         this.id = option.getId();
         this.relevance = option.getRelevance();
         this.sequence = option.getSequence();
@@ -34,6 +41,12 @@ public class OptionDto implements Serializable {
         return id;
     }
 
+    public void setRelevance(Integer relevance) {
+        this.relevance=relevance;
+    }
+    public Integer getRelevance() {
+        return relevance;
+    }
     public Integer getSequence() {
         return sequence;
     }

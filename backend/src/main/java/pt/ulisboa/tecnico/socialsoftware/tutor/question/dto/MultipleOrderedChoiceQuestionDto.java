@@ -1,6 +1,6 @@
 package pt.ulisboa.tecnico.socialsoftware.tutor.question.dto;
 
-import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.MultipleChoiceQuestion;
+import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.MultipleOrderedChoiceQuestion;
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.Question;
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.QuestionDetails;
 
@@ -8,14 +8,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class MultipleOrderedChoiceQuestionDto extends QuestionDetailsDto {
+public class MultipleOrderedChoiceQuestionDto extends MultipleChoiceQuestionDto {
     private List<OptionDto> options = new ArrayList<>();
 
     public MultipleOrderedChoiceQuestionDto() {
     }
 
-    public MultipleOrderedChoiceQuestionDto(MultipleChoiceQuestion question) {
+    public MultipleOrderedChoiceQuestionDto(MultipleOrderedChoiceQuestionDto question) {
         this.options = question.getOptions().stream().map(OptionDto::new).collect(Collectors.toList());
+
     }
 
     public List<OptionDto> getOptions() {
@@ -28,17 +29,12 @@ public class MultipleOrderedChoiceQuestionDto extends QuestionDetailsDto {
 
     @Override
     public QuestionDetails getQuestionDetails(Question question) {
-        return new MultipleChoiceQuestion(question, this);
-    }
-
-    @Override
-    public void update(MultipleChoiceQuestion question) {
-        question.update(this);
+        return new MultipleOrderedChoiceQuestionDto(question);
     }
 
     @Override
     public String toString() {
-        return "MultipleChoiceQuestionDto{" +
+        return "MultipleChoiceOrderQuestionDtoDto{" +
                 "options=" + options +
                 '}';
     }
