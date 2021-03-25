@@ -2,6 +2,7 @@ package pt.ulisboa.tecnico.socialsoftware.tutor.answer.dto;
 
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.CodeFillInOption;
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.Option;
+import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.OptionWithRelevance;
 
 import java.io.Serializable;
 
@@ -10,6 +11,11 @@ public class StatementOptionDto implements Serializable {
     private String content;
 
     public StatementOptionDto(Option option) {
+        this.optionId = option.getId();
+        this.content = option.getContent();
+    }
+
+    public StatementOptionDto(OptionWithRelevance option) {
         this.optionId = option.getId();
         this.content = option.getContent();
     }
