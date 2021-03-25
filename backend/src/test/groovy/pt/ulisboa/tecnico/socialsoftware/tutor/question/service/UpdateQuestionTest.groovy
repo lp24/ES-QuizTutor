@@ -10,9 +10,11 @@ import pt.ulisboa.tecnico.socialsoftware.tutor.answer.domain.QuizAnswer
 import pt.ulisboa.tecnico.socialsoftware.tutor.exceptions.ErrorMessage
 import pt.ulisboa.tecnico.socialsoftware.tutor.exceptions.TutorException
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.Image
+import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.ItemCombinationQuestion
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.MultipleChoiceQuestion
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.Option
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.Question
+import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.ItemCombinationQuestionDto
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.MultipleChoiceQuestionDto
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.OptionDto
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.QuestionDto
@@ -20,10 +22,13 @@ import pt.ulisboa.tecnico.socialsoftware.tutor.quiz.domain.Quiz
 import pt.ulisboa.tecnico.socialsoftware.tutor.quiz.domain.QuizQuestion
 import pt.ulisboa.tecnico.socialsoftware.tutor.auth.domain.AuthUser
 import pt.ulisboa.tecnico.socialsoftware.tutor.user.domain.User
+import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.Item
+import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.ItemDto
 
 @DataJpaTest
 class UpdateQuestionTest extends SpockTest {
     def question
+    def itemCombinationQuestion
     def optionOK
     def optionKO
     def user
@@ -70,6 +75,37 @@ class UpdateQuestionTest extends SpockTest {
         optionKO.setSequence(1)
         optionKO.setQuestionDetails(questionDetails)
         optionRepository.save(optionKO)
+
+        given: "create a question"
+        itemCombinationQuestion = new Question()
+        itemCombinationQuestion.setCourse(externalCourse)
+        itemCombinationQuestion.setKey(1)
+        itemCombinationQuestion.setTitle(QUESTION_1_TITLE)
+        itemCombinationQuestion.setContent(QUESTION_1_CONTENT)
+        itemCombinationQuestion.setStatus(Question.Status.AVAILABLE)
+        itemCombinationQuestion.setNumberOfAnswers(1)
+        itemCombinationQuestion.setNumberOfCorrect(1)
+        itemCombinationQuestion.setImage(image)
+        def ItemCombinationQuestionDetails = new ItemCombinationQuestion()
+        itemCombinationQuestion.setQuestionDetails(ItemCombinationQuestionDetails)
+        questionDetailsRepository.save(ItemCombinationQuestionDetails)
+        questionRepository.save(question)
+
+        and: "two items for one combination"
+        itemOne = new Item()
+        itemOne.setContent("CONTENT1")
+        itemOne.setQuestionDetails(ItemCombinationQuestionDetails)
+
+        itemTwo = new Item()
+        itemTwo.setContent("CONTENT2")
+
+        itemTwo.setQuestionDetails(ItemCombinationQuestionDetails)
+
+        itemOne.setConnections("CONTENT2")
+        itemTwo.setConnections("CONTENT1")
+
+        itemRepository.save(itemOne)
+        itemRepository.save(itemTwo)
     }
 
     def "update a question"() {
@@ -214,6 +250,44 @@ class UpdateQuestionTest extends SpockTest {
         then: "the question an exception is thrown"
         def exception = thrown(TutorException)
         exception.getErrorMessage() == ErrorMessage.CANNOT_CHANGE_ANSWERED_QUESTION
+    }
+
+    def "update an item combination question"() {
+        given: "a changed question"
+        def itemCombinationQuestionDto = new QuestionDto(itemCombinationQuestion)
+        itemCombinationQuestion.setTitle(QUESTION_2_TITLE)
+        itemCombinationQuestion.setContent(QUESTION_2_CONTENT)
+        itemCombinationQuestion.setQuestionDetailsDto(new ItemCombinationQuestionDto())
+
+        and: 'the first item and second item are changed'
+        def items = new ArrayList<ItemDto>()
+        def itemOneDto = new ItemDto(itemOne)
+        itemOneDto.setContent("CONTENT3")
+        def itemTwoDto = new ItemDto(itemTwo)
+        itemTwoDto.setContent("CONTENT4")
+        items.add(itemOneDto)
+        items.add(itemTwoDto)
+        itemCombinationQuestion.getQuestionDetailsDto().setItems(items)
+
+        when:
+        questionService.updateQuestion(question.getId(), itemCombinationQuestionDto)
+
+        then: "the question is changed"
+        questionRepository.count() == 2L
+        def result = questionRepository.findAll().get(1)
+        result.getId() == itemCombinationQuestion.getId()
+        result.getTitle() == QUESTION_2_TITLE
+        result.getContent() == QUESTION_2_CONTENT
+
+        and: 'are not changed'
+        result.getStatus() == Question.Status.AVAILABLE
+        result.getNumberOfAnswers() == 1
+        result.getNumberOfCorrect() == 1
+
+        def item1 = result.getQuestionDetails().getItems().get(0)
+        def item2 = result.getQuestionDetails().getItems().get(1)
+        item1.getConnections() == "CONTENT3"
+        item2.getConnections() == "CONTENT4"
     }
 
     @TestConfiguration
