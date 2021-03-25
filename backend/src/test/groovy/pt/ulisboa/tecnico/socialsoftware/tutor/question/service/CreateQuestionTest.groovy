@@ -445,9 +445,7 @@ class CreateQuestionTest extends SpockTest {
         resOption2.isCorrect()
 
     }
-   /* def "create multiple choice question with order without option"(){
-        expect: false
-    }*/
+
     def "create multiple ordered choice question with images"(){
         given: "a questionDto"
         def questionDto = new QuestionDto()
