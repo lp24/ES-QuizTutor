@@ -18,6 +18,7 @@ class ImportExportOpenAnswerQuestionsTest extends SpockTest {
 
     def setup() {
         def questionDto = new QuestionDto()
+        questionDto.setKey(1)
         questionDto.setTitle(QUESTION_1_TITLE)
         questionDto.setContent(QUESTION_1_CONTENT)
         questionDto.setStatus(Question.Status.AVAILABLE.name())
@@ -31,7 +32,7 @@ class ImportExportOpenAnswerQuestionsTest extends SpockTest {
         questionId = questionService.createQuestion(externalCourse.getId(), questionDto).getId()
     }
 
-    def "export and import questions to xml"() {
+     def "export and import questions to xml"() {
         given: 'a xml with questions'
         def questionsXml = questionService.exportQuestionsToXml()
         print questionsXml
