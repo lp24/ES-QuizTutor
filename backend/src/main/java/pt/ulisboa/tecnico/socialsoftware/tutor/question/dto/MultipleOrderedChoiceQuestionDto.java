@@ -1,6 +1,6 @@
 package pt.ulisboa.tecnico.socialsoftware.tutor.question.dto;
 
-import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.MultipleChoiceQuestion;
+import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.MultipleOrderedChoiceQuestion;
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.Question;
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.QuestionDetails;
 
@@ -8,39 +8,39 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class MultipleOrderedChoiceQuestionDto extends QuestionDetailsDto {
-    private List<OptionDto> options = new ArrayList<>();
+public class MultipleOrderedChoiceQuestionDto extends QuestionDetailsDto{
+    private List<OptionWithRelevanceDto> options = new ArrayList<>();
 
-    public MultipleOrderedChoiceQuestionDto() {
+    public MultipleOrderedChoiceQuestionDto(){}
+
+    public MultipleOrderedChoiceQuestionDto(MultipleOrderedChoiceQuestion question){
+        this.options = question.getOptions().stream().map(OptionWithRelevanceDto::new).collect(Collectors.toList());
     }
 
-    public MultipleOrderedChoiceQuestionDto(MultipleChoiceQuestion question) {
-        this.options = question.getOptions().stream().map(OptionDto::new).collect(Collectors.toList());
-    }
-
-    public List<OptionDto> getOptions() {
+    public List<OptionWithRelevanceDto> getOptions() {
         return options;
     }
 
-    public void setOptions(List<OptionDto> options) {
+    public void setOptions(List<OptionWithRelevanceDto> options) {
         this.options = options;
     }
 
     @Override
     public QuestionDetails getQuestionDetails(Question question) {
-        return new MultipleChoiceQuestion(question, this);
+        return new MultipleOrderedChoiceQuestion(question, this);
     }
 
-    @Override
-    public void update(MultipleChoiceQuestion question) {
+    //@Override
+    public void update(MultipleOrderedChoiceQuestion question) {
         question.update(this);
     }
 
     @Override
     public String toString() {
-        return "MultipleChoiceQuestionDto{" +
+        return "MultipleOrderedChoiceQuestionDto{" +
                 "options=" + options +
                 '}';
     }
+
 
 }

@@ -1,21 +1,21 @@
 package pt.ulisboa.tecnico.socialsoftware.tutor.answer.dto;
 
 import pt.ulisboa.tecnico.socialsoftware.tutor.answer.domain.*;
-import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.MultipleChoiceQuestion;
+import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.MultipleOrderedChoiceQuestion;
 
-public class MultipleChoiceStatementAnswerDetailsDto extends StatementAnswerDetailsDto {
+public class MultipleOrderedChoiceStatementAnswerDetailsDto extends StatementAnswerDetailsDto {
     private Integer optionId;
 
-    public MultipleChoiceStatementAnswerDetailsDto() {
+    public MultipleOrderedChoiceStatementAnswerDetailsDto() {
     }
 
-    public MultipleChoiceStatementAnswerDetailsDto(MultipleChoiceAnswer questionAnswer) {
+    public MultipleOrderedChoiceStatementAnswerDetailsDto(MultipleChoiceAnswer questionAnswer) {
         if (questionAnswer.getOption() != null) {
             this.optionId = questionAnswer.getOption().getId();
         }
     }
 
-    public MultipleChoiceStatementAnswerDetailsDto(MultipleOrderedChoiceAnswer questionAnswer) {
+    public MultipleOrderedChoiceStatementAnswerDetailsDto(MultipleOrderedChoiceAnswer questionAnswer) {
         if (questionAnswer.getOption() != null) {
             this.optionId = questionAnswer.getOption().getId();
         }
@@ -29,13 +29,13 @@ public class MultipleChoiceStatementAnswerDetailsDto extends StatementAnswerDeta
         this.optionId = optionId;
     }
 
-    private MultipleChoiceAnswer createdMultipleChoiceAnswer;
+    private MultipleOrderedChoiceAnswer createdMultipleOrderedChoiceAnswer;
 
     @Override
     public AnswerDetails getAnswerDetails(QuestionAnswer questionAnswer) {
-        createdMultipleChoiceAnswer = new MultipleChoiceAnswer(questionAnswer);
+        createdMultipleOrderedChoiceAnswer = new MultipleOrderedChoiceAnswer(questionAnswer);
         questionAnswer.getQuestion().getQuestionDetails().update(this);
-        return createdMultipleChoiceAnswer;
+        return createdMultipleOrderedChoiceAnswer;
     }
 
     @Override
@@ -45,17 +45,17 @@ public class MultipleChoiceStatementAnswerDetailsDto extends StatementAnswerDeta
 
     @Override
     public QuestionAnswerItem getQuestionAnswerItem(String username, int quizId, StatementAnswerDto statementAnswerDto) {
-        return new MultipleChoiceAnswerItem(username, quizId, statementAnswerDto, this);
+        return new MultipleOrderedChoiceAnswerItem(username, quizId, statementAnswerDto, this);
     }
 
     @Override
-    public void update(MultipleChoiceQuestion question) {
-        createdMultipleChoiceAnswer.setOption(question, this);
+    public void update(MultipleOrderedChoiceQuestion question) {
+        createdMultipleOrderedChoiceAnswer.setOption(question, this);
     }
 
     @Override
     public String toString() {
-        return "MultipleChoiceStatementAnswerDto{" +
+        return "MultipleOrderedChoiceStatementAnswerDto{" +
                 "optionId=" + optionId +
                 '}';
     }

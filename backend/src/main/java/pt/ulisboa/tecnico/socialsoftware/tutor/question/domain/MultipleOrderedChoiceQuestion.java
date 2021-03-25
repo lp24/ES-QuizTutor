@@ -4,9 +4,7 @@ import pt.ulisboa.tecnico.socialsoftware.tutor.answer.dto.*;
 import pt.ulisboa.tecnico.socialsoftware.tutor.exceptions.TutorException;
 import pt.ulisboa.tecnico.socialsoftware.tutor.impexp.domain.Visitor;
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.Updator;
-import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.MultipleChoiceQuestionDto;
-import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.OptionDto;
-import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.QuestionDetailsDto;
+import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -16,38 +14,35 @@ import java.util.stream.Collectors;
 import static pt.ulisboa.tecnico.socialsoftware.tutor.exceptions.ErrorMessage.*;
 
 @Entity
-@DiscriminatorValue(Question.QuestionTypes.MULTIPLE_CHOICE_QUESTION)
+@DiscriminatorValue(Question.QuestionTypes.MULTIPLE_CHOICE_ORDER_QUESTION)
 public class MultipleOrderedChoiceQuestion extends QuestionDetails {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "questionDetails", fetch = FetchType.EAGER, orphanRemoval = true)
-    private final List<Option> options = new ArrayList<>();
+    private final List<OptionWithRelevance> options = new ArrayList<>();
 
+    public MultipleOrderedChoiceQuestion(){ super(); }
 
-    public MultipleOrderedChoiceQuestion() {
-        super();
-    }
-
-    public MultipleOrderedChoiceQuestion(Question question, MultipleChoiceQuestionDto questionDto) {
+    public MultipleOrderedChoiceQuestion(Question question, MultipleOrderedChoiceQuestionDto questionDto) {
         super(question);
         setOptions(questionDto.getOptions());
     }
 
-    public List<Option> getOptions() {
+    public List<OptionWithRelevance> getOptions() {
         return options;
     }
 
-    public void setOptions(List<OptionDto> options) {
-        if (options.stream().filter(OptionDto::isCorrect).count() != 1) {
+    public void setOptions(List<OptionWithRelevanceDto> options) {
+        if (options.stream().filter(OptionWithRelevanceDto::isCorrect).count() != 1) {
             throw new TutorException(ONE_CORRECT_OPTION_NEEDED);
         }
 
         int index = 0;
-        for (OptionDto optionDto : options) {
+        for (OptionWithRelevanceDto optionDto : options) {
             if (optionDto.getId() == null) {
                 optionDto.setSequence(index++);
-                new Option(optionDto).setQuestionDetails(this);
+                new OptionWithRelevance(optionDto).setQuestionDetails(this);
             } else {
-                Option option = getOptions()
+                OptionWithRelevance option = getOptions()
                         .stream()
                         .filter(op -> op.getId().equals(optionDto.getId()))
                         .findAny()
@@ -59,19 +54,19 @@ public class MultipleOrderedChoiceQuestion extends QuestionDetails {
         }
     }
 
-    public void addOption(Option option) {
+    public void addOption(OptionWithRelevance option) {
         options.add(option);
     }
 
     public Integer getCorrectOptionId() {
         return this.getOptions().stream()
-                .filter(Option::isCorrect)
+                .filter(OptionWithRelevance::isCorrect)
                 .findAny()
-                .map(Option::getId)
+                .map(OptionWithRelevance::getId)
                 .orElse(null);
     }
 
-    public void update(MultipleChoiceQuestionDto questionDetails) {
+    public void update(MultipleOrderedChoiceQuestionDto questionDetails) {
         setOptions(questionDetails.getOptions());
     }
 
@@ -91,19 +86,19 @@ public class MultipleOrderedChoiceQuestion extends QuestionDetails {
     }
 
     public void visitOptions(Visitor visitor) {
-        for (Option option : this.getOptions()) {
+        for (OptionWithRelevance option : this.getOptions()) {
             option.accept(visitor);
         }
     }
 
     @Override
     public CorrectAnswerDetailsDto getCorrectAnswerDetailsDto() {
-        return new MultipleChoiceCorrectAnswerDto(this);
+        return new MultipleOrderedChoiceCorrectAnswerDto(this);
     }
 
     @Override
     public StatementQuestionDetailsDto getStatementQuestionDetailsDto() {
-        return new MultipleChoiceStatementQuestionDetailsDto(this);
+        return new MultipleOrderedChoiceStatementQuestionDetailsDto(this);
     }
 
     @Override
@@ -113,18 +108,18 @@ public class MultipleOrderedChoiceQuestion extends QuestionDetails {
 
     @Override
     public AnswerDetailsDto getEmptyAnswerDetailsDto() {
-        return new MultipleChoiceAnswerDto();
+        return new MultipleOrderedChoiceAnswerDto();
     }
 
     @Override
     public QuestionDetailsDto getQuestionDetailsDto() {
-        return new MultipleChoiceQuestionDto(this);
+        return new MultipleOrderedChoiceQuestionDto(this);
     }
 
     public Integer getCorrectAnswer() {
         return this.getOptions()
                 .stream()
-                .filter(Option::isCorrect)
+                .filter(OptionWithRelevance::isCorrect)
                 .findAny().orElseThrow(() -> new TutorException(NO_CORRECT_OPTION))
                 .getSequence();
     }
@@ -132,7 +127,7 @@ public class MultipleOrderedChoiceQuestion extends QuestionDetails {
     @Override
     public void delete() {
         super.delete();
-        for (Option option : this.options) {
+        for (OptionWithRelevance option : this.options) {
             option.remove();
         }
         this.options.clear();

@@ -23,6 +23,8 @@ public interface Visitor {
 
     default void visitOption(Option option) {}
 
+    default void visitOptionWithRelevance(OptionWithRelevance option) {}
+
     default void visitQuiz(Quiz quiz) {}
 
     default void visitQuizQuestion(QuizQuestion quizQuestion) {}
@@ -44,8 +46,10 @@ public interface Visitor {
     default void visitCourseExecution(CourseExecution courseExecution) {}
 
     default void visitAnswerDetails(MultipleChoiceAnswer answer){}
+    default void visitAnswerDetails(MultipleOrderedChoiceAnswer answer){}
 
     default void visitQuestionDetails(MultipleChoiceQuestion question) {}
+    default void visitQuestionDetails(MultipleOrderedChoiceQuestion question) {}
 
     default void visitAnswerDetails(CodeFillInAnswer answer){}
 
