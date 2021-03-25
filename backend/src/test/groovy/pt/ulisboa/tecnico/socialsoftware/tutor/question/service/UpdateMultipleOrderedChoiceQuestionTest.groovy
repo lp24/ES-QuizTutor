@@ -1,8 +1,8 @@
-package pt.ulisboa.tecnico.socialsoftware.tutor.question.service
+
 
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.boot.test.context.TestConfiguration
-import pt.ulisboa.tecnico.socialsoftware.tutor.answer.domain.MultipleChoiceAnswer
+import pt.ulisboa.tecnico.socialsoftware.tutor.answer.domain.MultipleOrderedChoiceAnswer
 import pt.ulisboa.tecnico.socialsoftware.tutor.BeanConfiguration
 import pt.ulisboa.tecnico.socialsoftware.tutor.SpockTest
 import pt.ulisboa.tecnico.socialsoftware.tutor.answer.domain.QuestionAnswer
@@ -10,11 +10,11 @@ import pt.ulisboa.tecnico.socialsoftware.tutor.answer.domain.QuizAnswer
 import pt.ulisboa.tecnico.socialsoftware.tutor.exceptions.ErrorMessage
 import pt.ulisboa.tecnico.socialsoftware.tutor.exceptions.TutorException
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.Image
-import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.MultipleChoiceQuestion
-import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.Option
+import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.MultipleOrderedChoiceQuestion
+import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.OptionWithRelevance
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.Question
-import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.MultipleChoiceQuestionDto
-import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.OptionDto
+import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.MultipleOrderedChoiceQuestionDto
+import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.OptionWithRelevanceDto
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.QuestionDto
 import pt.ulisboa.tecnico.socialsoftware.tutor.quiz.domain.Quiz
 import pt.ulisboa.tecnico.socialsoftware.tutor.quiz.domain.QuizQuestion
@@ -22,7 +22,7 @@ import pt.ulisboa.tecnico.socialsoftware.tutor.auth.domain.AuthUser
 import pt.ulisboa.tecnico.socialsoftware.tutor.user.domain.User
 
 @DataJpaTest
-class UpdateQuestionTest extends SpockTest {
+class UpdateMultipleOrderedChoiceQuestionTest extends SpockTest {
     def question
     def optionOK
     def optionKO
@@ -49,23 +49,25 @@ class UpdateQuestionTest extends SpockTest {
         question.setNumberOfAnswers(2)
         question.setNumberOfCorrect(1)
         question.setImage(image)
-        def questionDetails = new MultipleChoiceQuestion()
+        def questionDetails = new MultipleOrderedChoiceQuestion()
         question.setQuestionDetails(questionDetails)
         questionDetailsRepository.save(questionDetails)
         questionRepository.save(question)
 
         and: 'two options'
-        optionOK = new Option()
+        optionOK = new OptionWithRelevance()
         optionOK.setContent(OPTION_1_CONTENT)
         optionOK.setCorrect(true)
         optionOK.setSequence(0)
+        optionOK.setRelevance(1)
         optionOK.setQuestionDetails(questionDetails)
         optionRepository.save(optionOK)
 
-        optionKO = new Option()
+        optionKO = new OptionWithRelevance()
         optionKO.setContent(OPTION_1_CONTENT)
         optionKO.setCorrect(false)
         optionKO.setSequence(1)
+        optionKO.setRelevance(2)
         optionKO.setQuestionDetails(questionDetails)
         optionRepository.save(optionKO)
     }
@@ -75,15 +77,17 @@ class UpdateQuestionTest extends SpockTest {
         def questionDto = new QuestionDto(question)
         questionDto.setTitle(QUESTION_2_TITLE)
         questionDto.setContent(QUESTION_2_CONTENT)
-        questionDto.setQuestionDetailsDto(new MultipleChoiceQuestionDto())
+        questionDto.setQuestionDetailsDto(new MultipleOrderedChoiceQuestionDto())
         and: '2 changed options'
-        def options = new ArrayList<OptionDto>()
-        def optionDto = new OptionDto(optionOK)
+        def options = new ArrayList<OptionWithRelevanceDto>()
+        def optionDto = new OptionWithRelevanceDto(optionOK)
         optionDto.setContent(OPTION_2_CONTENT)
         optionDto.setCorrect(false)
+        optionDto.setRelevance(0)
         options.add(optionDto)
-        optionDto = new OptionDto(optionKO)
+        optionDto = new OptionWithRelevanceDto(optionKO)
         optionDto.setCorrect(true)
+        optionDto.setRelevance(1)
         options.add(optionDto)
         questionDto.getQuestionDetailsDto().setOptions(options)
 
@@ -128,14 +132,14 @@ class UpdateQuestionTest extends SpockTest {
     def "update question with two options true"() {
         given: 'a question'
         def questionDto = new QuestionDto(question)
-        questionDto.setQuestionDetailsDto(new MultipleChoiceQuestionDto())
+        questionDto.setQuestionDetailsDto(new MultipleOrderedChoiceQuestionDto())
 
-        def optionDto = new OptionDto(optionOK)
+        def optionDto = new OptionWithRelevanceDto(optionOK)
         optionDto.setContent(OPTION_2_CONTENT)
         optionDto.setCorrect(true)
-        def options = new ArrayList<OptionDto>()
+        def options = new ArrayList<OptionWithRelevanceDto>()
         options.add(optionDto)
-        optionDto = new OptionDto(optionKO)
+        optionDto = new OptionWithRelevanceDto(optionKO)
         optionDto.setContent(OPTION_1_CONTENT)
         optionDto.setCorrect(true)
         options.add(optionDto)
@@ -169,7 +173,7 @@ class UpdateQuestionTest extends SpockTest {
         quizAnswerRepository.save(quizAnswer)
 
         def questionAnswer = new QuestionAnswer()
-        def answerDetails = new MultipleChoiceAnswer(questionAnswer, optionOK)
+        def answerDetails = new MultipleOrderedChoiceAnswer(questionAnswer, optionOK)
         questionAnswer.setAnswerDetails(answerDetails)
         questionAnswer.setQuizQuestion(quizQuestion)
         questionAnswer.setQuizAnswer(quizAnswer)
@@ -177,7 +181,7 @@ class UpdateQuestionTest extends SpockTest {
         answerDetailsRepository.save(answerDetails)
 
         questionAnswer = new QuestionAnswer()
-        answerDetails = new MultipleChoiceAnswer(questionAnswer, optionKO)
+        answerDetails = new MultipleOrderedChoiceAnswer(questionAnswer, optionKO)
         questionAnswer.setAnswerDetails(answerDetails)
         questionAnswer.setQuizQuestion(quizQuestion)
         questionAnswer.setQuizAnswer(quizAnswer)
@@ -191,16 +195,16 @@ class UpdateQuestionTest extends SpockTest {
         questionDto.setStatus(Question.Status.DISABLED.name())
         questionDto.setNumberOfAnswers(4)
         questionDto.setNumberOfCorrect(2)
-        questionDto.setQuestionDetailsDto(new MultipleChoiceQuestionDto())
+        questionDto.setQuestionDetailsDto(new MultipleOrderedChoiceQuestionDto())
 
         and: 'a optionId'
-        def optionDto = new OptionDto(optionOK)
+        def optionDto = new OptionWithRelevanceDto(optionOK)
         optionDto.setContent(OPTION_2_CONTENT)
         optionDto.setCorrect(false)
 
-        def options = new ArrayList<OptionDto>()
+        def options = new ArrayList<OptionWithRelevanceDto>()
         options.add(optionDto)
-        optionDto = new OptionDto(optionKO)
+        optionDto = new OptionWithRelevanceDto(optionKO)
         optionDto.setContent(OPTION_1_CONTENT)
         optionDto.setCorrect(true)
         options.add(optionDto)
