@@ -14,10 +14,11 @@ public class MultipleOrderedChoiceQuestionDto extends MultipleChoiceQuestionDto 
     public MultipleOrderedChoiceQuestionDto() {
     }
 
-    public MultipleOrderedChoiceQuestionDto(MultipleOrderedChoiceQuestionDto question) {
+    public MultipleOrderedChoiceQuestionDto(MultipleOrderedChoiceQuestion question) {
         this.options = question.getOptions().stream().map(OptionDto::new).collect(Collectors.toList());
 
     }
+
 
     public List<OptionDto> getOptions() {
         return options;
@@ -29,7 +30,7 @@ public class MultipleOrderedChoiceQuestionDto extends MultipleChoiceQuestionDto 
 
     @Override
     public QuestionDetails getQuestionDetails(Question question) {
-        return new MultipleOrderedChoiceQuestionDto(question);
+        return new MultipleOrderedChoiceQuestion(question, this);
     }
 
     @Override
