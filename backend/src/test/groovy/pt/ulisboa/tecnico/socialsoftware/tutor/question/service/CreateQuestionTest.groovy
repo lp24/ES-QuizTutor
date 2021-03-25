@@ -15,6 +15,11 @@ import pt.ulisboa.tecnico.socialsoftware.tutor.exceptions.ErrorMessage
 
 @DataJpaTest
 class CreateQuestionTest extends SpockTest {
+
+    def setup() {
+        createExternalCourseAndExecution()
+    }
+
     def "create an open answer question with no image"() {
         given: "a questionDto"
         def questionDto = new QuestionDto()
