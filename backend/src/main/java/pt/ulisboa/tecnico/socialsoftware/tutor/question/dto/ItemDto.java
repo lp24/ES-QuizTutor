@@ -6,13 +6,17 @@ import java.util.List;
 
 public class ItemDto implements Serializable {
     private Integer id;
-    private ArrayList<Integer> connections = new ArrayList<>();
+    private final ArrayList<Integer> connections = new ArrayList<>();
     private String content;
 
     public ItemDto() { }
 
-    public void addConnection(int _id) {
-        connections.add(_id);
+    public ItemDto(int id) {
+        this.id = id;
+    }
+
+    public void addConnection(Integer id) {
+        connections.add(id);
     }
 
     public void setContent(String content) {

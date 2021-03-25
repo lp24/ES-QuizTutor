@@ -138,6 +138,9 @@ public class QuestionsXmlImport {
             case Question.QuestionTypes.CODE_ORDER_QUESTION:
                 questionDetailsDto = importCodeOrderQuestion(questionElement);
                 break;
+            case Question.QuestionTypes.ITEM_COMBINATION_QUESTION:
+                questionDetailsDto = importItemCombinationQuestion(questionElement);
+                break;
             default:
                 throw new TutorException(QUESTION_TYPE_NOT_IMPLEMENTED, type);
         }
@@ -208,6 +211,13 @@ public class QuestionsXmlImport {
             slots.add(slot);
         }
         questionDto.setCodeOrderSlots(slots);
+        return questionDto;
+    }
+
+    private QuestionDetailsDto importItemCombinationQuestion(Element questionElement) {
+        ItemCombinationQuestionDto questionDto = new ItemCombinationQuestionDto();
+        //TODO
+
         return questionDto;
     }
 

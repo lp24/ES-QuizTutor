@@ -23,6 +23,8 @@ public interface Visitor {
 
     default void visitOption(Option option) {}
 
+    default void visitItem(Item item) {}
+
     default void visitQuiz(Quiz quiz) {}
 
     default void visitQuizQuestion(QuizQuestion quizQuestion) {}
@@ -50,6 +52,8 @@ public interface Visitor {
     default void visitAnswerDetails(CodeFillInAnswer answer){}
 
     default void visitQuestionDetails(CodeFillInQuestion question) {}
+
+    default void visitQuestionDetails(ItemCombinationQuestion question) {}
 
     default void visitFillInSpot(CodeFillInSpot spot) {}
 
