@@ -16,10 +16,15 @@ public class MultipleOrderedChoiceQuestion extends MultipleChoiceQuestion {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "questionDetails", fetch = FetchType.EAGER, orphanRemoval = true)
     private final List<OptionWithRelevance> options = new ArrayList<>();
 
+    public MultipleOrderedChoiceQuestion() {
+
+    }
+
     public MultipleOrderedChoiceQuestion(Question question, MultipleOrderedChoiceQuestionDto questionDto) {
         super(question);
         setOptionsWithRelevance(questionDto.getOptions());
     }
+
 
 
     public void orderOption(Option option) {
