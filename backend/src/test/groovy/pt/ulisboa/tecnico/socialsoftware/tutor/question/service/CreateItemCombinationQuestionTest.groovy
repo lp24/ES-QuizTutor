@@ -12,6 +12,9 @@ import pt.ulisboa.tecnico.socialsoftware.tutor.exceptions.ErrorMessage
 
 @DataJpaTest
 class CreateItemCombinationQuestionTest extends SpockTest {
+    def setup() {
+        createExternalCourseAndExecution()
+    }
 
     def "create an item combination question with no items"() {
         given: "a questionDto"

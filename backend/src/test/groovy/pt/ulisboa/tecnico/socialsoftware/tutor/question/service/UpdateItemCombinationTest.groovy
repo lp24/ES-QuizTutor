@@ -8,15 +8,24 @@ import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.ItemCombinationQu
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.Question
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.ItemCombinationQuestionDto
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.ItemDto
+import pt.ulisboa.tecnico.socialsoftware.tutor.auth.domain.AuthUser
+import pt.ulisboa.tecnico.socialsoftware.tutor.user.domain.User
 
 @DataJpaTest
 class UpdateItemCombinationTest extends SpockTest{
     def question
+    def user
     def items
     def itemOneDto
     def itemTwoDto
 
     def setup() {
+        createExternalCourseAndExecution()
+
+        user = new User(USER_1_NAME, USER_1_USERNAME, USER_1_EMAIL, User.Role.STUDENT, false, AuthUser.Type.TECNICO)
+        user.addCourse(externalCourseExecution)
+        userRepository.save(user)
+
         question = new Question()
         question.setKey(1)
         question.setTitle(QUESTION_1_TITLE)
@@ -35,7 +44,7 @@ class UpdateItemCombinationTest extends SpockTest{
         itemTwoDto.setContent(ITEM_2_CONTENT)
         items.add(itemOneDto)
         items.add(itemTwoDto)
-        question.setItems(items)
+        question.getQuestionDetails().setItems(items)
     }
 
     def "update an item combination question"() {
@@ -49,10 +58,10 @@ class UpdateItemCombinationTest extends SpockTest{
         itemTwoDto.setContent("CONTENT4")
         items.add(itemOneDto)
         items.add(itemTwoDto)
-        question.getQuestionDetailsDto().setItems(items)
+        question.getQuestionDetails().setItems(items)
 
         when:
-        questionService.updateQuestion(question.getId(), question.getQuestionDetailsDto())
+        questionService.updateQuestion(question.getId(), question.getQuestionDto())
 
         then: "the question is changed"
         questionRepository.count() == 2L
