@@ -142,7 +142,7 @@ public class QuestionsXmlImport {
                 questionDetailsDto = importCodeOrderQuestion(questionElement);
                 break;
             case Question.QuestionTypes.OPEN_ANSWER_QUESTION:
-                                questionDetailsDto = importOpenAnswerQuestion(questionElement);
+                                questionDetailsDto = importOpenAnswerQuestion();
                 break;
             default:
 
@@ -218,9 +218,8 @@ public class QuestionsXmlImport {
         return questionDto;
     }
 
-    private QuestionDetailsDto importOpenAnswerQuestion(Element questionElement) {
-        OpenAnswerQuestionDto questionDto= new OpenAnswerQuestionDto();
-        return questionDto;
+    private QuestionDetailsDto importOpenAnswerQuestion() {
+        return new OpenAnswerQuestionDto();
     }
 
 
