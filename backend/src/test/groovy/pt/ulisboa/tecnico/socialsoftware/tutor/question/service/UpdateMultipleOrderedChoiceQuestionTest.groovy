@@ -1,4 +1,4 @@
-
+package pt.ulisboa.tecnico.socialsoftware.tutor.question.service
 
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.boot.test.context.TestConfiguration
@@ -25,6 +25,7 @@ import pt.ulisboa.tecnico.socialsoftware.tutor.user.domain.User
 class UpdateMultipleOrderedChoiceQuestionTest extends SpockTest {
     def question
     def optionOK
+    def optionOK2
     def optionKO
     def user
 
@@ -47,14 +48,14 @@ class UpdateMultipleOrderedChoiceQuestionTest extends SpockTest {
         question.setContent(QUESTION_1_CONTENT)
         question.setStatus(Question.Status.AVAILABLE)
         question.setNumberOfAnswers(2)
-        question.setNumberOfCorrect(1)
+        question.setNumberOfCorrect(2)
         question.setImage(image)
         def questionDetails = new MultipleOrderedChoiceQuestion()
         question.setQuestionDetails(questionDetails)
         questionDetailsRepository.save(questionDetails)
         questionRepository.save(question)
 
-        and: 'two options'
+        and: 'two correct options and an incorrect one'
         optionOK = new OptionWithRelevance()
         optionOK.setContent(OPTION_1_CONTENT)
         optionOK.setCorrect(true)
@@ -63,11 +64,19 @@ class UpdateMultipleOrderedChoiceQuestionTest extends SpockTest {
         optionOK.setQuestionDetails(questionDetails)
         optionRepository.save(optionOK)
 
+        optionOK2 = new OptionWithRelevance()
+        optionOK2.setContent(OPTION_1_CONTENT)
+        optionOK2.setCorrect(true)
+        optionOK2.setSequence(1)
+        optionOK2.setRelevance(2)
+        optionOK2.setQuestionDetails(questionDetails)
+        optionRepository.save(optionOK2)
+
         optionKO = new OptionWithRelevance()
         optionKO.setContent(OPTION_1_CONTENT)
         optionKO.setCorrect(false)
-        optionKO.setSequence(1)
-        optionKO.setRelevance(2)
+        optionKO.setSequence(2)
+        optionKO.setRelevance(0)
         optionKO.setQuestionDetails(questionDetails)
         optionRepository.save(optionKO)
     }
@@ -78,16 +87,23 @@ class UpdateMultipleOrderedChoiceQuestionTest extends SpockTest {
         questionDto.setTitle(QUESTION_2_TITLE)
         questionDto.setContent(QUESTION_2_CONTENT)
         questionDto.setQuestionDetailsDto(new MultipleOrderedChoiceQuestionDto())
-        and: '2 changed options'
+        and: '2 changed options in 3 options'
         def options = new ArrayList<OptionWithRelevanceDto>()
         def optionDto = new OptionWithRelevanceDto(optionOK)
         optionDto.setContent(OPTION_2_CONTENT)
         optionDto.setCorrect(false)
         optionDto.setRelevance(0)
         options.add(optionDto)
-        optionDto = new OptionWithRelevanceDto(optionKO)
+
+        optionDto = new OptionWithRelevanceDto(optionOK2)
         optionDto.setCorrect(true)
         optionDto.setRelevance(1)
+        options.add(optionDto)
+
+        optionDto = new OptionWithRelevanceDto(optionKO)
+        optionDto.setContent(OPTION_2_CONTENT)
+        optionDto.setCorrect(true)
+        optionDto.setRelevance(2)
         options.add(optionDto)
         questionDto.getQuestionDetailsDto().setOptions(options)
 
@@ -103,17 +119,20 @@ class UpdateMultipleOrderedChoiceQuestionTest extends SpockTest {
         and: 'are not changed'
         result.getStatus() == Question.Status.AVAILABLE
         result.getNumberOfAnswers() == 2
-        result.getNumberOfCorrect() == 1
+        result.getNumberOfCorrect() == 2
         result.getDifficulty() == 50
         result.getImage() != null
         and: 'an option is changed'
-        result.getQuestionDetails().getOptions().size() == 2
+        result.getQuestionDetails().getOptions().size() == 3
         def resOptionOne = result.getQuestionDetails().getOptions().stream().filter({ option -> option.getId() == optionOK.getId()}).findAny().orElse(null)
         resOptionOne.getContent() == OPTION_2_CONTENT
         !resOptionOne.isCorrect()
-        def resOptionTwo = result.getQuestionDetails().getOptions().stream().filter({ option -> option.getId() == optionKO.getId()}).findAny().orElse(null)
+        def resOptionTwo = result.getQuestionDetails().getOptions().stream().filter({ option -> option.getId() == optionOK2.getId()}).findAny().orElse(null)
         resOptionTwo.getContent() == OPTION_1_CONTENT
         resOptionTwo.isCorrect()
+        def resOptionThree = result.getQuestionDetails().getOptions().stream().filter({ option -> option.getId() == optionKO.getId()}).findAny().orElse(null)
+        resOptionThree.getContent() == OPTION_2_CONTENT
+        resOptionThree.isCorrect()
     }
 
     def "update question with missing data"() {
@@ -129,19 +148,21 @@ class UpdateMultipleOrderedChoiceQuestionTest extends SpockTest {
         exception.getErrorMessage() == ErrorMessage.INVALID_TITLE_FOR_QUESTION
     }
 
-    def "update question with two options true"() {
+    def "update question with two options false"() {
         given: 'a question'
         def questionDto = new QuestionDto(question)
         questionDto.setQuestionDetailsDto(new MultipleOrderedChoiceQuestionDto())
 
         def optionDto = new OptionWithRelevanceDto(optionOK)
         optionDto.setContent(OPTION_2_CONTENT)
-        optionDto.setCorrect(true)
+        optionDto.setCorrect(false)
+        optionDto.setRelevance(0)
         def options = new ArrayList<OptionWithRelevanceDto>()
         options.add(optionDto)
-        optionDto = new OptionWithRelevanceDto(optionKO)
+        optionDto = new OptionWithRelevanceDto(optionOK2)
         optionDto.setContent(OPTION_1_CONTENT)
-        optionDto.setCorrect(true)
+        optionDto.setCorrect(false)
+        optionDto.setRelevance(0)
         options.add(optionDto)
         questionDto.getQuestionDetailsDto().setOptions(options)
 
@@ -150,7 +171,7 @@ class UpdateMultipleOrderedChoiceQuestionTest extends SpockTest {
 
         then: "the question an exception is thrown"
         def exception = thrown(TutorException)
-        exception.getErrorMessage() == ErrorMessage.ONE_CORRECT_OPTION_NEEDED
+        exception.getErrorMessage() == ErrorMessage.AT_LEAST_ONE_CORRECT_OPTION_NEEDED
     }
 
     def "update correct option in a question with answers"() {
@@ -201,12 +222,14 @@ class UpdateMultipleOrderedChoiceQuestionTest extends SpockTest {
         def optionDto = new OptionWithRelevanceDto(optionOK)
         optionDto.setContent(OPTION_2_CONTENT)
         optionDto.setCorrect(false)
-
+        optionDto.setRelevance(0)
         def options = new ArrayList<OptionWithRelevanceDto>()
         options.add(optionDto)
+
         optionDto = new OptionWithRelevanceDto(optionKO)
         optionDto.setContent(OPTION_1_CONTENT)
         optionDto.setCorrect(true)
+        optionDto.setRelevance(1)
         options.add(optionDto)
         questionDto.getQuestionDetailsDto().setOptions(options)
 
@@ -216,6 +239,18 @@ class UpdateMultipleOrderedChoiceQuestionTest extends SpockTest {
         then: "the question an exception is thrown"
         def exception = thrown(TutorException)
         exception.getErrorMessage() == ErrorMessage.CANNOT_CHANGE_ANSWERED_QUESTION
+    }
+
+    def "update question with correct order of the answers"(){
+        expect: false
+    }
+
+    def "update question with more options and define correct order"(){
+        expect: false
+    }
+
+    def "update question by removing option"(){
+        expect: false
     }
 
     @TestConfiguration
