@@ -15,8 +15,63 @@ import pt.ulisboa.tecnico.socialsoftware.tutor.exceptions.ErrorMessage
 
 @DataJpaTest
 class CreateQuestionTest extends SpockTest {
+
     def setup() {
         createExternalCourseAndExecution()
+    }
+
+    def "create an open answer question with no image"() {
+        given: "a questionDto"
+        def questionDto = new QuestionDto()
+        questionDto.setKey(1)
+        questionDto.setTitle(QUESTION_1_TITLE)
+        questionDto.setContent(QUESTION_1_CONTENT)
+        questionDto.setStatus(Question.Status.AVAILABLE.name())
+        questionDto.setQuestionDetailsDto(new OpenAnswerQuestionDto())
+
+        when:
+        questionService.createQuestion(externalCourse.getId(), questionDto)
+
+        then: "the correct question is inside the repository"
+        questionRepository.count() == 1L
+        def result = questionRepository.findAll().get(0)
+        result.getId() != null
+        result.getKey() == 1
+        result.getStatus() == Question.Status.AVAILABLE
+        result.getTitle() == QUESTION_1_TITLE
+        result.getContent() == QUESTION_1_CONTENT
+        result.getImage() == null
+    }
+
+    def "create an open answer question with an image"() {
+        given: "a questionDto"
+        def questionDto = new QuestionDto()
+        questionDto.setKey(1)
+        questionDto.setTitle(QUESTION_1_TITLE)
+        questionDto.setContent(QUESTION_1_CONTENT)
+        questionDto.setStatus(Question.Status.AVAILABLE.name())
+        questionDto.setQuestionDetailsDto(new OpenAnswerQuestionDto())
+
+        and: 'an image'
+        def image = new ImageDto()
+        image.setUrl(IMAGE_1_URL)
+        image.setWidth(20)
+        questionDto.setImage(image)
+
+        when:
+        questionService.createQuestion(externalCourse.getId(), questionDto)
+
+        then: "the correct question is inside the repository"
+        questionRepository.count() == 1L
+        def result = questionRepository.findAll().get(0)
+        result.getId() != null
+        result.getKey() == 1
+        result.getStatus() == Question.Status.AVAILABLE
+        result.getTitle() == QUESTION_1_TITLE
+        result.getContent() == QUESTION_1_CONTENT
+        result.getImage().getId() != null
+        result.getImage().getUrl() == IMAGE_1_URL
+        result.getImage().getWidth() == 20
     }
 
     def "create a multiple choice question with no image and one option"() {
@@ -402,7 +457,7 @@ class CreateQuestionTest extends SpockTest {
 
     @Unroll
     def "fail to create any question for invalid/non-existent course (#nonExistentId)"(Integer nonExistentId) {
-        given: "any multiple choice question dto"
+        given: "any question dto"
         def questionDto = new QuestionDto()
         when:
         questionService.createQuestion(nonExistentId, questionDto)

@@ -1,6 +1,5 @@
 package pt.ulisboa.tecnico.socialsoftware.tutor.impexp.domain;
 
-import org.cyberneko.html.filters.Identity;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.output.Format;
@@ -8,7 +7,6 @@ import org.jdom2.output.XMLOutputter;
 import pt.ulisboa.tecnico.socialsoftware.tutor.utils.DateHandler;
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.*;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -172,5 +170,10 @@ public class XMLQuestionExportVisitor implements Visitor {
         spotElement.setAttribute("sequence", String.valueOf(codeOrderSlot.getSequence()));
         spotElement.addContent(codeOrderSlot.getContent());
         this.currentElement.addContent(spotElement);
+    }
+
+    @Override
+    public void visitQuestionDetails(OpenAnswerQuestion question) {
+        this.currentElement.setAttribute("type", Question.QuestionTypes.OPEN_ANSWER_QUESTION);
     }
 }
