@@ -15,7 +15,7 @@ import static pt.ulisboa.tecnico.socialsoftware.tutor.exceptions.ErrorMessage.IN
 
 @Entity
 @Table(name = "options_with_relevance")
-public class OptionWithRelevance extends Option {
+public class OptionWithRelevance implements DomainEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

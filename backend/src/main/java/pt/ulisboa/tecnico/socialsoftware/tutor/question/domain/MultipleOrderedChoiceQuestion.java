@@ -12,7 +12,7 @@ import java.util.List;
 
 import static pt.ulisboa.tecnico.socialsoftware.tutor.exceptions.ErrorMessage.OPTION_NOT_FOUND;
 
-public class MultipleOrderedChoiceQuestion extends MultipleChoiceQuestion {
+public class MultipleOrderedChoiceQuestion extends QuestionDetails {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "questionDetails", fetch = FetchType.EAGER, orphanRemoval = true)
     private final List<OptionWithRelevance> options = new ArrayList<>();
 
