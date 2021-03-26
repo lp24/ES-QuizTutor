@@ -6,8 +6,6 @@ import pt.ulisboa.tecnico.socialsoftware.tutor.answer.dto.StatementAnswerDetails
 import pt.ulisboa.tecnico.socialsoftware.tutor.answer.dto.StatementQuestionDetailsDto;
 import pt.ulisboa.tecnico.socialsoftware.tutor.impexp.domain.Visitor;
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.Updator;
-import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.CodeOrderQuestionDto;
-import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.MultipleChoiceQuestionDto;
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.OpenAnswerQuestionDto;
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.QuestionDetailsDto;
 
@@ -20,7 +18,7 @@ public class OpenAnswerQuestion extends QuestionDetails {
 
     public OpenAnswerQuestion( ) {super(); }
 
-    public OpenAnswerQuestion(Question question, OpenAnswerQuestionDto questionDto){
+    public OpenAnswerQuestion(Question question){
             super(question);
     }
 
@@ -54,6 +52,7 @@ public class OpenAnswerQuestion extends QuestionDetails {
     public String getAnswerRepresentation(List<Integer> selectedIds){return null;}
 
     public void update(OpenAnswerQuestionDto questionDetails) {
+        /*dummy*/
     }
 
 }

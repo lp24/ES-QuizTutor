@@ -17,6 +17,4 @@ public interface Updator {
 
     default void update(OpenAnswerQuestion openAnswerQuestion) {
     }
-
-
 }
