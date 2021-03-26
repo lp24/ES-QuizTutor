@@ -82,6 +82,7 @@ public class MultipleChoiceQuestion extends QuestionDetails {
 
     @Override
     public String getCorrectAnswerRepresentation() {
+
         return convertSequenceToLetter(this.getCorrectAnswer());
     }
 

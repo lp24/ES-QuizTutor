@@ -80,6 +80,17 @@ public class MultipleOrderedChoiceQuestion extends QuestionDetails {
         return convertSequenceToLetter(this.getCorrectAnswer());
     }
 
+    public ArrayList<String> getCorrectAnswersRepresentation() {
+        ArrayList<String> corrects = new ArrayList<>();
+
+        for(OptionWithRelevance option : this.getOptions() ){
+            if (option.isCorrect() ){
+                corrects.add(convertSequenceToLetter(option.getSequence()));
+            }
+        }
+        return corrects;
+    }
+
     @Override
     public void accept(Visitor visitor) {
         visitor.visitQuestionDetails(this);
@@ -123,6 +134,19 @@ public class MultipleOrderedChoiceQuestion extends QuestionDetails {
                 .findAny().orElseThrow(() -> new TutorException(NO_CORRECT_OPTION))
                 .getSequence();
     }
+    /*public ArrayList<Integer> getCorrectAnswers() {
+        List<OptionWithRelevance> options = new ArrayList<>();
+        ArrayList<Integer> sequences = new ArrayList<>();
+
+        options = this.getOptions().stream().filter(OptionWithRelevance::isCorrect).collect(Collectors.toList());
+
+        if(options.isEmpty()){
+            throw new TutorException(NO_CORRECT_OPTION);
+            return null;
+        }
+        return sequences.stream().forEachOrdered(OptionWithRelevance::getRelevance).get;
+
+    }*/
 
     @Override
     public void delete() {
