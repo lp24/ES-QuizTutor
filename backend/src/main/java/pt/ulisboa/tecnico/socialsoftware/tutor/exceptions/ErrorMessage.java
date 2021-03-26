@@ -67,6 +67,7 @@ public enum ErrorMessage {
 
     USERS_IMPORT_ERROR("Error importing users: %s"),
     QUESTIONS_IMPORT_ERROR("Error importing questions: %s"),
+    QUESTIONS_EXPORT_ERROR("Error exporting questions: %s"),
     TOPICS_IMPORT_ERROR("Error importing topics: %s"),
     ANSWERS_IMPORT_ERROR("Error importing answers: %s"),
     QUIZZES_IMPORT_ERROR("Error importing quizzes: %s"),
