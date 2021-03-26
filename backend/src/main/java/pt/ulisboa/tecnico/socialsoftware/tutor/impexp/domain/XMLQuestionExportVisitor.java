@@ -173,4 +173,15 @@ public class XMLQuestionExportVisitor implements Visitor {
         spotElement.addContent(codeOrderSlot.getContent());
         this.currentElement.addContent(spotElement);
     }
+
+    @Override
+    public void visitQuestionDetails(ItemCombinationQuestion question) {
+        this.currentElement.setAttribute("type", Question.QuestionTypes.ITEM_COMBINATION_QUESTION);
+
+        Element itemsElement = new Element("items");
+        this.currentElement.addContent(itemsElement);
+
+        this.currentElement = itemsElement;
+        question.visitItems(this);
+    }
 }

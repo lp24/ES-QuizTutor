@@ -7,7 +7,6 @@ import pt.ulisboa.tecnico.socialsoftware.tutor.answer.dto.StatementQuestionDetai
 import pt.ulisboa.tecnico.socialsoftware.tutor.impexp.domain.Visitor;
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.Updator;
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.ItemCombinationQuestionDto;
-import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.ItemDto;
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.QuestionDetailsDto;
 
 import javax.persistence.DiscriminatorValue;
@@ -26,6 +25,10 @@ public class ItemCombinationQuestion extends QuestionDetails {
     public ItemCombinationQuestion(Question question, ItemCombinationQuestionDto dto) {
         super(question);
         update(dto);
+    }
+
+    public List<Item> getItems() {
+        return items;
     }
 
     public void setItems(List<Item> items) {
@@ -62,6 +65,12 @@ public class ItemCombinationQuestion extends QuestionDetails {
 
     public String getAnswerRepresentation(List<Integer> selectedIds) {
         return null;
+    }
+
+    public void visitItems(Visitor visitor) {
+        for (Item item : this.getItems()) {
+            item.accept(visitor);
+        }
     }
 
     @Override
