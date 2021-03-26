@@ -157,4 +157,9 @@ public class XMLQuestionExportVisitor implements Visitor {
         spotElement.addContent(codeOrderSlot.getContent());
         this.currentElement.addContent(spotElement);
     }
+
+    @Override
+    public void visitOption(OptionWithRelevance option) {
+
+    }
 }

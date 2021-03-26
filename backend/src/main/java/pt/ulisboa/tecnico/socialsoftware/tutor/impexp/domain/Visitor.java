@@ -46,9 +46,11 @@ public interface Visitor {
     default void visitCourseExecution(CourseExecution courseExecution) {}
 
     default void visitAnswerDetails(MultipleChoiceAnswer answer){}
+
     default void visitAnswerDetails(MultipleOrderedChoiceAnswer answer){}
 
     default void visitQuestionDetails(MultipleChoiceQuestion question) {}
+
     default void visitQuestionDetails(MultipleOrderedChoiceQuestion question) {}
 
     default void visitAnswerDetails(CodeFillInAnswer answer){}
@@ -68,4 +70,6 @@ public interface Visitor {
     default void visitQuestionDetails(CodeOrderQuestion codeOrderQuestion) {}
 
     default void visitCodeOrderSlot(CodeOrderSlot codeOrderSlot) {}
+
+    void visitOption(OptionWithRelevance option);
 }
