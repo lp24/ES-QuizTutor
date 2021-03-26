@@ -9,6 +9,7 @@ import pt.ulisboa.tecnico.socialsoftware.tutor.exceptions.TutorException
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.Question
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.ImageDto
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.MultipleOrderedChoiceQuestionDto
+import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.OptionWithRelevanceDto
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.QuestionDto
 
 @DataJpaTest
@@ -28,7 +29,7 @@ class ImportExportMultipleOrderedChoiceQuestionsTest extends SpockTest {
         image.setWidth(20)
         questionDto.setImage(image)
 
-        OptionWithRelevanceDto optionDto = new OptionWithRelevanceDto()
+        def optionDto = new OptionWithRelevanceDto()
         optionDto.setSequence(0)
         optionDto.setContent(OPTION_1_CONTENT)
         optionDto.setCorrect(true)
