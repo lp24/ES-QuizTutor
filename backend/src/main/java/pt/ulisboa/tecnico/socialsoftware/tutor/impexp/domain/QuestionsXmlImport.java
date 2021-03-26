@@ -9,6 +9,7 @@ import org.jdom2.xpath.XPathExpression;
 import org.jdom2.xpath.XPathFactory;
 import pt.ulisboa.tecnico.socialsoftware.tutor.execution.domain.CourseExecution;
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.Course;
+import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.Item;
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.repository.CourseRepository;
 import pt.ulisboa.tecnico.socialsoftware.tutor.exceptions.TutorException;
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.QuestionService;
@@ -215,8 +216,20 @@ public class QuestionsXmlImport {
     }
 
     private QuestionDetailsDto importItemCombinationQuestion(Element questionElement) {
+        ArrayList<ItemDto> items = new ArrayList<>();
+
+        for (Element itemElement : questionElement.getChild("items").getChildren("items")) {
+            int itemId = Integer.parseInt(itemElement.getAttributeValue("id"));
+            String itemContent = itemElement.getAttributeValue("content");
+
+            ItemDto itemDto = new ItemDto(itemId);
+            itemDto.setContent(itemContent);
+
+            items.add(itemDto);
+        }
+
         ItemCombinationQuestionDto questionDto = new ItemCombinationQuestionDto();
-        //TODO
+        questionDto.setItems(items);
 
         return questionDto;
     }

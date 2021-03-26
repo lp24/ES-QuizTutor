@@ -9,13 +9,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ItemCombinationQuestionDto extends QuestionDetailsDto {
-    private ArrayList<Item> items = new ArrayList<>();
+    private ArrayList<ItemDto> items = new ArrayList<>();
 
-    public void setItems(List<Item> items) {
-        this.items = (ArrayList<Item>) items;
+    public void setItems(List<ItemDto> items) {
+        this.items = (ArrayList<ItemDto>) items;
     }
 
-    public List<Item> getItems() {
+    public List<ItemDto> getItems() {
         return items;
     }
 

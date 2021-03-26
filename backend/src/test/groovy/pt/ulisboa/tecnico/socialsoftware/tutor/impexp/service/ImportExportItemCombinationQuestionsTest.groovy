@@ -11,7 +11,7 @@ import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.QuestionDto
 @DataJpaTest
 class ImportExportItemCombinationQuestionsTest extends SpockTest{
     def questionDto
-    
+
     def setup() {
         questionDto = new QuestionDto()
         questionDto.setTitle(QUESTION_1_TITLE)
