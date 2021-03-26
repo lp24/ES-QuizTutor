@@ -61,6 +61,7 @@ public class QuestionsXmlImport {
     }
 
     public void importQuestions(String questionsXml, QuestionService questionService, CourseRepository courseRepository) {
+
         SAXBuilder builder = new SAXBuilder();
         builder.setIgnoringElementContentWhitespace(true);
 
@@ -131,18 +132,23 @@ public class QuestionsXmlImport {
         QuestionDetailsDto questionDetailsDto;
         switch (type) {
             case Question.QuestionTypes.MULTIPLE_CHOICE_QUESTION:
-                questionDetailsDto = importMultipleChoiceQuestion(questionElement);
+                                questionDetailsDto = importMultipleChoiceQuestion(questionElement);
                 break;
             case Question.QuestionTypes.CODE_FILL_IN_QUESTION:
+
                 questionDetailsDto = importCodeFillInQuestion(questionElement);
                 break;
             case Question.QuestionTypes.CODE_ORDER_QUESTION:
+
                 questionDetailsDto = importCodeOrderQuestion(questionElement);
                 break;
             case Question.QuestionTypes.ITEM_COMBINATION_QUESTION:
                 questionDetailsDto = importItemCombinationQuestion(questionElement);
+            case Question.QuestionTypes.OPEN_ANSWER_QUESTION:
+                                questionDetailsDto = importOpenAnswerQuestion();
                 break;
             default:
+
                 throw new TutorException(QUESTION_TYPE_NOT_IMPLEMENTED, type);
         }
 
@@ -232,6 +238,10 @@ public class QuestionsXmlImport {
         questionDto.setItems(items);
 
         return questionDto;
+    }
+
+    private QuestionDetailsDto importOpenAnswerQuestion() {
+        return new OpenAnswerQuestionDto();
     }
 
 }
