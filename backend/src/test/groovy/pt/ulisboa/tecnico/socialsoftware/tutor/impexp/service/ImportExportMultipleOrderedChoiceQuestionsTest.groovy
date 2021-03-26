@@ -105,7 +105,7 @@ class ImportExportMultipleOrderedChoiceQuestionsTest extends SpockTest {
         when:
         questionService.importQuestion(questionsLatex)
 
-        then: 'export failed'
+        then: 'export latex failed'
         def exception = thrown(TutorException)
         exception.getErrorMessage() == ErrorMessage.QUESTIONS_EXPORT_ERROR
     }
