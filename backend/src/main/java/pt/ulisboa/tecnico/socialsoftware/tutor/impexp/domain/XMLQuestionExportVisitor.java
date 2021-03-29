@@ -173,6 +173,15 @@ public class XMLQuestionExportVisitor implements Visitor {
     }
 
     @Override
+    public void visitQuestionDetails(ItemCombinationQuestion question) {
+        this.currentElement.setAttribute("type", Question.QuestionTypes.ITEM_COMBINATION_QUESTION);
+
+        Element itemsElement = new Element("items");
+        this.currentElement.addContent(itemsElement);
+
+        this.currentElement = itemsElement;
+        question.visitItems(this);
+  
     public void visitQuestionDetails(OpenAnswerQuestion question) {
         this.currentElement.setAttribute("type", Question.QuestionTypes.OPEN_ANSWER_QUESTION);
     }
