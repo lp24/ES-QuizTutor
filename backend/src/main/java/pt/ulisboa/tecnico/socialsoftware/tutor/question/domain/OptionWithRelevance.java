@@ -1,10 +1,11 @@
 package pt.ulisboa.tecnico.socialsoftware.tutor.question.domain;
 
-import pt.ulisboa.tecnico.socialsoftware.tutor.answer.domain.MultipleChoiceAnswer;
+import pt.ulisboa.tecnico.socialsoftware.tutor.answer.domain.MultipleOrderedChoiceAnswer;
 import pt.ulisboa.tecnico.socialsoftware.tutor.exceptions.TutorException;
 import pt.ulisboa.tecnico.socialsoftware.tutor.impexp.domain.DomainEntity;
 import pt.ulisboa.tecnico.socialsoftware.tutor.impexp.domain.Visitor;
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.OptionDto;
+import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.OptionWithRelevanceDto;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -34,16 +35,16 @@ public class OptionWithRelevance implements DomainEntity {
     private String content;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "question_details_id")
-    private MultipleChoiceQuestion questionDetails;
+    @JoinColumn(name = "questions_details_id")
+    private MultipleOrderedChoiceQuestion questionDetails;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "option", fetch = FetchType.LAZY, orphanRemoval = true)
-    private final Set<MultipleChoiceAnswer> questionAnswers = new HashSet<>();
+    private final Set<MultipleOrderedChoiceAnswer> questionAnswers = new HashSet<>();
 
     public OptionWithRelevance() {
     }
 
-    public OptionWithRelevance(OptionDto option) {
+    public OptionWithRelevance(OptionWithRelevance option) {
         setSequence(option.getSequence());
         setContent(option.getContent());
         setCorrect(option.isCorrect());
@@ -51,7 +52,7 @@ public class OptionWithRelevance implements DomainEntity {
 
     @Override
     public void accept(Visitor visitor) {
-        visitor.visitOption(this);
+        visitor.visitOptionWithRelevance(this);
     }
 
     public Integer getId() {
@@ -92,20 +93,20 @@ public class OptionWithRelevance implements DomainEntity {
         this.content = content;
     }
 
-    public MultipleChoiceQuestion getQuestionDetails() {
+    public MultipleOrderedChoiceQuestion getQuestionDetails() {
         return questionDetails;
     }
 
-    public void setQuestionDetails(MultipleChoiceQuestion question) {
+    public void setQuestionDetails(MultipleOrderedChoiceQuestion question) {
         this.questionDetails = question;
         question.addOption(this);
     }
 
-    public Set<MultipleChoiceAnswer> getQuestionAnswers() {
+    public Set<MultipleOrderedChoiceAnswer> getQuestionAnswers() {
         return questionAnswers;
     }
 
-    public void addQuestionAnswer(MultipleChoiceAnswer questionAnswer) {
+    public void addQuestionAnswer(MultipleOrderedChoiceAnswer questionAnswer) {
         questionAnswers.add(questionAnswer);
     }
 

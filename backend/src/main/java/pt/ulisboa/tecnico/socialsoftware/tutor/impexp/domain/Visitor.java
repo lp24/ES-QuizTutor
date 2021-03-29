@@ -3,6 +3,7 @@ package pt.ulisboa.tecnico.socialsoftware.tutor.impexp.domain;
 import pt.ulisboa.tecnico.socialsoftware.tutor.answer.domain.*;
 import pt.ulisboa.tecnico.socialsoftware.tutor.answer.domain.CodeFillInAnswer;
 import pt.ulisboa.tecnico.socialsoftware.tutor.answer.domain.MultipleChoiceAnswer;
+import pt.ulisboa.tecnico.socialsoftware.tutor.answer.domain.MultipleOrderedChoiceAnswer;
 import pt.ulisboa.tecnico.socialsoftware.tutor.answer.domain.QuestionAnswer;
 import pt.ulisboa.tecnico.socialsoftware.tutor.answer.domain.QuizAnswer;
 import pt.ulisboa.tecnico.socialsoftware.tutor.execution.domain.Assessment;
@@ -22,6 +23,8 @@ public interface Visitor {
     default void visitImage(Image image) {}
 
     default void visitOption(Option option) {}
+
+    default void visitOptionWithRelevance(OptionWithRelevance option) {}
 
     default void visitQuiz(Quiz quiz) {}
 
@@ -45,7 +48,11 @@ public interface Visitor {
 
     default void visitAnswerDetails(MultipleChoiceAnswer answer){}
 
+    default void visitAnswerDetails(MultipleOrderedChoiceAnswer answer){}
+
     default void visitQuestionDetails(MultipleChoiceQuestion question) {}
+
+    default void visitQuestionDetails(MultipleOrderedChoiceQuestion question) {}
 
     default void visitAnswerDetails(CodeFillInAnswer answer){}
 

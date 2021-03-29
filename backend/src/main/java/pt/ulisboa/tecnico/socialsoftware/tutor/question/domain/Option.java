@@ -46,6 +46,7 @@ public class Option implements DomainEntity {
         setCorrect(option.isCorrect());
     }
 
+
     @Override
     public void accept(Visitor visitor) {
         visitor.visitOption(this);
