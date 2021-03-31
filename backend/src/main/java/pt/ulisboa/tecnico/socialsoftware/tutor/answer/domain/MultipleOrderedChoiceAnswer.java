@@ -18,7 +18,7 @@ import javax.persistence.ManyToOne;
 import static pt.ulisboa.tecnico.socialsoftware.tutor.exceptions.ErrorMessage.QUESTION_OPTION_MISMATCH;
 
 @Entity
-@DiscriminatorValue(Question.QuestionTypes.MULTIPLE_CHOICE_QUESTION)
+@DiscriminatorValue(Question.QuestionTypes.MULTIPLE_ORDERED_CHOICE_QUESTION)
 public class MultipleOrderedChoiceAnswer extends AnswerDetails {
     @ManyToOne
     @JoinColumn(name = "option_id")
