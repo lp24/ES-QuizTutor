@@ -4,6 +4,8 @@ import pt.ulisboa.tecnico.socialsoftware.tutor.answer.domain.MultipleOrderedChoi
 import pt.ulisboa.tecnico.socialsoftware.tutor.exceptions.TutorException;
 import pt.ulisboa.tecnico.socialsoftware.tutor.impexp.domain.DomainEntity;
 import pt.ulisboa.tecnico.socialsoftware.tutor.impexp.domain.Visitor;
+
+import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.OptionDto;
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.OptionWithRelevanceDto;
 
 import javax.persistence.*;
@@ -14,6 +16,7 @@ import static pt.ulisboa.tecnico.socialsoftware.tutor.exceptions.ErrorMessage.IN
 import static pt.ulisboa.tecnico.socialsoftware.tutor.exceptions.ErrorMessage.INVALID_SEQUENCE_FOR_OPTION;
 
 @Entity
+@Table(name = "options_with_relevance")
 public class OptionWithRelevance implements DomainEntity {
 
     @Id
@@ -21,7 +24,7 @@ public class OptionWithRelevance implements DomainEntity {
     private Integer id;
 
     @Column
-    private Integer relevance;
+    private Integer relevance=0;
 
     @Column(nullable = false)
     private Integer sequence;
@@ -33,15 +36,17 @@ public class OptionWithRelevance implements DomainEntity {
     private String content;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "question_details_id")
+
+    @JoinColumn(name = "questions_details_id")
     private MultipleOrderedChoiceQuestion questionDetails;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "option", fetch = FetchType.LAZY, orphanRemoval = true)
     private final Set<MultipleOrderedChoiceAnswer> questionAnswers = new HashSet<>();
 
-    public OptionWithRelevance(){}
+    public OptionWithRelevance() {
+    }
 
-    public OptionWithRelevance(OptionWithRelevanceDto option){
+    public OptionWithRelevance(OptionWithRelevance option) {
         setSequence(option.getSequence());
         setContent(option.getContent());
         setCorrect(option.isCorrect());
@@ -53,8 +58,16 @@ public class OptionWithRelevance implements DomainEntity {
         visitor.visitOptionWithRelevance(this);
     }
 
-    public void setRelevance(Integer relevance){
-        this.relevance = relevance;
+    public Integer getId() {
+        return id;
+    }
+
+    public Integer getRelevance() { return relevance; }
+
+    public void setRelevance(Integer relevance) { this.relevance = relevance; }
+
+    public Integer getSequence() {
+        return sequence;
     }
 
     public void setSequence(Integer sequence) {
@@ -64,40 +77,30 @@ public class OptionWithRelevance implements DomainEntity {
         this.sequence = sequence;
     }
 
-    public void setContent(String content){
-        if (content == null || content.isBlank())
-            throw new TutorException(INVALID_CONTENT_FOR_OPTION);
-
-        this.content = content;
+    public boolean isCorrect() {
+        return correct;
     }
 
     public void setCorrect(boolean correct) {
         this.correct = correct;
     }
 
-    public int getRelevance(){
-        return relevance;
+    public String getContent() {
+        return content;
     }
 
-    public Integer getId() {
-        return id;
+    public void setContent(String content) {
+        if (content == null || content.isBlank())
+            throw new TutorException(INVALID_CONTENT_FOR_OPTION);
+
+        this.content = content;
     }
 
-    public Integer getSequence() {
-        return sequence;
-    }
-
-    public String getContent(){ return content; }
-
-    public boolean isCorrect() {
-        return correct;
-    }
-
-    public MultipleOrderedChoiceQuestion getQuestionDetails(){
+    public MultipleOrderedChoiceQuestion getQuestionDetails() {
         return questionDetails;
     }
 
-    public void setQuestionDetails(MultipleOrderedChoiceQuestion question){
+    public void setQuestionDetails(MultipleOrderedChoiceQuestion question) {
         this.questionDetails = question;
         question.addOption(this);
     }
@@ -106,8 +109,7 @@ public class OptionWithRelevance implements DomainEntity {
         return questionAnswers;
     }
 
-
-    public void addQuestionAnswer(MultipleOrderedChoiceAnswer questionAnswer){
+    public void addQuestionAnswer(MultipleOrderedChoiceAnswer questionAnswer) {
         questionAnswers.add(questionAnswer);
     }
 
@@ -129,3 +131,4 @@ public class OptionWithRelevance implements DomainEntity {
         this.questionAnswers.clear();
     }
 }
+

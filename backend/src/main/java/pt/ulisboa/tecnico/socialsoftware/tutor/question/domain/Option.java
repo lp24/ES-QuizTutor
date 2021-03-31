@@ -20,10 +20,7 @@ public class Option implements DomainEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    
-    @Column
-    private Integer relevance=0;
-    
+
     @Column(nullable = false)
     private Integer sequence;
 
@@ -49,6 +46,7 @@ public class Option implements DomainEntity {
         setCorrect(option.isCorrect());
     }
 
+
     @Override
     public void accept(Visitor visitor) {
         visitor.visitOption(this);
@@ -57,10 +55,6 @@ public class Option implements DomainEntity {
     public Integer getId() {
         return id;
     }
-
-    public Integer getRelevance() { return relevance; }
-
-    public  void setRelevance(Integer relevance) { this.relevance = relevance; }
 
     public Integer getSequence() {
         return sequence;

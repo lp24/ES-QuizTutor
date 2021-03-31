@@ -3,6 +3,7 @@ package pt.ulisboa.tecnico.socialsoftware.tutor.impexp.domain;
 import pt.ulisboa.tecnico.socialsoftware.tutor.answer.domain.*;
 import pt.ulisboa.tecnico.socialsoftware.tutor.answer.domain.CodeFillInAnswer;
 import pt.ulisboa.tecnico.socialsoftware.tutor.answer.domain.MultipleChoiceAnswer;
+import pt.ulisboa.tecnico.socialsoftware.tutor.answer.domain.MultipleOrderedChoiceAnswer;
 import pt.ulisboa.tecnico.socialsoftware.tutor.answer.domain.QuestionAnswer;
 import pt.ulisboa.tecnico.socialsoftware.tutor.answer.domain.QuizAnswer;
 import pt.ulisboa.tecnico.socialsoftware.tutor.execution.domain.Assessment;

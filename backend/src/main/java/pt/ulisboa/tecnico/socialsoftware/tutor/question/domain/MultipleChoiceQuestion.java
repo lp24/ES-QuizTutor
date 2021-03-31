@@ -27,6 +27,10 @@ public class MultipleChoiceQuestion extends QuestionDetails {
         super();
     }
 
+    public MultipleChoiceQuestion(Question question) {
+        super(question);
+    }
+
     public MultipleChoiceQuestion(Question question, MultipleChoiceQuestionDto questionDto) {
         super(question);
         setOptions(questionDto.getOptions());

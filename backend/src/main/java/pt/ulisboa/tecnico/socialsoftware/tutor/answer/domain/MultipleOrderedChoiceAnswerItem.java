@@ -10,7 +10,7 @@ import javax.persistence.Entity;
 import java.util.Arrays;
 
 @Entity
-@DiscriminatorValue(Question.QuestionTypes.MULTIPLE_CHOICE_ORDER_QUESTION)
+@DiscriminatorValue(Question.QuestionTypes.MULTIPLE_ORDERED_CHOICE_QUESTION)
 public class MultipleOrderedChoiceAnswerItem extends QuestionAnswerItem {
 
     private Integer optionId;

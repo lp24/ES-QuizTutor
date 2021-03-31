@@ -1,5 +1,7 @@
 package pt.ulisboa.tecnico.socialsoftware.tutor.question.domain;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import pt.ulisboa.tecnico.socialsoftware.tutor.answer.dto.*;
 import pt.ulisboa.tecnico.socialsoftware.tutor.exceptions.TutorException;
 import pt.ulisboa.tecnico.socialsoftware.tutor.impexp.domain.Visitor;
@@ -14,13 +16,14 @@ import java.util.stream.Collectors;
 import static pt.ulisboa.tecnico.socialsoftware.tutor.exceptions.ErrorMessage.*;
 
 @Entity
-@DiscriminatorValue(Question.QuestionTypes.MULTIPLE_CHOICE_ORDER_QUESTION)
+@DiscriminatorValue(Question.QuestionTypes.MULTIPLE_ORDERED_CHOICE_QUESTION)
 public class MultipleOrderedChoiceQuestion extends QuestionDetails {
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "questionDetails", fetch = FetchType.EAGER, orphanRemoval = true)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "questionDetails", orphanRemoval = true)
     private final List<OptionWithRelevance> options = new ArrayList<>();
 
-    public MultipleOrderedChoiceQuestion(){ super(); }
+    public MultipleOrderedChoiceQuestion(){}
 
     public MultipleOrderedChoiceQuestion(Question question, MultipleOrderedChoiceQuestionDto questionDto) {
         super(question);
@@ -31,25 +34,22 @@ public class MultipleOrderedChoiceQuestion extends QuestionDetails {
         return options;
     }
 
-    public void setOptions(List<OptionWithRelevanceDto> options) {
-        if (options.stream().filter(OptionWithRelevanceDto::isCorrect).count() != 1) {
-            throw new TutorException(ONE_CORRECT_OPTION_NEEDED);
-        }
+    public void setOptions(List<OptionWithRelevance> options) {
 
         int index = 0;
-        for (OptionWithRelevanceDto optionDto : options) {
-            if (optionDto.getId() == null) {
-                optionDto.setSequence(index++);
-                new OptionWithRelevance(optionDto).setQuestionDetails(this);
+        for (OptionWithRelevance optionWithRelevanceDto : options) {
+            if (optionWithRelevanceDto.getId() == null) {
+                optionWithRelevanceDto.setSequence(index++);
+                new OptionWithRelevance(optionWithRelevanceDto).setQuestionDetails(this);
             } else {
                 OptionWithRelevance option = getOptions()
                         .stream()
-                        .filter(op -> op.getId().equals(optionDto.getId()))
+                        .filter(op -> op.getId().equals(optionWithRelevanceDto.getId()))
                         .findAny()
-                        .orElseThrow(() -> new TutorException(OPTION_NOT_FOUND, optionDto.getId()));
+                        .orElseThrow(() -> new TutorException(OPTION_NOT_FOUND, optionWithRelevanceDto.getId()));
 
-                option.setContent(optionDto.getContent());
-                option.setCorrect(optionDto.isCorrect());
+                option.setContent(optionWithRelevanceDto.getContent());
+                option.setCorrect(optionWithRelevanceDto.isCorrect());
             }
         }
     }
@@ -133,20 +133,7 @@ public class MultipleOrderedChoiceQuestion extends QuestionDetails {
                 .filter(OptionWithRelevance::isCorrect)
                 .findAny().orElseThrow(() -> new TutorException(NO_CORRECT_OPTION))
                 .getSequence();
-    }
-    /*public ArrayList<Integer> getCorrectAnswers() {
-        List<OptionWithRelevance> options = new ArrayList<>();
-        ArrayList<Integer> sequences = new ArrayList<>();
-
-        options = this.getOptions().stream().filter(OptionWithRelevance::isCorrect).collect(Collectors.toList());
-
-        if(options.isEmpty()){
-            throw new TutorException(NO_CORRECT_OPTION);
-            return null;
-        }
-        return sequences.stream().forEachOrdered(OptionWithRelevance::getRelevance).get;
-
-    }*/
+    } //TODO
 
     @Override
     public void delete() {
@@ -159,7 +146,7 @@ public class MultipleOrderedChoiceQuestion extends QuestionDetails {
 
     @Override
     public String toString() {
-        return "MultipleChoiceQuestion{" +
+        return "MultipleOrderedChoiceQuestion{" +
                 "options=" + options +
                 '}';
     }

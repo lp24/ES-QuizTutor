@@ -4,7 +4,7 @@ import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.OptionWithRelevan
 
 import java.io.Serializable;
 
-public class OptionWithRelevanceDto extends OptionDto implements Serializable {
+public class OptionWithRelevanceDto implements Serializable {
     private Integer relevance;
     private Integer id;
     private Integer sequence;
@@ -32,7 +32,7 @@ public class OptionWithRelevanceDto extends OptionDto implements Serializable {
     public void setSequence(Integer sequence){ this.sequence = sequence; }
 
     public boolean isCorrect(){
-        return super.isCorrect();
+        return correct;
     }
     @Override
     public String toString() {
@@ -42,5 +42,9 @@ public class OptionWithRelevanceDto extends OptionDto implements Serializable {
                 ", relevance=" + relevance +
                 ", content='" + content + '\'' +
                 '}';
+    }
+
+    public String getContent() {
+        return content;
     }
 }
