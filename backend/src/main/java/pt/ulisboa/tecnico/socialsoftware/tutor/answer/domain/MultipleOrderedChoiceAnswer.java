@@ -95,6 +95,7 @@ public class MultipleOrderedChoiceAnswer extends AnswerDetails {
 
     @Override
     public StatementAnswerDetailsDto getStatementAnswerDetailsDto() {
+
         return new MultipleOrderedChoiceStatementAnswerDetailsDto(this);
     }
 

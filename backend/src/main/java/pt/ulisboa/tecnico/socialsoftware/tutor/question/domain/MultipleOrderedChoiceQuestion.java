@@ -23,7 +23,6 @@ public class MultipleOrderedChoiceQuestion extends QuestionDetails {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "questionDetails", orphanRemoval = true)
     private final List<OptionWithRelevance> options = new ArrayList<>();
 
-
     public MultipleOrderedChoiceQuestion(){}
 
     public MultipleOrderedChoiceQuestion(Question question, MultipleOrderedChoiceQuestionDto questionDto) {
@@ -54,6 +53,7 @@ public class MultipleOrderedChoiceQuestion extends QuestionDetails {
             }
         }
     }
+
     public void addOption(OptionWithRelevance option) {
         options.add(option);
     }
@@ -164,5 +164,4 @@ public class MultipleOrderedChoiceQuestion extends QuestionDetails {
                 .collect(Collectors.joining("|"));
         return !result.isEmpty() ? result : "-";
     }
-
 }

@@ -71,4 +71,6 @@ public interface Visitor {
     default void visitQuestionDetails(CodeOrderQuestion codeOrderQuestion) {}
 
     default void visitCodeOrderSlot(CodeOrderSlot codeOrderSlot) {}
+
+    void visitOption(OptionWithRelevance option);
 }

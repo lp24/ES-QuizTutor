@@ -399,8 +399,6 @@ class CreateQuestionTest extends SpockTest {
         exception.getErrorMessage() == ErrorMessage.AT_LEAST_THREE_SLOTS_NEEDED
     }
 
-
-
     def "create multiple ordered choice question with relevance and without image"(){
         given: "a questionDto"
         def questionDto = new QuestionDto()
@@ -446,7 +444,6 @@ class CreateQuestionTest extends SpockTest {
         resOption1.isCorrect()
         resOption2.getContent() == OPTION_2_CONTENT
         resOption2.isCorrect()
-
     }
 
     def "create multiple ordered choice question with images"(){
@@ -526,11 +523,6 @@ class CreateQuestionTest extends SpockTest {
         def exception = thrown(TutorException)
         exception.getErrorMessage() == ErrorMessage.NO_CORRECT_OPTION
     }
-
-
-
-
-
 
     @Unroll
     def "fail to create any question for invalid/non-existent course (#nonExistentId)"(Integer nonExistentId) {

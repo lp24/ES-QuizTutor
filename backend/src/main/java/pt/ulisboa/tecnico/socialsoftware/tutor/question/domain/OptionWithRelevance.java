@@ -4,6 +4,7 @@ import pt.ulisboa.tecnico.socialsoftware.tutor.answer.domain.MultipleOrderedChoi
 import pt.ulisboa.tecnico.socialsoftware.tutor.exceptions.TutorException;
 import pt.ulisboa.tecnico.socialsoftware.tutor.impexp.domain.DomainEntity;
 import pt.ulisboa.tecnico.socialsoftware.tutor.impexp.domain.Visitor;
+
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.OptionDto;
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.OptionWithRelevanceDto;
 
@@ -35,6 +36,7 @@ public class OptionWithRelevance implements DomainEntity {
     private String content;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
+
     @JoinColumn(name = "questions_details_id")
     private MultipleOrderedChoiceQuestion questionDetails;
 
@@ -48,6 +50,7 @@ public class OptionWithRelevance implements DomainEntity {
         setSequence(option.getSequence());
         setContent(option.getContent());
         setCorrect(option.isCorrect());
+        setRelevance(option.getRelevance());
     }
 
     @Override
@@ -61,7 +64,7 @@ public class OptionWithRelevance implements DomainEntity {
 
     public Integer getRelevance() { return relevance; }
 
-    public  void setRelevance(Integer relevance) { this.relevance = relevance; }
+    public void setRelevance(Integer relevance) { this.relevance = relevance; }
 
     public Integer getSequence() {
         return sequence;
@@ -116,6 +119,7 @@ public class OptionWithRelevance implements DomainEntity {
                 "id=" + id +
                 ", sequence=" + sequence +
                 ", correct=" + correct +
+                ", relevance=" + relevance +
                 ", content='" + content + '\'' +
                 ", question=" + questionDetails.getId() +
                 ", questionAnswers=" + questionAnswers +
@@ -127,3 +131,4 @@ public class OptionWithRelevance implements DomainEntity {
         this.questionAnswers.clear();
     }
 }
+
