@@ -13,8 +13,9 @@ public class OptionWithRelevanceDto implements Serializable {
 
     public OptionWithRelevanceDto(){}
     public OptionWithRelevanceDto(OptionWithRelevance option){
-        this.relevance = option.getRelevance();
         this.id = option.getId();
+        this.relevance = option.getRelevance();
+        this.sequence = option.getSequence();
         this.content = option.getContent();
         this.correct = option.isCorrect();
     }
@@ -23,7 +24,7 @@ public class OptionWithRelevanceDto implements Serializable {
         this.relevance = relevance;
     }
 
-    public int getRelevance(){ return relevance; }
+    public Integer getRelevance(){ return relevance; }
 
     public Integer getId(){ return id; }
 
@@ -34,6 +35,18 @@ public class OptionWithRelevanceDto implements Serializable {
     public boolean isCorrect(){
         return correct;
     }
+
+    public void setCorrect(boolean correct) {
+        this.correct = correct;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
     @Override
     public String toString() {
         return "OptionWithRelevanceDto{" +
@@ -42,9 +55,5 @@ public class OptionWithRelevanceDto implements Serializable {
                 ", relevance=" + relevance +
                 ", content='" + content + '\'' +
                 '}';
-    }
-
-    public String getContent() {
-        return content;
     }
 }

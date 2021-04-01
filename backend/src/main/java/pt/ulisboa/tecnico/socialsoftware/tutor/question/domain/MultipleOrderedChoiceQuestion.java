@@ -34,10 +34,10 @@ public class MultipleOrderedChoiceQuestion extends QuestionDetails {
         return options;
     }
 
-    public void setOptions(List<OptionWithRelevance> options) {
+    public void setOptions(List<OptionWithRelevanceDto> options) {
 
         int index = 0;
-        for (OptionWithRelevance optionWithRelevanceDto : options) {
+        for (OptionWithRelevanceDto optionWithRelevanceDto : options) {
             if (optionWithRelevanceDto.getId() == null) {
                 optionWithRelevanceDto.setSequence(index++);
                 new OptionWithRelevance(optionWithRelevanceDto).setQuestionDetails(this);

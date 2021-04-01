@@ -7,21 +7,21 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class MultipleOrderedChoiceQuestionDto extends QuestionDetailsDto {
-    private List<OptionWithRelevance> options = new ArrayList<>();
+    private List<OptionWithRelevanceDto> options = new ArrayList<>();
 
     public MultipleOrderedChoiceQuestionDto() {
     }
 
     public MultipleOrderedChoiceQuestionDto(MultipleOrderedChoiceQuestion question) {
-       this.options = question.getOptions().stream().map(OptionWithRelevance::new).collect(Collectors.toList());
+       this.options = question.getOptions().stream().map(OptionWithRelevanceDto::new).collect(Collectors.toList());
     }
 
 
-    public List<OptionWithRelevance> getOptions() {
+    public List<OptionWithRelevanceDto> getOptions() {
         return options;
     }
 
-    public void setOptions(List<OptionWithRelevance> options) {
+    public void setOptions(List<OptionWithRelevanceDto> options) {
         this.options = options;
     }
 
