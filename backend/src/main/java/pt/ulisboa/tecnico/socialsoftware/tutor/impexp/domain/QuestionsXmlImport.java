@@ -241,6 +241,7 @@ public class QuestionsXmlImport {
     }
 
     private QuestionDetailsDto importOpenAnswerQuestion() {
+        // set correct answer
         return new OpenAnswerQuestionDto();
     }
 

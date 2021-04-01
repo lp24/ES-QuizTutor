@@ -28,6 +28,7 @@ class CreateQuestionTest extends SpockTest {
         questionDto.setContent(QUESTION_1_CONTENT)
         questionDto.setStatus(Question.Status.AVAILABLE.name())
         questionDto.setQuestionDetailsDto(new OpenAnswerQuestionDto())
+        // .setCorrectAnswer() == CORRECT_ANSWER
 
         when:
         questionService.createQuestion(externalCourse.getId(), questionDto)
@@ -41,6 +42,7 @@ class CreateQuestionTest extends SpockTest {
         result.getTitle() == QUESTION_1_TITLE
         result.getContent() == QUESTION_1_CONTENT
         result.getImage() == null
+        // .getCorrectAnswer() == CORRECT_ANSWER
     }
 
     def "create an open answer question with an image"() {
@@ -51,6 +53,7 @@ class CreateQuestionTest extends SpockTest {
         questionDto.setContent(QUESTION_1_CONTENT)
         questionDto.setStatus(Question.Status.AVAILABLE.name())
         questionDto.setQuestionDetailsDto(new OpenAnswerQuestionDto())
+        // .setCorrectAnswer() == CORRECT_ANSWER
 
         and: 'an image'
         def image = new ImageDto()
@@ -72,7 +75,11 @@ class CreateQuestionTest extends SpockTest {
         result.getImage().getId() != null
         result.getImage().getUrl() == IMAGE_1_URL
         result.getImage().getWidth() == 20
+        // .getCorrectAnswer() == CORRECT_ANSWER
+
     }
+
+    // Missing insuccess/invalid input tests for the correct answer (that you did not define)
 
     def "create a multiple choice question with no image and one option"() {
         given: "a questionDto"

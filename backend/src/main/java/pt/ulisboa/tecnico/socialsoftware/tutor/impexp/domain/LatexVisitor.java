@@ -52,6 +52,8 @@ public abstract class LatexVisitor implements Visitor {
 
     }
 
+    // Missing Open Answer visit
+    
     @Override
     public void visitQuestionDetails(MultipleChoiceQuestion question) {
         question.visitOptions(this);

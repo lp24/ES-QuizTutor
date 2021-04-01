@@ -16,6 +16,9 @@ import java.util.List;
 @DiscriminatorValue(Question.QuestionTypes.OPEN_ANSWER_QUESTION)
 public class OpenAnswerQuestion extends QuestionDetails {
 
+    // The Open Answer question must store the correct answer, as all the other types of questions.
+    // In this case should only be a string.
+
     public OpenAnswerQuestion( ) {super(); }
 
     public OpenAnswerQuestion(Question question){

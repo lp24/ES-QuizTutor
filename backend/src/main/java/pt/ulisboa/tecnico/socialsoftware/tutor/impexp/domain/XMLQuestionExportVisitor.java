@@ -181,8 +181,10 @@ public class XMLQuestionExportVisitor implements Visitor {
 
         this.currentElement = itemsElement;
         question.visitItems(this);
-  
+    }
+
     public void visitQuestionDetails(OpenAnswerQuestion question) {
         this.currentElement.setAttribute("type", Question.QuestionTypes.OPEN_ANSWER_QUESTION);
+        // set correct answer
     }
 }
