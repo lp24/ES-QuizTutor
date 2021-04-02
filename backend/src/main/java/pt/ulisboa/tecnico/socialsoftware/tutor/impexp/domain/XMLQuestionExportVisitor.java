@@ -157,4 +157,15 @@ public class XMLQuestionExportVisitor implements Visitor {
         spotElement.addContent(codeOrderSlot.getContent());
         this.currentElement.addContent(spotElement);
     }
+
+    // All visitor classes must override the methods defined in the Visitor.java
+    @Override
+    public void visitQuestionDetails(MultipleOrderedChoiceQuestion question) {
+
+    }
+
+    @Override
+    public void visitOptionWithRelevance(OptionWithRelevance optionWithRelevance) {
+
+    }
 }

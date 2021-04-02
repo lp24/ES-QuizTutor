@@ -35,7 +35,7 @@ public class OptionWithRelevance implements DomainEntity {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "question_details_id")
-    private MultipleChoiceQuestion questionDetails;
+    private MultipleOrderedChoiceQuestion questionDetails; //need to be associated with the ordered question
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "option", fetch = FetchType.LAZY, orphanRemoval = true)
     private final Set<MultipleChoiceAnswer> questionAnswers = new HashSet<>();
@@ -51,7 +51,7 @@ public class OptionWithRelevance implements DomainEntity {
 
     @Override
     public void accept(Visitor visitor) {
-        visitor.visitOption(this);
+        visitor.visitOptionWithRelevance(this); // need to create new visit methods
     }
 
     public Integer getId() {
@@ -91,14 +91,15 @@ public class OptionWithRelevance implements DomainEntity {
 
         this.content = content;
     }
-
-    public MultipleChoiceQuestion getQuestionDetails() {
+    // need to update return
+    public MultipleOrderedChoiceQuestion getQuestionDetails() {
         return questionDetails;
     }
 
-    public void setQuestionDetails(MultipleChoiceQuestion question) {
+    // need to update parameters
+    public void setQuestionDetails(MultipleOrderedChoiceQuestion question) {
         this.questionDetails = question;
-        question.addOption(this);
+        question.addOption(this); // need to add new method to add new ordered option
     }
 
     public Set<MultipleChoiceAnswer> getQuestionAnswers() {

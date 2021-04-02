@@ -64,4 +64,9 @@ public interface Visitor {
     default void visitQuestionDetails(CodeOrderQuestion codeOrderQuestion) {}
 
     default void visitCodeOrderSlot(CodeOrderSlot codeOrderSlot) {}
+
+    // Need to add new methods to visitor
+    default void visitQuestionDetails(MultipleOrderedChoiceQuestion question) {}
+
+    default void visitOptionWithRelevance(OptionWithRelevance optionWithRelevance);
 }
