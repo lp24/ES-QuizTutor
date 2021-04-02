@@ -28,6 +28,7 @@ public class CodeOrderQuestion extends QuestionDetails {
 
     private Languages language;
 
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "questionDetails", fetch = FetchType.LAZY, orphanRemoval = true)
     private final List<CodeOrderSlot> codeOrderSlots = new ArrayList<>();
 

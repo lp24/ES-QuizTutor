@@ -20,6 +20,8 @@ import static pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.Question.Q
         @JsonSubTypes.Type(value = MultipleOrderedChoiceQuestionDto.class, name = MULTIPLE_ORDERED_CHOICE_QUESTION),
         @JsonSubTypes.Type(value = CodeFillInQuestionDto.class, name = CODE_FILL_IN_QUESTION),
         @JsonSubTypes.Type(value = CodeOrderQuestionDto.class, name = CODE_ORDER_QUESTION),
+        @JsonSubTypes.Type(value = ItemCombinationQuestionDto.class, name = ITEM_COMBINATION_QUESTION),
+        @JsonSubTypes.Type(value = CodeOrderQuestionDto.class, name = OPEN_ANSWER_QUESTION),
 })
 public abstract class QuestionDetailsDto implements Serializable, Updator {
 

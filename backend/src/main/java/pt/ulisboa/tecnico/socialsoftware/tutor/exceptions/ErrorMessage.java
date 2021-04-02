@@ -101,6 +101,7 @@ public enum ErrorMessage {
     WRONG_TOURNAMENT_PASSWORD("Wrong tournament password for private tournament %d"),
 
     NO_CORRECT_OPTION("Question does not have a correct option"),
+    NOT_ENOUGH_ITEMS("Question does not have at least two items"),
     NOT_ENOUGH_QUESTIONS("Not enough questions to create a quiz"),
     NOT_ENOUGH_QUESTIONS_TOURNAMENT("Not enough questions to create a quiz. One of the selected topics might not be available now. Please go check it"),
     AT_LEAST_ONE_OPTION_NEEDED("Questions need to have at least one option."),
