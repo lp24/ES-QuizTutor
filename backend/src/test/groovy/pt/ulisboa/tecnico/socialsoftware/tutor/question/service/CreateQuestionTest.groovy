@@ -464,15 +464,15 @@ class CreateQuestionTest extends SpockTest {
         questionDto.setQuestionDetailsDto(new MultipleOrderedChoiceQuestionDto())
 
         and: 'two options'
-        def optionDto1 = new OptionDto()
-        def optionDto2 = new OptionDto()
+        def optionDto1 = new OptionWithRelevanceDto()
+        def optionDto2 = new OptionWithRelevanceDto()
         optionDto1.setContent(OPTION_1_CONTENT)
         optionDto2.setContent(OPTION_2_CONTENT)
         optionDto1.setRelevance(OPTION_1_RELEVANCE)
         optionDto2.setRelevance(OPTION_2_RELEVANCE)
         optionDto1.setCorrect(true)
         optionDto2.setCorrect(true)
-        def options = new ArrayList<OptionDto>()
+        def options = new ArrayList<OptionWithRelevanceDto>()
         options.add(optionDto1)
         options.add(optionDto2)
 
@@ -516,15 +516,15 @@ class CreateQuestionTest extends SpockTest {
         image.setWidth(20)
         questionDto.setImage(image)
         and: 'two options'
-        def optionDto1 = new OptionDto()
-        def optionDto2 = new OptionDto()
+        def optionDto1 = new OptionWithRelevanceDto()
+        def optionDto2 = new OptionWithRelevanceDto()
         optionDto1.setContent(OPTION_1_CONTENT)
         optionDto2.setContent(OPTION_2_CONTENT)
         optionDto1.setRelevance(OPTION_1_RELEVANCE)
         optionDto2.setRelevance(OPTION_2_RELEVANCE)
         optionDto1.setCorrect(true)
         optionDto2.setCorrect(true)
-        def options = new ArrayList<OptionDto>()
+        def options = new ArrayList<OptionWithRelevanceDto>()
         options.add(optionDto1)
         options.add(optionDto2)
 
@@ -564,17 +564,19 @@ class CreateQuestionTest extends SpockTest {
         questionDto.setStatus(Question.Status.AVAILABLE.name())
         questionDto.setQuestionDetailsDto(new MultipleOrderedChoiceQuestionDto())
         and: 'a optionId'
-        def optionDto = new OptionDto()
+        def optionDto = new OptionWithRelevanceDto()
         optionDto.setContent(OPTION_1_CONTENT)
         optionDto.setCorrect(true)
-        def options = new ArrayList<OptionDto>()
+        def options = new ArrayList<OptionWithRelevanceDto>()
         options.add(optionDto)
         questionDto.getQuestionDetailsDto().setOptions(options)
 
         when:
         def result = questionService.createQuestion(externalCourse.getId(), questionDto)
+        def result2 = questionRepository.findAll().get(0)
 
         then: "exception is thrown"
+        result2.getQuestionDetails().getOptions().size() >= 2
         def exception = thrown(TutorException)
         exception.getErrorMessage() == ErrorMessage.NO_CORRECT_OPTION
     }
