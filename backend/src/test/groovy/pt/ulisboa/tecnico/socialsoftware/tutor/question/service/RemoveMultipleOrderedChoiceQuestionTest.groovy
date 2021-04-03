@@ -9,6 +9,7 @@ import pt.ulisboa.tecnico.socialsoftware.tutor.exceptions.ErrorMessage
 import pt.ulisboa.tecnico.socialsoftware.tutor.exceptions.TutorException
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.*
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.MultipleOrderedChoiceQuestionDto
+import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.OptionWithRelevanceDto
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.QuestionDto
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.TopicDto
 import pt.ulisboa.tecnico.socialsoftware.tutor.questionsubmission.domain.QuestionSubmission
@@ -17,7 +18,7 @@ import pt.ulisboa.tecnico.socialsoftware.tutor.quiz.domain.QuizQuestion
 import pt.ulisboa.tecnico.socialsoftware.tutor.user.domain.User
 
 @DataJpaTest
-class RemovePEMQuestionTest extends SpockTest {
+class RemoveMultipleOrderedChoiceQuestionTest extends SpockTest {
     def question
     def optionOK1
     def optionOK2
@@ -31,13 +32,6 @@ class RemovePEMQuestionTest extends SpockTest {
         image.setUrl(IMAGE_1_URL)
         image.setWidth(20)
         imageRepository.save(image)
-
-        def questionDto = new QuestionDto()
-        questionDto.setKey(1)
-        questionDto.setTitle(QUESTION_1_TITLE)
-        questionDto.setContent(QUESTION_1_CONTENT)
-        questionDto.setStatus(Question.Status.AVAILABLE.name())
-        questionDto.setQuestionDetailsDto(new MultipleOrderedChoiceQuestionDto())
 
         question = new Question()
         question.setKey(1)
@@ -53,29 +47,24 @@ class RemovePEMQuestionTest extends SpockTest {
         questionDetailsRepository.save(questionDetails)
         questionRepository.save(question)
 
-        optionOK1 = new Option()
+        optionOK1 = new OptionWithRelevance()
         optionOK1.setContent(OPTION_1_CONTENT)
         optionOK1.setCorrect(true)
         optionOK1.setSequence(0)
+        optionOK1.setRelevance(1)
         optionOK1.setQuestionDetails(questionDetails)
         optionRepository.save(optionOK1)
 
-        optionOK2 = new Option()
-        optionOK2.setContent(OPTION_2_CONTENT)
-        optionOK2.setCorrect(true)
-        optionOK2.setSequence(0)
-        optionOK2.setQuestionDetails(questionDetails)
-        optionRepository.save(optionOK2)
-
-        optionKO = new Option()
+        optionKO = new OptionWithRelevance()
         optionKO.setContent(OPTION_1_CONTENT)
         optionKO.setCorrect(false)
         optionKO.setSequence(1)
+        optionKO.setRelevance(0)
         optionKO.setQuestionDetails(questionDetails)
         optionRepository.save(optionKO)
     }
 
-    def "remove a question"() {
+    def "remove a question that has options with relevance"() {
         when:
         questionService.removeQuestion(question.getId())
 
@@ -154,29 +143,6 @@ class RemovePEMQuestionTest extends SpockTest {
         then: "an exception is thrown"
         def exception = thrown(TutorException)
         exception.getErrorMessage() == ErrorMessage.CANNOT_DELETE_SUBMITTED_QUESTION
-    }
-    def "remove a question that has options with relevance"() {
-        given: "a question with options with relevance"
-        def optionDto1 = new OptionDto()
-        def optionDto2 = new OptionDto()
-        optionDto1.setContent(OPTION_1_CONTENT)
-        optionDto2.setContent(OPTION_2_CONTENT)
-        optionDto1.setRelevance(OPTION_1_RELEVANCE)
-        optionDto2.setRelevance(OPTION_2_RELEVANCE)
-        optionDto1.setCorrect(true)
-        optionDto2.setCorrect(true)
-        def options = new ArrayList<OptionDto>()
-        options.add(optionDto1)
-        options.add(optionDto2)
-        questionDto.getQuestionDetailsDto().setOptions(options)
-
-        when:
-        questionService.removeQuestion(question.getId())
-
-        then: "the question is removeQuestion"
-        questionRepository.count() == 0L
-        imageRepository.count() == 0L
-        optionRepository.count() == 0L
     }
 
     @TestConfiguration
