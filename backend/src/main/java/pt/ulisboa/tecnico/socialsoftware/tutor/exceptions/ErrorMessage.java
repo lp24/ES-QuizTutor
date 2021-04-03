@@ -50,6 +50,7 @@ public enum ErrorMessage {
     USER_NOT_FOUND("User not found with id %d"),
     EXTERNAL_USER_NOT_FOUND("User not found with username %s"),
     COURSE_NOT_FOUND("Course not found with name %s"),
+    INVALID_COURSE("This is not an execution of course %s"),
     USER_ALREADY_ACTIVE("User is already active with username %s"),
     USER_IS_ACTIVE("User state is active: username %s"),
     INVALID_CONFIRMATION_TOKEN("Invalid confirmation token"),
@@ -58,6 +59,7 @@ public enum ErrorMessage {
 
     CANNOT_DELETE_COURSE_EXECUTION("The course execution cannot be deleted %s"),
 
+    QUESTION_KEY_ALREADY_EXISTS("Questions already exists with key %d"),
     QUESTION_OPTION_MISMATCH("Question %d does not have option %d"),
     QUESTION_ORDER_SLOT_MISMATCH("Question %d does not have slot %d"),
 
@@ -67,6 +69,7 @@ public enum ErrorMessage {
 
     USERS_IMPORT_ERROR("Error importing users: %s"),
     QUESTIONS_IMPORT_ERROR("Error importing questions: %s"),
+    QUESTIONS_EXPORT_ERROR("Error exporting questions: %s"),
     TOPICS_IMPORT_ERROR("Error importing topics: %s"),
     ANSWERS_IMPORT_ERROR("Error importing answers: %s"),
     QUIZZES_IMPORT_ERROR("Error importing quizzes: %s"),
@@ -98,11 +101,13 @@ public enum ErrorMessage {
     WRONG_TOURNAMENT_PASSWORD("Wrong tournament password for private tournament %d"),
 
     NO_CORRECT_OPTION("Question does not have a correct option"),
+    NOT_ENOUGH_ITEMS("Question does not have at least two items"),
     NOT_ENOUGH_QUESTIONS("Not enough questions to create a quiz"),
     NOT_ENOUGH_QUESTIONS_TOURNAMENT("Not enough questions to create a quiz. One of the selected topics might not be available now. Please go check it"),
     AT_LEAST_ONE_OPTION_NEEDED("Questions need to have at least one option."),
     AT_LEAST_THREE_SLOTS_NEEDED("Order questions need to have at least 3 used slots."),
     ONE_CORRECT_OPTION_NEEDED("Questions need to have 1 and only 1 correct option"),
+    AT_LEAST_ONE_CORRECT_OPTION_NEEDED("Multiple ordered choice questions need to have at least 1 correct option"),
     CANNOT_CHANGE_ANSWERED_QUESTION("Can not change answered question"),
     QUIZ_HAS_ANSWERS("Quiz already has answers"),
     QUIZ_ALREADY_COMPLETED("Quiz already completed"),

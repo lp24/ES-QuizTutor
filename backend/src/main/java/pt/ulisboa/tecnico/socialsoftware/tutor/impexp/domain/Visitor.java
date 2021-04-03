@@ -26,6 +26,8 @@ public interface Visitor {
 
     default void visitOptionWithRelevance(OptionWithRelevance option) {}
 
+    default void visitItem(Item item) {}
+
     default void visitQuiz(Quiz quiz) {}
 
     default void visitQuizQuestion(QuizQuestion quizQuestion) {}
@@ -58,6 +60,8 @@ public interface Visitor {
 
     default void visitQuestionDetails(CodeFillInQuestion question) {}
 
+    default void visitQuestionDetails(ItemCombinationQuestion question) {}
+
     default void visitFillInSpot(CodeFillInSpot spot) {}
 
     default void visitFillInOption(CodeFillInOption spot) {}
@@ -71,4 +75,8 @@ public interface Visitor {
     default void visitQuestionDetails(CodeOrderQuestion codeOrderQuestion) {}
 
     default void visitCodeOrderSlot(CodeOrderSlot codeOrderSlot) {}
+
+    default void visitOption(OptionWithRelevance option){}
+
+    default void visitQuestionDetails(OpenAnswerQuestion question) {}
 }

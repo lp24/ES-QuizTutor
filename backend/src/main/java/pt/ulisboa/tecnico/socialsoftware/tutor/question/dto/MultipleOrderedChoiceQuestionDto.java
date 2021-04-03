@@ -1,6 +1,10 @@
 package pt.ulisboa.tecnico.socialsoftware.tutor.question.dto;
 
-import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.*;
+import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.MultipleOrderedChoiceQuestion;
+import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.OptionWithRelevance;
+import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.Question;
+import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.QuestionDetails;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,10 +35,14 @@ public class MultipleOrderedChoiceQuestionDto extends QuestionDetailsDto {
     }
 
     @Override
+    public void update(MultipleOrderedChoiceQuestion question) {
+        question.update(this);
+    }
+
+    @Override
     public String toString() {
-        return "MultipleChoiceOrderQuestionDtoDto{" +
+        return "MultipleOrderedChoiceQuestionDto{" +
                 "options=" + options +
                 '}';
     }
-
 }

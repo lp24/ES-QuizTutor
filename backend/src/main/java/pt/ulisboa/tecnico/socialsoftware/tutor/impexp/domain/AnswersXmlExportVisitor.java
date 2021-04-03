@@ -5,6 +5,7 @@ import org.jdom2.Element;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 import pt.ulisboa.tecnico.socialsoftware.tutor.answer.domain.*;
+import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.OptionWithRelevance;
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.Question;
 
 import java.util.List;
@@ -132,6 +133,11 @@ public class AnswersXmlExportVisitor implements Visitor {
 
             this.currentElement.addContent(slotContainerElement);
         }
+    }
+
+    @Override
+    public void visitOption(OptionWithRelevance option) {
+
     }
 
     @Override

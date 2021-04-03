@@ -8,6 +8,8 @@ import pt.ulisboa.tecnico.socialsoftware.tutor.utils.DateHandler;
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.*;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class XMLQuestionExportVisitor implements Visitor {
     private Element rootElement;
@@ -33,16 +35,27 @@ public class XMLQuestionExportVisitor implements Visitor {
     }
 
     private void exportQuestions(List<Question> questions) {
-        for (Question question : questions) {
-            question.accept(this);
+        Map<Course, List<Question>> questionMap = questions.stream().collect(Collectors.groupingBy(question -> question.getCourse()));
+
+        for (Course course : questionMap.keySet()) {
+            Element courseElement = new Element("course");
+            courseElement.setAttribute("courseType", course.getType().name());
+            courseElement.setAttribute("courseName", course.getName());
+
+            this.currentElement.addContent(courseElement);
+            this.currentElement = courseElement;
+
+            for (Question question : questionMap.get(course)) {
+                question.accept(this);
+            }
+
+            this.currentElement = this.rootElement;
         }
     }
 
     @Override
     public void visitQuestion(Question question) {
         Element questionElement = new Element("question");
-        questionElement.setAttribute("courseType", question.getCourse().getType().name());
-        questionElement.setAttribute("courseName", question.getCourse().getName());
         questionElement.setAttribute("key", String.valueOf(question.getKey()));
         questionElement.setAttribute("content", question.getContent());
         questionElement.setAttribute("title", question.getTitle());
@@ -52,6 +65,7 @@ public class XMLQuestionExportVisitor implements Visitor {
             questionElement.setAttribute("creationDate", DateHandler.toISOString(question.getCreationDate()));
         this.currentElement.addContent(questionElement);
 
+        Element previousCurrent = this.currentElement;
         this.currentElement = questionElement;
 
         if (question.getImage() != null)
@@ -59,7 +73,7 @@ public class XMLQuestionExportVisitor implements Visitor {
 
         question.getQuestionDetails().accept(this);
 
-        this.currentElement = this.rootElement;
+        this.currentElement = previousCurrent;
     }
 
     @Override
@@ -156,5 +170,26 @@ public class XMLQuestionExportVisitor implements Visitor {
         spotElement.setAttribute("sequence", String.valueOf(codeOrderSlot.getSequence()));
         spotElement.addContent(codeOrderSlot.getContent());
         this.currentElement.addContent(spotElement);
+    }
+
+    public void visitOption(OptionWithRelevance option) {
+        this.currentElement.setAttribute("type", Question.QuestionTypes.MULTIPLE_CHOICE_QUESTION);
+
+    }
+
+    @Override
+    public void visitQuestionDetails(ItemCombinationQuestion question) {
+        this.currentElement.setAttribute("type", Question.QuestionTypes.ITEM_COMBINATION_QUESTION);
+
+        Element itemsElement = new Element("items");
+        this.currentElement.addContent(itemsElement);
+
+        this.currentElement = itemsElement;
+        question.visitItems(this);
+    }
+
+    @Override
+    public void visitQuestionDetails(OpenAnswerQuestion question) {
+        this.currentElement.setAttribute("type", Question.QuestionTypes.OPEN_ANSWER_QUESTION);
     }
 }

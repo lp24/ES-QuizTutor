@@ -1,5 +1,6 @@
 package pt.ulisboa.tecnico.socialsoftware.tutor.impexp.domain;
 
+import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.OptionWithRelevance;
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.Question;
 import pt.ulisboa.tecnico.socialsoftware.tutor.quiz.domain.Quiz;
 import pt.ulisboa.tecnico.socialsoftware.tutor.quiz.domain.QuizQuestion;
@@ -26,5 +27,10 @@ public class LatexQuizExportVisitor extends LatexVisitor {
         for (Question question : questions) {
             question.accept(this);
         }
+    }
+
+    @Override
+    public void visitOption(OptionWithRelevance option) {
+
     }
 }
