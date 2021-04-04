@@ -46,11 +46,11 @@ public class OptionWithRelevance implements DomainEntity {
     public OptionWithRelevance() {
     }
 
-    public OptionWithRelevance(OptionWithRelevance option) {
+    public OptionWithRelevance(OptionWithRelevanceDto option) {
         setSequence(option.getSequence());
         setContent(option.getContent());
         setCorrect(option.isCorrect());
-        setRelevance(option.getRelevance());
+     //   setRelevance(option.setRelevance());
     }
 
     @Override

@@ -121,6 +121,9 @@ class SpockTest extends Specification {
     public static final Integer OPTION_1_RELEVANCE = 1
     public static final Integer OPTION_2_RELEVANCE = 2
 
+    public static final String ITEM_1_CONTENT = "Item 1 Content"
+    public static final String ITEM_2_CONTENT = "Item 2 Content"
+
     public static final String ROLE_STUDENT = "ROLE_STUDENT"
     public static final String ROLE_TEACHER = "ROLE_TEACHER"
     public static final String ROLE_ADMIN = "ROLE_ADMIN"
