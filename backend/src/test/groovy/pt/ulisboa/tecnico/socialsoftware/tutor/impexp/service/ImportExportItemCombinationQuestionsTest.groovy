@@ -6,18 +6,34 @@ import pt.ulisboa.tecnico.socialsoftware.tutor.BeanConfiguration
 import pt.ulisboa.tecnico.socialsoftware.tutor.SpockTest
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.Question
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.ItemCombinationQuestionDto
+import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.ItemDto
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.QuestionDto
 
 @DataJpaTest
 class ImportExportItemCombinationQuestionsTest extends SpockTest{
-    def questionDto
+    def questionId
 
     def setup() {
-        questionDto = new QuestionDto()
+        createExternalCourseAndExecution()
+
+        def questionDto = new QuestionDto()
         questionDto.setTitle(QUESTION_1_TITLE)
         questionDto.setContent(QUESTION_1_CONTENT)
         questionDto.setStatus(Question.Status.AVAILABLE.name())
         questionDto.setQuestionDetailsDto(new ItemCombinationQuestionDto())
+        // Missing items
+        def items = new ArrayList<ItemDto>()
+        def itemOneDto = new ItemDto()
+        itemOneDto.setContent(ITEM_1_CONTENT)
+        def itemTwoDto = new ItemDto()
+        itemTwoDto.setContent(ITEM_2_CONTENT)
+        itemOneDto.addConnection(itemTwoDto.getId())
+        itemTwoDto.addConnection(itemOneDto.getId())
+        items.add(itemOneDto)
+        items.add(itemTwoDto)
+        questionDto.getQuestionDetailsDto().setItems(items)
+        // Must save the question int the repository
+        questionId = questionService.createQuestion(externalCourse.getId(), questionDto).getId()
     }
 
     def "import and export item combination questions to xml"() {
@@ -25,7 +41,7 @@ class ImportExportItemCombinationQuestionsTest extends SpockTest{
         def questionsXml = questionService.exportQuestionsToXml()
         print questionsXml
         and: 'a clean database'
-        questionService.removeQuestion(questionDto.getId())
+        questionService.removeQuestion(questionId)
 
         when:
         questionService.importQuestionsFromXml(questionsXml)
@@ -37,6 +53,7 @@ class ImportExportItemCombinationQuestionsTest extends SpockTest{
         questionResult.getTitle() == QUESTION_1_TITLE
         questionResult.getContent() == QUESTION_1_CONTENT
         questionResult.getStatus() == Question.Status.AVAILABLE.name()
+        // Missing item validations
     }
 
     def "export item combination questions to latex"() {

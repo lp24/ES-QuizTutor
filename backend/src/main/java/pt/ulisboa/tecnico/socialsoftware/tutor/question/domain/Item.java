@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+// Missing JPA annotations @Entity and @Table
 public class Item implements DomainEntity {
 
     @Id
@@ -21,6 +22,7 @@ public class Item implements DomainEntity {
     private ItemCombinationQuestion questionDetails;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "option", fetch = FetchType.LAZY, orphanRemoval = true)
+    // You cannot make an association with integers
     private ArrayList<Integer> connections = new ArrayList<>();
 
     public Item(Integer id, String content) {

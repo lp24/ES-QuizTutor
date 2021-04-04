@@ -87,6 +87,8 @@ class CreateItemCombinationQuestionTest extends SpockTest {
         result.getStatus() == Question.Status.AVAILABLE
         result.getTitle() == QUESTION_1_TITLE
         result.getContent() == QUESTION_1_CONTENT
+        // Missing item validation
+        // result.getQuestionDetails().getItems()... etc
     }
 
     def "create an item combination question with two items and one connection"() {

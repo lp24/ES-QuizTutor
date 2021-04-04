@@ -53,6 +53,8 @@ public abstract class LatexVisitor implements Visitor {
     }
 
     // Missing Open Answer visit
+
+    // Missing item Combination visit
     
     @Override
     public void visitQuestionDetails(MultipleChoiceQuestion question) {

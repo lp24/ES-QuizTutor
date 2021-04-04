@@ -17,6 +17,7 @@ import java.util.List;
 @Entity
 @DiscriminatorValue(Question.QuestionTypes.ITEM_COMBINATION_QUESTION)
 public class ItemCombinationQuestion extends QuestionDetails {
+    // Mising association annotation @OneToMany
     private ArrayList<Item> items = new ArrayList<>();
 
     public ItemCombinationQuestion() {
@@ -25,6 +26,7 @@ public class ItemCombinationQuestion extends QuestionDetails {
     public ItemCombinationQuestion(Question question, ItemCombinationQuestionDto dto) {
         super(question);
         update(dto);
+        // Missing all implementation - sets, verifications
     }
 
     public List<Item> getItems() {

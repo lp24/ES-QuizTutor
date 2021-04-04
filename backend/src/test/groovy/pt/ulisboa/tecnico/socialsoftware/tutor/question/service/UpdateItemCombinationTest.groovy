@@ -64,7 +64,7 @@ class UpdateItemCombinationTest extends SpockTest{
         questionService.updateQuestion(question.getId(), question.getQuestionDto())
 
         then: "the question is changed"
-        questionRepository.count() == 2L
+        questionRepository.count() == 2L // Why 2? You only saved one question in the repository
         def result = questionRepository.findAll().get(1)
         result.getId() == question.getId()
         result.getTitle() == QUESTION_2_TITLE
@@ -80,6 +80,8 @@ class UpdateItemCombinationTest extends SpockTest{
         item1.getConnections() == "CONTENT3"
         item2.getConnections() == "CONTENT4"
     }
+
+    // Missing unsuccessful tests
 
     @TestConfiguration
     static class LocalBeanConfiguration extends BeanConfiguration {}
