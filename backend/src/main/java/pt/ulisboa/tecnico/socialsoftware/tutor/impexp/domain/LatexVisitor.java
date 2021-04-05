@@ -5,6 +5,7 @@ import pt.ulisboa.tecnico.socialsoftware.tutor.quiz.domain.Quiz;
 import pt.ulisboa.tecnico.socialsoftware.tutor.quiz.domain.QuizQuestion;
 
 import java.util.Comparator;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public abstract class LatexVisitor implements Visitor {
@@ -59,6 +60,19 @@ public abstract class LatexVisitor implements Visitor {
         this.result = this.result + "\\putOptions\n";
 
         this.result = this.result + "% Answer: " + question.getCorrectAnswerRepresentation() + "\n";
+
+        this.result = this.result + "\\end{ClosedQuestion}\n}\n\n";
+    }
+
+    @Override
+    public void visitQuestionDetails(MultipleOrderedChoiceQuestion question) {
+        question.visitOptions(this);
+        List<OptionWithRelevance> options = question.getOptions();
+        this.result = this.result + "\\putOptions\n";
+
+        this.result = this.result +
+                "% Answer: " +
+                question.getCorrectAnswerRepresentation() + "\n";
 
         this.result = this.result + "\\end{ClosedQuestion}\n}\n\n";
     }
@@ -136,6 +150,11 @@ public abstract class LatexVisitor implements Visitor {
     @Override
     public void visitOption(Option option) {
         this.result = this.result + "\t\\option" + MultipleChoiceQuestion.convertSequenceToLetter(option.getSequence()) + "{" + option.getContent() + "}\n";
+    }
+
+    @Override
+    public void visitOptionWithRelevance(OptionWithRelevance option) {
+        this.result = this.result + "\t\\option" + MultipleOrderedChoiceQuestion.convertSequenceToLetter(option.getSequence()) + "{" + option.getContent() + "}\n";
     }
 
     private String convertToAlphabet(int number) {

@@ -36,6 +36,7 @@ public class Question implements DomainEntity {
 
     public static class QuestionTypes {
         public static final String MULTIPLE_CHOICE_QUESTION = "multiple_choice";
+        public static final String MULTIPLE_ORDERED_CHOICE_QUESTION = "multiple_ordered_choice";
         public static final String CODE_FILL_IN_QUESTION = "code_fill_in";
         public static final String CODE_ORDER_QUESTION = "code_order";
         public static final String ITEM_COMBINATION_QUESTION = "item_combination";

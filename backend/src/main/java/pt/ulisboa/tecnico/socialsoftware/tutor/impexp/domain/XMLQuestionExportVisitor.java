@@ -172,6 +172,11 @@ public class XMLQuestionExportVisitor implements Visitor {
         this.currentElement.addContent(spotElement);
     }
 
+    public void visitOption(OptionWithRelevance option) {
+        this.currentElement.setAttribute("type", Question.QuestionTypes.MULTIPLE_CHOICE_QUESTION);
+
+    }
+
     @Override
     public void visitQuestionDetails(ItemCombinationQuestion question) {
         this.currentElement.setAttribute("type", Question.QuestionTypes.ITEM_COMBINATION_QUESTION);

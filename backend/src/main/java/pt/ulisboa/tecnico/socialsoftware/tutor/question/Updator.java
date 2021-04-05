@@ -4,10 +4,14 @@ import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.CodeFillInQuestio
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.CodeOrderQuestion;
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.ItemCombinationQuestion;
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.MultipleChoiceQuestion;
+import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.MultipleOrderedChoiceQuestion;
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.OpenAnswerQuestion;
 
 public interface Updator {
     default void update(MultipleChoiceQuestion question) {
+    }
+
+    default void update(MultipleOrderedChoiceQuestion question) {
     }
 
     default void update(CodeFillInQuestion question) {

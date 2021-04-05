@@ -173,6 +173,11 @@ public class CSVQuizExportVisitor implements Visitor {
         line[column++] = question.getCorrectAnswerRepresentation();
     }
 
+    @Override
+    public void visitOption(OptionWithRelevance option) {
+
+    }
+
     private String convertToCSV(String[] data) {
         return String.join(",", data);
     }
