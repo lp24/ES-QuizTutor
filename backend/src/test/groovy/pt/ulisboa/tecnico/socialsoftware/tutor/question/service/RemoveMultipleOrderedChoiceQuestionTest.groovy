@@ -11,6 +11,7 @@ import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.*
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.MultipleOrderedChoiceQuestionDto
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.OptionWithRelevanceDto
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.QuestionDto
+import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.OptionWithRelevanceDto
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.TopicDto
 import pt.ulisboa.tecnico.socialsoftware.tutor.questionsubmission.domain.QuestionSubmission
 import pt.ulisboa.tecnico.socialsoftware.tutor.quiz.domain.Quiz
@@ -144,7 +145,29 @@ class RemoveMultipleOrderedChoiceQuestionTest extends SpockTest {
         def exception = thrown(TutorException)
         exception.getErrorMessage() == ErrorMessage.CANNOT_DELETE_SUBMITTED_QUESTION
     }
+    def "remove a question that has options with relevance"() {
+        given: "a question with options with relevance"
+        def OptionWithRelevanceDto1 = new OptionWithRelevanceDto()
+        def OptionWithRelevanceDto2 = new OptionWithRelevanceDto()
+        OptionWithRelevanceDto1.setContent(OPTION_1_CONTENT)
+        OptionWithRelevanceDto2.setContent(OPTION_2_CONTENT)
+        OptionWithRelevanceDto1.setRelevance(OPTION_1_RELEVANCE)
+        OptionWithRelevanceDto2.setRelevance(OPTION_2_RELEVANCE)
+        OptionWithRelevanceDto1.setCorrect(true)
+        OptionWithRelevanceDto2.setCorrect(true)
+        def options = new ArrayList<OptionWithRelevanceDto>()
+        options.add(OptionWithRelevanceDto1)
+        options.add(OptionWithRelevanceDto2)
+        questionDto.getQuestionDetailsDto().setOptions(options)
 
+        when:
+        questionService.removeQuestion(question.getId())
+
+        then: "the question is removeQuestion"
+        questionRepository.count() == 0L
+        imageRepository.count() == 0L
+        optionRepository.count() == 0L
+    }
     @TestConfiguration
     static class LocalBeanConfiguration extends BeanConfiguration {}
 }
