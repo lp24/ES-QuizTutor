@@ -30,7 +30,6 @@ class UpdateMultipleOrderedChoiceQuestionTest extends SpockTest {
     def user
 
     def setup() {
-        def externalCourseExecution = createExternalCourseAndExecution()
         user = new User(USER_1_NAME, USER_1_USERNAME, USER_1_EMAIL, User.Role.STUDENT, false, AuthUser.Type.TECNICO)
         user.addCourse(externalCourseExecution)
         userRepository.save(user)
@@ -88,10 +87,8 @@ class UpdateMultipleOrderedChoiceQuestionTest extends SpockTest {
         questionDto.setTitle(QUESTION_2_TITLE)
         questionDto.setContent(QUESTION_2_CONTENT)
         questionDto.setQuestionDetailsDto(new MultipleOrderedChoiceQuestionDto())
-
         and: '2 changed options in 3 options'
         def options = new ArrayList<OptionWithRelevanceDto>()
-
         def optionDto = new OptionWithRelevanceDto(optionOK)
         optionDto.setContent(OPTION_2_CONTENT)
         optionDto.setCorrect(false)
@@ -108,7 +105,6 @@ class UpdateMultipleOrderedChoiceQuestionTest extends SpockTest {
         optionDto.setCorrect(true)
         optionDto.setRelevance(2)
         options.add(optionDto)
-
         questionDto.getQuestionDetailsDto().setOptions(options)
 
         when:
@@ -126,8 +122,7 @@ class UpdateMultipleOrderedChoiceQuestionTest extends SpockTest {
         result.getNumberOfCorrect() == 2
         result.getDifficulty() == 50
         result.getImage() != null
-        and: 'the options are changed'
-
+        and: 'an option is changed'
         result.getQuestionDetails().getOptions().size() == 3
         def resOptionOne = result.getQuestionDetails().getOptions().stream().filter({ option -> option.getId() == optionOK.getId()}).findAny().orElse(null)
         resOptionOne.getContent() == OPTION_2_CONTENT
@@ -245,10 +240,18 @@ class UpdateMultipleOrderedChoiceQuestionTest extends SpockTest {
         def exception = thrown(TutorException)
         exception.getErrorMessage() == ErrorMessage.CANNOT_CHANGE_ANSWERED_QUESTION
     }
-    // TODO
-    /*def "update question by removing option"(){
+
+    def "update question with correct order of the answers"(){
         expect: false
-    }*/
+    }
+
+    def "update question with more options and define correct order"(){
+        expect: false
+    }
+
+    def "update question by removing option"(){
+        expect: false
+    }
 
     @TestConfiguration
     static class LocalBeanConfiguration extends BeanConfiguration {}
