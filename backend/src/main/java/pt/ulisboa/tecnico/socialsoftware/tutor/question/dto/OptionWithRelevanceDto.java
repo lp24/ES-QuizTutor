@@ -5,6 +5,7 @@ import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.OptionWithRelevan
 
 import java.io.Serializable;
 
+
 import static pt.ulisboa.tecnico.socialsoftware.tutor.exceptions.ErrorMessage.INVALID_SEQUENCE_FOR_OPTION;
 
 public class OptionWithRelevanceDto implements Serializable {
@@ -28,7 +29,6 @@ public class OptionWithRelevanceDto implements Serializable {
         this.relevance = relevance;
     }
 
-
     public Integer getRelevance() { return this.relevance; }
 
     public Integer getId(){ return id; }
@@ -42,15 +42,21 @@ public class OptionWithRelevanceDto implements Serializable {
         this.sequence = sequence;
     }
 
+    public Integer getRelevance(){ return relevance; }
+
+    public Integer getId(){ return id; }
+
+    public Integer getSequence(){ return sequence; }
+
+    public void setSequence(Integer sequence){ this.sequence = sequence; }
+
     public boolean isCorrect(){
         return correct;
     }
 
-
     public void setCorrect(boolean correct) {
         this.correct = correct;
     }
-
 
     public void setContent(String content) {
         this.content = content;

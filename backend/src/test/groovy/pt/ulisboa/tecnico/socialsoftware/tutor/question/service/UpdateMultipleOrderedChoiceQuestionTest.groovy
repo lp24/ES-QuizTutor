@@ -30,9 +30,7 @@ class UpdateMultipleOrderedChoiceQuestionTest extends SpockTest {
     def user
 
     def setup() {
-
         def externalCourseExecution = createExternalCourseAndExecution()
-
         user = new User(USER_1_NAME, USER_1_USERNAME, USER_1_EMAIL, User.Role.STUDENT, false, AuthUser.Type.TECNICO)
         user.addCourse(externalCourseExecution)
         userRepository.save(user)
@@ -101,6 +99,7 @@ class UpdateMultipleOrderedChoiceQuestionTest extends SpockTest {
         options.add(optionDto)
 
         optionDto = new OptionWithRelevanceDto(optionOK2)
+        optionDto.setCorrect(true)
         optionDto.setRelevance(1)
         options.add(optionDto)
 
@@ -128,6 +127,7 @@ class UpdateMultipleOrderedChoiceQuestionTest extends SpockTest {
         result.getDifficulty() == 50
         result.getImage() != null
         and: 'the options are changed'
+
         result.getQuestionDetails().getOptions().size() == 3
         def resOptionOne = result.getQuestionDetails().getOptions().stream().filter({ option -> option.getId() == optionOK.getId()}).findAny().orElse(null)
         resOptionOne.getContent() == OPTION_2_CONTENT
