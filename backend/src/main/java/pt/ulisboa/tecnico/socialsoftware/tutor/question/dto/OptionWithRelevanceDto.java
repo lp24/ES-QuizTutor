@@ -31,6 +31,7 @@ public class OptionWithRelevanceDto implements Serializable {
 
     public Integer getRelevance() { return this.relevance; }
 
+
     public Integer getId(){ return id; }
 
     public Integer getSequence() { return sequence; }
