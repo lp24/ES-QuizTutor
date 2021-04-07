@@ -1,11 +1,9 @@
 package pt.ulisboa.tecnico.socialsoftware.tutor.answer.dto;
 
-import pt.ulisboa.tecnico.socialsoftware.tutor.answer.domain.AnswerDetails;
-import pt.ulisboa.tecnico.socialsoftware.tutor.answer.domain.MultipleChoiceAnswer;
-import pt.ulisboa.tecnico.socialsoftware.tutor.answer.domain.QuestionAnswer;
+import pt.ulisboa.tecnico.socialsoftware.tutor.answer.domain.*;
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.MultipleChoiceQuestion;
-import pt.ulisboa.tecnico.socialsoftware.tutor.answer.domain.MultipleChoiceAnswerItem;
-import pt.ulisboa.tecnico.socialsoftware.tutor.answer.domain.QuestionAnswerItem;
+
+import javax.persistence.Transient;
 
 public class MultipleChoiceStatementAnswerDetailsDto extends StatementAnswerDetailsDto {
     private Integer optionId;
@@ -19,6 +17,12 @@ public class MultipleChoiceStatementAnswerDetailsDto extends StatementAnswerDeta
         }
     }
 
+    public MultipleChoiceStatementAnswerDetailsDto(MultipleOrderedChoiceAnswer questionAnswer) {
+        if (questionAnswer.getOption() != null) {
+            this.optionId = questionAnswer.getOption().getId();
+        }
+    }
+
     public Integer getOptionId() {
         return optionId;
     }
@@ -27,6 +31,7 @@ public class MultipleChoiceStatementAnswerDetailsDto extends StatementAnswerDeta
         this.optionId = optionId;
     }
 
+    @Transient
     private MultipleChoiceAnswer createdMultipleChoiceAnswer;
 
     @Override

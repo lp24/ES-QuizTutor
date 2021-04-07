@@ -5,12 +5,14 @@ import org.jdom2.Element;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 import pt.ulisboa.tecnico.socialsoftware.tutor.answer.domain.*;
+import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.OptionWithRelevance;
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.Question;
 
 import java.util.List;
 
 public class AnswersXmlExportVisitor implements Visitor {
     private static final String SEQUENCE = "sequence";
+    public static final String QUESTION_KEY = "questionKey";
 
     private Element rootElement;
     private Element currentElement;
@@ -110,7 +112,7 @@ public class AnswersXmlExportVisitor implements Visitor {
         this.currentQuestionAnswer.setAttribute("type", Question.QuestionTypes.MULTIPLE_CHOICE_QUESTION);
         if (answer.getOption() != null) {
             Element optionElement = new Element("option");
-            optionElement.setAttribute("questionKey", String.valueOf(answer.getQuestionAnswer().getQuestion().getKey()));
+            optionElement.setAttribute(QUESTION_KEY, String.valueOf(answer.getQuestionAnswer().getQuestion().getKey()));
             optionElement.setAttribute(SEQUENCE, String.valueOf(answer.getOption().getSequence()));
             this.currentElement.addContent(optionElement);
         }
@@ -121,11 +123,11 @@ public class AnswersXmlExportVisitor implements Visitor {
         this.currentQuestionAnswer.setAttribute("type", Question.QuestionTypes.CODE_ORDER_QUESTION);
         if (answer.isAnswered()){
             Element slotContainerElement = new Element("slots");
-            slotContainerElement.setAttribute("questionKey", String.valueOf(answer.getQuestionAnswer().getQuestion().getKey()));
+            slotContainerElement.setAttribute(QUESTION_KEY, String.valueOf(answer.getQuestionAnswer().getQuestion().getKey()));
 
             for (var slot:answer.getOrderedSlots()) {
                 Element slotElement = new Element("slot");
-                slotElement.setAttribute("sequence", String.valueOf(slot.getCodeOrderSlot().getSequence()));
+                slotElement.setAttribute(SEQUENCE, String.valueOf(slot.getCodeOrderSlot().getSequence()));
                 slotElement.setAttribute("order", String.valueOf(slot.getAssignedOrder()));
                 slotContainerElement.addContent(slotElement);
             }
@@ -135,11 +137,16 @@ public class AnswersXmlExportVisitor implements Visitor {
     }
 
     @Override
+    public void visitOption(OptionWithRelevance option) {
+
+    }
+
+    @Override
     public void visitAnswerDetails(CodeFillInAnswer answer) {
         this.currentQuestionAnswer.setAttribute("type", Question.QuestionTypes.CODE_FILL_IN_QUESTION);
         if (answer.isAnswered()){
             Element spotContainerElement = new Element("fillInSpots");
-            spotContainerElement.setAttribute("questionKey", String.valueOf(answer.getQuestionAnswer().getQuestion().getKey()));
+            spotContainerElement.setAttribute(QUESTION_KEY, String.valueOf(answer.getQuestionAnswer().getQuestion().getKey()));
 
             for (var spot:answer.getFillInOptions()) {
                 Element spotElement = new Element("fillInSpot");

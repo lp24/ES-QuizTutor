@@ -216,6 +216,19 @@ class UpdateQuestionTest extends SpockTest {
         exception.getErrorMessage() == ErrorMessage.CANNOT_CHANGE_ANSWERED_QUESTION
     }
 
+    def "update question with correct order of the answers"(){
+        expect: false
+    }
+
+    def "update question with more options and define correct order"(){
+        expect: false
+    }
+
+    def "update question by removing option"(){
+        expect: false
+    }
+
+
     @TestConfiguration
     static class LocalBeanConfiguration extends BeanConfiguration {}
 }
