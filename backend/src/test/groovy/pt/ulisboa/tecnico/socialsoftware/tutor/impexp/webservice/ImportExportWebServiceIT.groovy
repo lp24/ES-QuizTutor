@@ -29,7 +29,6 @@ class ImportExportWebServiceIT extends SpockTest {
     @LocalServerPort
     private int port
 
-    def student
     def admin
     def response
 
@@ -38,10 +37,10 @@ class ImportExportWebServiceIT extends SpockTest {
         restClient = new RESTClient("http://localhost:" + port)
     }
     //TESTE DE CONTROLO DE ACESSO: testar que um aluno não pode fazer import ou export
-    def "demo student is not allowed to import/export"(){
+    def "demo student is not allowed to export"(){
         given: "a demo student"
         demoStudentLogin()
-        and: "a import service"
+        and: "an import/export service"
         def impExpService = Stub(ImpExpService.class)
         def exportFile = impExpService.exportAll()
         when: "the service is invoked"
@@ -53,13 +52,32 @@ class ImportExportWebServiceIT extends SpockTest {
         then: "the request returns 404"
         def error = thrown(HttpResponseException)
         error.response.status == HttpStatus.SC_NOT_FOUND
-        /*Deveria ser,
+        /*Deveria ser um 403,
           error.response.status == HttpStatus.SC_FORBIDDEN
           porque quero um erro de acesso. //TODO
         */
 
     }
-    //TESTE DE SUCESSO: um admin consegues fazer import ou export
+    //TESTE DE SUCESSO: um admin consegues fazer export
+    def "demo admin is not allowed to export"() {
+        given: "a demo admin and a file"
+        demoAdminLogin()
+        and: "an export service"
+        def impExpService = Stub(ImpExpService.class)
+        def exportFile = impExpService.exportAll()
+
+        when: "the service is invoked"
+        response = restClient.post(
+                path: '/admin/export',
+                body: exportFile,
+                requestContentType: 'application/json'
+        )
+        //Ver CustomExceptionHandler
+        //TODO
+        then: "the request returns 405"
+        def error = thrown(HttpResponseException)
+        error.response.status == HttpStatus.SC_METHOD_NOT_ALLOWED
+    }
     //TESTE DE INSUCESSO: o quê que pode constituir um insucesso no import ou export de ficheiros??
 }
 
