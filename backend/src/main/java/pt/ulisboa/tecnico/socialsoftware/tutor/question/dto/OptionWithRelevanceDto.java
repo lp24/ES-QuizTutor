@@ -28,7 +28,6 @@ public class OptionWithRelevanceDto implements Serializable {
         this.relevance = relevance;
     }
 
-
     public Integer getRelevance() { return this.relevance; }
 
     public Integer getId(){ return id; }
@@ -46,11 +45,9 @@ public class OptionWithRelevanceDto implements Serializable {
         return correct;
     }
 
-
     public void setCorrect(boolean correct) {
         this.correct = correct;
     }
-
 
     public void setContent(String content) {
         this.content = content;
