@@ -1,5 +1,6 @@
 package pt.ulisboa.tecnico.socialsoftware.tutor.impexp.domain;
 
+import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.OptionWithRelevance;
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.Question;
 
 import java.util.List;
@@ -15,5 +16,10 @@ public class LatexQuestionExportVisitor extends LatexVisitor {
         for (Question question : questions) {
             question.accept(this);
         }
+    }
+
+    @Override
+    public void visitOption(OptionWithRelevance option) {
+
     }
 }

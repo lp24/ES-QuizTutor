@@ -454,6 +454,132 @@ class CreateQuestionTest extends SpockTest {
         exception.getErrorMessage() == ErrorMessage.AT_LEAST_THREE_SLOTS_NEEDED
     }
 
+    def "create multiple ordered choice question with relevance and without image"(){
+        given: "a questionDto"
+        def questionDto = new QuestionDto()
+        questionDto.setKey(1)
+        questionDto.setTitle(QUESTION_1_TITLE)
+        questionDto.setContent(QUESTION_1_CONTENT)
+        questionDto.setStatus(Question.Status.AVAILABLE.name())
+        questionDto.setQuestionDetailsDto(new MultipleOrderedChoiceQuestionDto())
+
+        and: 'two options'
+        def optionDto1 = new OptionWithRelevanceDto()
+        def optionDto2 = new OptionWithRelevanceDto()
+        optionDto1.setContent(OPTION_1_CONTENT)
+        optionDto2.setContent(OPTION_2_CONTENT)
+        optionDto1.setRelevance(OPTION_1_RELEVANCE)
+        optionDto2.setRelevance(OPTION_2_RELEVANCE)
+        optionDto1.setCorrect(true)
+        optionDto2.setCorrect(true)
+        def options = new ArrayList<OptionWithRelevanceDto>()
+        options.add(optionDto1)
+        options.add(optionDto2)
+
+        questionDto.getQuestionDetailsDto().setOptions(options)
+
+        when:
+        questionService.createQuestion(externalCourse.getId(), questionDto)
+
+        then: "the correct question is inside the repository"
+        questionRepository.count() == 1L
+        def result = questionRepository.findAll().get(0)
+        result.getId() != null
+        result.getKey() == 1
+        result.getStatus() == Question.Status.AVAILABLE
+        result.getTitle() == QUESTION_1_TITLE
+        result.getContent() == QUESTION_1_CONTENT
+        result.getImage() == null
+        result.getQuestionDetails().getOptions().size() == 2
+        result.getCourse().getName() == COURSE_1_NAME
+        externalCourse.getQuestions().contains(result)
+        def resOption1 = result.getQuestionDetails().getOptions().get(0)
+        def resOption2 = result.getQuestionDetails().getOptions().get(1)
+        resOption1.getContent() == OPTION_1_CONTENT
+        resOption1.isCorrect()
+        resOption2.getContent() == OPTION_2_CONTENT
+        resOption2.isCorrect()
+    }
+
+    def "create multiple ordered choice question with images"(){
+        given: "a questionDto"
+        def questionDto = new QuestionDto()
+        questionDto.setKey(1)
+        questionDto.setTitle(QUESTION_1_TITLE)
+        questionDto.setContent(QUESTION_1_CONTENT)
+        questionDto.setStatus(Question.Status.AVAILABLE.name())
+        questionDto.setQuestionDetailsDto(new MultipleOrderedChoiceQuestionDto())
+
+        and: 'an image'
+        def image = new ImageDto()
+        image.setUrl(IMAGE_1_URL)
+        image.setWidth(20)
+        questionDto.setImage(image)
+        and: 'two options'
+        def optionDto1 = new OptionWithRelevanceDto()
+        def optionDto2 = new OptionWithRelevanceDto()
+        optionDto1.setContent(OPTION_1_CONTENT)
+        optionDto2.setContent(OPTION_2_CONTENT)
+        optionDto1.setRelevance(OPTION_1_RELEVANCE)
+        optionDto2.setRelevance(OPTION_2_RELEVANCE)
+        optionDto1.setCorrect(true)
+        optionDto2.setCorrect(true)
+        def options = new ArrayList<OptionWithRelevanceDto>()
+        options.add(optionDto1)
+        options.add(optionDto2)
+
+        questionDto.getQuestionDetailsDto().setOptions(options)
+
+        when:
+        questionService.createQuestion(externalCourse.getId(), questionDto)
+
+        then: "the correct question is inside the repository"
+        questionRepository.count() == 1L
+        def result = questionRepository.findAll().get(0)
+        result.getId() != null
+        result.getKey() == 1
+        result.getStatus() == Question.Status.AVAILABLE
+        result.getTitle() == QUESTION_1_TITLE
+        result.getContent() == QUESTION_1_CONTENT
+        result.getImage().getId() != null
+        result.getImage().getUrl() == IMAGE_1_URL
+        result.getImage().getWidth() == 20
+        result.getQuestionDetails().getOptions().size() == 2
+        result.getCourse().getName() == COURSE_1_NAME
+        externalCourse.getQuestions().contains(result)
+        def resOption1 = result.getQuestionDetails().getOptions().get(0)
+        def resOption2 = result.getQuestionDetails().getOptions().get(1)
+        resOption1.getContent() == OPTION_1_CONTENT
+        resOption1.isCorrect()
+        resOption2.getContent() == OPTION_2_CONTENT
+        resOption2.isCorrect()
+    }
+
+    def "cannot create multiple choice question with order without minimum two correct options"(){
+        given: "a questionDto"
+        def questionDto = new QuestionDto()
+        questionDto.setKey(1)
+        questionDto.setTitle(QUESTION_1_TITLE)
+        questionDto.setContent(QUESTION_1_CONTENT)
+        questionDto.setStatus(Question.Status.AVAILABLE.name())
+        questionDto.setQuestionDetailsDto(new MultipleOrderedChoiceQuestionDto())
+        and: 'a optionId'
+        def optionDto = new OptionWithRelevanceDto()
+        optionDto.setContent(OPTION_1_CONTENT)
+        optionDto.setCorrect(true)
+        def options = new ArrayList<OptionWithRelevanceDto>()
+        options.add(optionDto)
+        questionDto.getQuestionDetailsDto().setOptions(options)
+
+        when:
+        def result = questionService.createQuestion(externalCourse.getId(), questionDto)
+        def result2 = questionRepository.findAll().get(0)
+
+        then: "exception is thrown"
+        result2.getQuestionDetails().getOptions().size() >= 2
+        def exception = thrown(TutorException)
+        exception.getErrorMessage() == ErrorMessage.NO_CORRECT_OPTION
+    }
 
     @Unroll
     def "fail to create any question for invalid/non-existent course (#nonExistentId)"(Integer nonExistentId) {
