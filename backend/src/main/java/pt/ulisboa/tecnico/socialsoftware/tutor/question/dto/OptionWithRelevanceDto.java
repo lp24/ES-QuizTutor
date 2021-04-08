@@ -5,7 +5,6 @@ import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.OptionWithRelevan
 
 import java.io.Serializable;
 
-
 import static pt.ulisboa.tecnico.socialsoftware.tutor.exceptions.ErrorMessage.INVALID_SEQUENCE_FOR_OPTION;
 
 public class OptionWithRelevanceDto implements Serializable {
