@@ -16,6 +16,8 @@ import java.util.List
 class ImportExportOpenAnswerQuestionsTest extends SpockTest {
     def questionId
 
+    String CORRECT_ANSWER = "MyCorrectAnswer"
+
     def setup() {
         createExternalCourseAndExecution()
 
@@ -25,6 +27,7 @@ class ImportExportOpenAnswerQuestionsTest extends SpockTest {
         questionDto.setContent(QUESTION_1_CONTENT)
         questionDto.setStatus(Question.Status.AVAILABLE.name())
         questionDto.setQuestionDetailsDto(new OpenAnswerQuestionDto())
+        questionDto.getQuestionDetailsDto().setCorrectAnswer(CORRECT_ANSWER);
 
         def image = new ImageDto()
         image.setUrl(IMAGE_1_URL)
@@ -54,7 +57,8 @@ class ImportExportOpenAnswerQuestionsTest extends SpockTest {
         def imageResult = questionResult.getImage()
         imageResult.getWidth() == 20
         imageResult.getUrl() == IMAGE_1_URL
-    }
+        questionResult.getQuestionDetailsDto().getCorrectAnswer() == CORRECT_ANSWER ;
+     }
 
     def "export to latex"() {
         when:
