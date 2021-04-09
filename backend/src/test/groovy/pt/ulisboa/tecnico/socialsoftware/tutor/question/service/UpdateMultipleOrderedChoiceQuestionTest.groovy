@@ -187,7 +187,7 @@ class UpdateMultipleOrderedChoiceQuestionTest extends SpockTest {
         quiz.setCourseExecution(externalCourseExecution)
         quizRepository.save(quiz)
 
-        QuizQuestion quizQuestion= new QuizQuestion()
+        QuizQuestion quizQuestion = new QuizQuestion()
         quizQuestion.setQuiz(quiz)
         quizQuestion.setQuestion(question)
         quizQuestionRepository.save(quizQuestion)
@@ -245,7 +245,7 @@ class UpdateMultipleOrderedChoiceQuestionTest extends SpockTest {
         def exception = thrown(TutorException)
         exception.getErrorMessage() == ErrorMessage.CANNOT_CHANGE_ANSWERED_QUESTION
     }
-    // TODO
+
     /*def "update question by removing option"(){
         expect: false
     }*/
