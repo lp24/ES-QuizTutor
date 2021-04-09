@@ -16,8 +16,6 @@ import java.util.List
 class ImportExportOpenAnswerQuestionsTest extends SpockTest {
     def questionId
 
-    String CORRECT_ANSWER = "MyCorrectAnswer"
-
     def setup() {
         createExternalCourseAndExecution()
 

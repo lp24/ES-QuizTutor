@@ -17,8 +17,6 @@ import pt.ulisboa.tecnico.socialsoftware.tutor.exceptions.ErrorMessage
 @DataJpaTest
 class CreateQuestionTest extends SpockTest {
 
-    String CORRECT_ANSWER = "MyCorrectAnswer"
-
     def setup() {
         createExternalCourseAndExecution()
     }

@@ -115,7 +115,6 @@ class SpockTest extends Specification {
     public static final String CODE_QUESTION_1_CODE = "class Simple { {{drop1}} }"
     public static final Languages CODE_QUESTION_1_LANGUAGE = Languages.Java
 
-
     public static final String OPTION_1_CONTENT = "Option 1 Content"
     public static final String OPTION_2_CONTENT = "Option 2 Content"
     public static final Integer OPTION_1_RELEVANCE = 1
@@ -123,6 +122,8 @@ class SpockTest extends Specification {
 
     public static final String ITEM_1_CONTENT = "Item 1 Content"
     public static final String ITEM_2_CONTENT = "Item 2 Content"
+
+    public static final String CORRECT_ANSWER = "Correct Answer"
 
     public static final String ROLE_STUDENT = "ROLE_STUDENT"
     public static final String ROLE_TEACHER = "ROLE_TEACHER"
