@@ -22,7 +22,6 @@ public class Item implements DomainEntity {
     @JoinColumn(name = "question_details_id")
     private ItemCombinationQuestion questionDetails;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "item", fetch = FetchType.LAZY, orphanRemoval = true)
     private ArrayList<Item> connections = new ArrayList<>();
 
     public Item(Integer id, String content) {
