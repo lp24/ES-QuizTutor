@@ -64,7 +64,7 @@ class RemoveMultipleOrderedChoiceQuestionTest extends SpockTest {
         optionRepository.save(optionKO)
     }
 
-    def "remove a question that has options with relevance"() {
+    def "remove a question that has no options with relevance"() {
         when:
         questionService.removeQuestion(question.getId())
 
