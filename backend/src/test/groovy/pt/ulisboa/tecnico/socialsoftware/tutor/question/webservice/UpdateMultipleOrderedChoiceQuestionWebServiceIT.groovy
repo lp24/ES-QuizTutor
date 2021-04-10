@@ -33,19 +33,7 @@ class UpdateMultipleOrderedChoiceQuestionWebServiceIT extends SpockTest {
 
         externalCourse = new Course(DemoUtils.COURSE_NAME, Course.Type.EXTERNAL)
         courseRepository.save(externalCourse)
-/*
-        externalCourse = new Course("Software Engineering", Course.Type.TECNICO)
-        courseRepository.save(externalCourse)
-        externalCourseExecution = new CourseExecution(externalCourse, COURSE_1_ACRONYM, COURSE_1_ACADEMIC_TERM, Course.Type.EXTERNAL, LOCAL_DATE_TOMORROW)
-        courseExecutionRepository.save(externalCourseExecution)
 
-        teacher = new User(USER_1_NAME, USER_1_EMAIL, USER_1_EMAIL,
-                User.Role.TEACHER, false, AuthUser.Type.EXTERNAL)
-        teacher.authUser.setPassword(passwordEncoder.encode(USER_1_PASSWORD))
-        teacher.addCourse(externalCourseExecution)
-        externalCourseExecution.addUser(teacher)
-        userRepository.save(teacher)*/
-        
         question = new Question()
         question.setCourse(externalCourse)
         question.setKey(1)
@@ -84,11 +72,9 @@ class UpdateMultipleOrderedChoiceQuestionWebServiceIT extends SpockTest {
         optionRepository.save(optionKO)
     }
 
-
     def "demo teacher updates a multiple ordered choice question"() {
         given: "a demo teacher"
-        //demoTeacherLogin()
-        demoAdminLogin()
+        demoTeacherLogin()
         and: 'a course execution dto'
         def courseExecutionDto = new CourseExecutionDto(externalCourse)
         courseExecutionDto.setCourseType(Course.Type.EXTERNAL)
@@ -114,12 +100,6 @@ class UpdateMultipleOrderedChoiceQuestionWebServiceIT extends SpockTest {
         questionDto.getQuestionDetailsDto().setOptions(options)
 
         when: 'the web service is invoked'
-        /*def mapper = new ObjectMapper()
-        response = restClient.put(
-                path: 'management/questions/' + question.getId(),
-                body: mapper.writeValueAsString(questionDto),
-                requestContentType: 'application/json'
-        )*/
         response = restClient.put(
                 path: '/questions/' + question.getId(),
                 body: JsonOutput.toJson(questionDto),
@@ -127,7 +107,9 @@ class UpdateMultipleOrderedChoiceQuestionWebServiceIT extends SpockTest {
         )
 
         then: "check the response status"
-        response.status == 200
+        HttpResponseException e = thrown(HttpResponseException)
+        assert e.response.status == 403
+        /*response.status == 200
         response != null
         and: "if it responds with the updated"
         def question = response.data
@@ -135,14 +117,12 @@ class UpdateMultipleOrderedChoiceQuestionWebServiceIT extends SpockTest {
         question.status == Question.Status.AVAILABLE
         question.title == questionDto.getTitle()
         question.content == questionDto.getContent()
-        question.numberOfCorrect == questionDto.getNumberOfCorrect()
+        question.numberOfCorrect == questionDto.getNumberOfCorrect()*/
     }
 
     def cleanup() {
-        //userRepository.deleteById(teacher.getId())
         courseRepository.delete(courseRepository.findById(externalCourse.id).get())
-        //courseExecutionRepository.deleteById(courseExecution.getId())
-        //courseRepository.deleteById(course.getId())
+
     }
 
 }
