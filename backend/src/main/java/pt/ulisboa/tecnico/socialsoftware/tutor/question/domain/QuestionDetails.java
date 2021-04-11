@@ -30,6 +30,7 @@ public abstract class QuestionDetails implements DomainEntity {
     }
 
     protected QuestionDetails() {
+
     }
 
     public Integer getId() {
