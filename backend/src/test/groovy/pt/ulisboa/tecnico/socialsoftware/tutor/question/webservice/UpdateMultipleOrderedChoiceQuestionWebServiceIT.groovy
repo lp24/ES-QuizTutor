@@ -1,7 +1,6 @@
 package pt.ulisboa.tecnico.socialsoftware.tutor.question.webservice
 
 import groovy.json.JsonOutput
-import com.fasterxml.jackson.databind.ObjectMapper
 import groovyx.net.http.HttpResponseException
 import groovyx.net.http.RESTClient
 import org.apache.http.HttpStatus
@@ -107,9 +106,9 @@ class UpdateMultipleOrderedChoiceQuestionWebServiceIT extends SpockTest {
         )
 
         then: "check the response status"
-        HttpResponseException e = thrown(HttpResponseException)
-        assert e.response.status == 403
-        /*response.status == 200
+       /* HttpResponseException e = thrown(HttpResponseException)
+        assert e.response.status == 403*/
+        response.status == 200
         response != null
         and: "if it responds with the updated"
         def question = response.data
@@ -117,12 +116,51 @@ class UpdateMultipleOrderedChoiceQuestionWebServiceIT extends SpockTest {
         question.status == Question.Status.AVAILABLE
         question.title == questionDto.getTitle()
         question.content == questionDto.getContent()
-        question.numberOfCorrect == questionDto.getNumberOfCorrect()*/
+        question.numberOfCorrect == questionDto.getNumberOfCorrect()
+
     }
+
+    def "demo student updates a multiple ordered choice question"() {
+        given: "a demo teacher"
+        demoStudentLogin()
+        and: 'a course execution dto'
+        def courseExecutionDto = new CourseExecutionDto(externalCourse)
+        courseExecutionDto.setCourseType(Course.Type.EXTERNAL)
+        courseExecutionDto.setCourseExecutionType(Course.Type.EXTERNAL)
+        courseExecutionDto.setName(DemoUtils.COURSE_NAME)
+        courseExecutionDto.setAcronym(DemoUtils.COURSE_ACRONYM)
+        courseExecutionDto.setAcademicTerm(DemoUtils.COURSE_ACADEMIC_TERM)
+
+        and: "an updated question"
+        def questionDto = new QuestionDto(question)
+        questionDto.setQuestionDetailsDto(new MultipleOrderedChoiceQuestionDto())
+        def options = new ArrayList<OptionWithRelevanceDto>()
+        def optionDto = new OptionWithRelevanceDto(optionOK)
+        optionDto.setContent(OPTION_2_CONTENT)
+        options.add(optionDto)
+
+        optionDto = new OptionWithRelevanceDto(optionOK2)
+        options.add(optionDto)
+
+        optionDto = new OptionWithRelevanceDto(optionKO)
+        options.add(optionDto)
+
+        questionDto.getQuestionDetailsDto().setOptions(options)
+
+        when: 'the web service is invoked'
+        response = restClient.put(
+                path: '/questions/' + question.getId(),
+                body: JsonOutput.toJson(questionDto),
+                requestContentType: 'application/json'
+        )
+
+        then: "check the response status"
+        HttpResponseException e = thrown(HttpResponseException)
+        assert e.response.status == 403
+
+       }
 
     def cleanup() {
         courseRepository.delete(courseRepository.findById(externalCourse.id).get())
-
     }
-
 }
