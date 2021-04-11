@@ -10,6 +10,7 @@ import pt.ulisboa.tecnico.socialsoftware.tutor.SpockTest
 import pt.ulisboa.tecnico.socialsoftware.tutor.auth.domain.AuthUser
 import pt.ulisboa.tecnico.socialsoftware.tutor.execution.domain.CourseExecution
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.Course
+import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.ItemCombinationQuestion
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.Question
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.ItemCombinationQuestionDto
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.ItemDto
@@ -63,12 +64,12 @@ class CreateItemCombinationQuestionWS extends SpockTest {
         items.add(itemTwoDto)
         questionDto.getQuestionDetailsDto().setItems(items)
 
-        when: "it's created by a POST request"
+        when: "it's created by POST"
         def mapper = new ObjectMapper()
         response = restClient.post(path: "/courses/" + course.getId() + "/questions",
                 body: mapper.writeValueAsString(questionDto), requestContentType: "application/json")
 
-        then: "check the response status"
+        then: "check the response"
         response != null
         response.status == 200
 
@@ -90,14 +91,50 @@ class CreateItemCombinationQuestionWS extends SpockTest {
         questionDto.setQuestionDetailsDto(new ItemCombinationQuestionDto())
         //no items
 
-        when: "it's created by a POST request"
-        def mapper = new ObjectMapper()
+        when: "it's created by POST"
         response = restClient.post(path: "/courses/" + course.getId() + "/questions",
-                body: mapper.writeValueAsString(questionDto), requestContentType: "application/json")
+                body: "error", requestContentType: "application/json")
 
         then: "an exception is thrown"
         def exception = thrown(HttpResponseException)
         exception.response.status == HttpStatus.SC_BAD_REQUEST
+    }
+
+    def "create a question by a student"() {
+        given: "a questionDto"
+        def questionDto = new QuestionDto()
+        questionDto.setKey(1)
+        questionDto.setTitle(QUESTION_1_TITLE)
+        questionDto.setContent(QUESTION_1_CONTENT)
+        questionDto.setStatus(Question.Status.AVAILABLE.name())
+        questionDto.setQuestionDetailsDto(new ItemCombinationQuestionDto())
+
+        and: "two items"
+        def items = new ArrayList<ItemDto>()
+        def itemOneDto = new ItemDto()
+        itemOneDto.setContent(ITEM_1_CONTENT)
+        def itemTwoDto = new ItemDto()
+        itemTwoDto.setContent(ITEM_2_CONTENT)
+        items.add(itemOneDto)
+        items.add(itemTwoDto)
+        questionDto.getQuestionDetailsDto().setItems(items)
+
+        and: "a student"
+        def student = new User(USER_2_NAME, USER_2_EMAIL, USER_2_EMAIL,
+                User.Role.STUDENT, false, AuthUser.Type.TECNICO)
+        student.authUser.setPassword(passwordEncoder.encode(USER_2_PASSWORD))
+        student.addCourse(courseExecution)
+        courseExecution.addUser(student)
+        userRepository.save(student)
+        createdUserLogin(USER_2_EMAIL, USER_2_PASSWORD)
+
+        when: "creation is requested"
+        response = restClient.post(path: "/courses/" + course.getId() + "/questions",
+                body: "error", requestContentType: "application/json")
+
+        then: "an exception is thrown"
+        def exception = thrown(HttpResponseException)
+        exception.response.status== HttpStatus.SC_FORBIDDEN
     }
 
     def cleanup() {
