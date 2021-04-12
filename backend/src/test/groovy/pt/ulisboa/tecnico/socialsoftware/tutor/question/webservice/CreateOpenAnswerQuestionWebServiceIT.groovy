@@ -22,7 +22,6 @@ class CreateOpenAnswerQuestionWebServiceIT extends SpockTest {
 
     def response
     def user
-    def question
     def questionDto
     def course
     def courseExecution
@@ -49,15 +48,12 @@ class CreateOpenAnswerQuestionWebServiceIT extends SpockTest {
         createdUserLogin(USER_1_EMAIL, USER_1_PASSWORD)
 
         and: "a questionDto"
-        question = new QuestionDto()
-        question.setKey(1)
-        question.setTitle(QUESTION_1_TITLE)
-        question.setContent(QUESTION_1_CONTENT)
-        question.setStatus(Question.Status.AVAILABLE.name())
+        questionDto = new QuestionDto()
+        questionDto.setKey(1)
+        questionDto.setTitle(QUESTION_1_TITLE)
+        questionDto.setContent(QUESTION_1_CONTENT)
+        questionDto.setStatus(Question.Status.AVAILABLE.name())
         questionDto.setQuestionDetailsDto(new OpenAnswerQuestionDto())
-        question.setCourse(course)
-        question.getQuestionDetails().setCorrectAnswer(CORRECT_ANSWER)
-        questionRepository.save(question)
 
         when: "the service is invoked"
         def mapper = new ObjectMapper()
@@ -67,12 +63,22 @@ class CreateOpenAnswerQuestionWebServiceIT extends SpockTest {
         then: "check the response status"
         response != null
         response.status == 200
+
+        and: "if it responds with correct questionDto"
+        def question = response.data
+        question.id != null
+        question.title == questionDto.getTitle()
+        question.content == questionDto.getContent()
+        question.status == Question.Status.AVAILABLE.name()
+
+        cleanup:
+        userRepository.deleteById(user.getId())
     }
 
     def "create an open answer question by a student"() {
         given: "a student"
         user = new User(USER_1_NAME, USER_1_EMAIL, USER_1_EMAIL,
-                User.Role.STUDENT, false, AuthUser.Type.TECNICO)
+                        User.Role.STUDENT, false, AuthUser.Type.TECNICO)
         user.authUser.setPassword(passwordEncoder.encode(USER_1_PASSWORD))
         user.addCourse(courseExecution)
         courseExecution.addUser(user)
@@ -80,27 +86,27 @@ class CreateOpenAnswerQuestionWebServiceIT extends SpockTest {
         createdUserLogin(USER_1_EMAIL, USER_1_PASSWORD)
 
         and: "a questionDto"
-        question = new QuestionDto()
-        question.setKey(1)
-        question.setTitle(QUESTION_1_TITLE)
-        question.setContent(QUESTION_1_CONTENT)
-        question.setStatus(Question.Status.AVAILABLE.name())
+        questionDto = new QuestionDto()
+        questionDto.setKey(1)
+        questionDto.setTitle(QUESTION_1_TITLE)
+        questionDto.setContent(QUESTION_1_CONTENT)
+        questionDto.setStatus(Question.Status.AVAILABLE.name())
         questionDto.setQuestionDetailsDto(new OpenAnswerQuestionDto())
-        question.setCourse(course)
-        question.getQuestionDetails().setCorrectAnswer(CORRECT_ANSWER)
-        questionRepository.save(question)
 
         when: "creation is requested"
+        def mapper = new ObjectMapper()
         response = restClient.post(path: "/courses/" + course.getId() + "/questions",
-                body: "error", requestContentType: "application/json")
+                body: mapper.writeValueAsString(questionDto), requestContentType: "application/json")
 
         then: "an exception is thrown"
         def exception = thrown(HttpResponseException)
         exception.response.status== HttpStatus.SC_FORBIDDEN
+
+        cleanup:
+        userRepository.deleteById(user.getId())
     }
 
     def cleanup() {
-        userRepository.deleteById(user.getId())
         courseExecutionRepository.deleteById(courseExecution.getId())
         courseRepository.deleteById(course.getId())
     }
