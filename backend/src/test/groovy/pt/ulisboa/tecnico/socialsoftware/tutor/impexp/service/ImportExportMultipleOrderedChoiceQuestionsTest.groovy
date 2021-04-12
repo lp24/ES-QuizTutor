@@ -81,7 +81,7 @@ class ImportExportMultipleOrderedChoiceQuestionsTest extends SpockTest {
 
     def 'export to latex'() {
         expect:true
-       /* when:
+        /*when:
         def questionsLatex = questionService.exportQuestionsToLatex()
 
         then:
