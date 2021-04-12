@@ -124,6 +124,8 @@ class SpockTest extends Specification {
     public static final String ITEM_2_CONTENT = "Item 2 Content"
 
     public static final String CORRECT_ANSWER = "Correct Answer"
+    public static final String CORRECT_ANSWER_2 = "Correct Answer 2"
+
 
     public static final String ROLE_STUDENT = "ROLE_STUDENT"
     public static final String ROLE_TEACHER = "ROLE_TEACHER"
