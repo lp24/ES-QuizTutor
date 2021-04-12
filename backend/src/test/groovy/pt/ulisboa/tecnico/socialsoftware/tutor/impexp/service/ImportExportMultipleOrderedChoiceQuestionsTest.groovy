@@ -56,7 +56,7 @@ class ImportExportMultipleOrderedChoiceQuestionsTest extends SpockTest {
         print questionsXml
         //and: 'a clean database'
         //questionService.removeQuestion(questionId)
-        //TODO
+
         when:
         questionService.importQuestionsFromXml(questionsXml)
 
@@ -81,7 +81,7 @@ class ImportExportMultipleOrderedChoiceQuestionsTest extends SpockTest {
 
     def 'export to latex'() {
         expect:true
-       /* when:
+        /*when:
         def questionsLatex = questionService.exportQuestionsToLatex()
 
         then:

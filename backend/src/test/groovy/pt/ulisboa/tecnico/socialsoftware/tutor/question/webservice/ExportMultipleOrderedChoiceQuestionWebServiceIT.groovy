@@ -7,7 +7,6 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.web.server.LocalServerPort
 import pt.ulisboa.tecnico.socialsoftware.tutor.SpockTest
 import static pt.ulisboa.tecnico.socialsoftware.tutor.exceptions.ErrorMessage.ACCESS_DENIED
-import static pt.ulisboa.tecnico.socialsoftware.tutor.exceptions.ErrorMessage.QUESTIONS_EXPORT_ERROR;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class ExportMultipleOrderedChoiceQuestionWebServiceIT extends SpockTest{
@@ -22,7 +21,7 @@ class ExportMultipleOrderedChoiceQuestionWebServiceIT extends SpockTest{
     }
 
     def "a teacher exports questions"(){
-        given: 'a demon teacher'
+        given: 'a demo teacher'
         demoTeacherLogin()
         and: 'prepare request response'
         restClient.handler.failure = { resp, reader ->
@@ -44,7 +43,7 @@ class ExportMultipleOrderedChoiceQuestionWebServiceIT extends SpockTest{
     }
 
     def "a student exports questions"(){
-        given: 'a demon teacher'
+        given: 'a demo student'
         demoStudentLogin()
         and: 'prepare request response'
         restClient.handler.failure = { resp, reader ->

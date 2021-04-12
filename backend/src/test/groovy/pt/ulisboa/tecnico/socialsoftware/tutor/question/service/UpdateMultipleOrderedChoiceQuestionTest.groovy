@@ -102,7 +102,9 @@ class UpdateMultipleOrderedChoiceQuestionTest extends SpockTest {
         options.add(optionDto)
 
         optionDto = new OptionWithRelevanceDto(optionOK2)
+
         optionDto.setCorrect(true)
+
         optionDto.setRelevance(1)
         options.add(optionDto)
 
@@ -193,7 +195,7 @@ class UpdateMultipleOrderedChoiceQuestionTest extends SpockTest {
         quiz.setCourseExecution(externalCourseExecution)
         quizRepository.save(quiz)
 
-        QuizQuestion quizQuestion= new QuizQuestion()
+        QuizQuestion quizQuestion = new QuizQuestion()
         quizQuestion.setQuiz(quiz)
         quizQuestion.setQuestion(question)
         quizQuestionRepository.save(quizQuestion)
