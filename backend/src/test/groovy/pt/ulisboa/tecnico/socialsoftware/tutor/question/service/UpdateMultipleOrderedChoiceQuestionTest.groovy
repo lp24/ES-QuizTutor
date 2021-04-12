@@ -30,6 +30,7 @@ class UpdateMultipleOrderedChoiceQuestionTest extends SpockTest {
     def user
 
     def setup() {
+
         def externalCourseExecution = createExternalCourseAndExecution()
 
         user = new User(USER_1_NAME, USER_1_USERNAME, USER_1_EMAIL, User.Role.STUDENT, false, AuthUser.Type.TECNICO)
@@ -102,7 +103,6 @@ class UpdateMultipleOrderedChoiceQuestionTest extends SpockTest {
         optionDto = new OptionWithRelevanceDto(optionOK2)
 
         optionDto.setCorrect(true)
-
         optionDto.setRelevance(1)
         options.add(optionDto)
 
