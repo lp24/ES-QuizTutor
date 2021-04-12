@@ -3,16 +3,12 @@ package pt.ulisboa.tecnico.socialsoftware.tutor.question.webservice
 import groovy.json.JsonOutput
 import groovyx.net.http.HttpResponseException
 import groovyx.net.http.RESTClient
-import org.apache.http.HttpStatus
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.web.server.LocalServerPort
 import pt.ulisboa.tecnico.socialsoftware.tutor.SpockTest
-import pt.ulisboa.tecnico.socialsoftware.tutor.auth.domain.AuthUser
-import pt.ulisboa.tecnico.socialsoftware.tutor.execution.domain.CourseExecution
 import pt.ulisboa.tecnico.socialsoftware.tutor.execution.dto.CourseExecutionDto
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.*
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.*
-import pt.ulisboa.tecnico.socialsoftware.tutor.user.domain.User
 import pt.ulisboa.tecnico.socialsoftware.tutor.utils.DemoUtils
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -25,7 +21,6 @@ class UpdateMultipleOrderedChoiceQuestionWebServiceIT extends SpockTest {
     def optionOK
     def optionOK2
     def optionKO
-    def teacher
 
     def setup() {
         restClient = new RESTClient("http://localhost:" + port)
