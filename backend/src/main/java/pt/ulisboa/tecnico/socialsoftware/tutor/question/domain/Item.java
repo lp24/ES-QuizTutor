@@ -7,6 +7,8 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "items")
 public class Item implements DomainEntity {
 
     @Id
@@ -20,8 +22,7 @@ public class Item implements DomainEntity {
     @JoinColumn(name = "question_details_id")
     private ItemCombinationQuestion questionDetails;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "option", fetch = FetchType.LAZY, orphanRemoval = true)
-    private ArrayList<Integer> connections = new ArrayList<>();
+    private ArrayList<Item> connections = new ArrayList<>();
 
     public Item(Integer id, String content) {
         this.id = id;
@@ -36,7 +37,7 @@ public class Item implements DomainEntity {
         return content;
     }
 
-    public List<Integer> getConnections() {
+    public List<Item> getConnections() {
         return connections;
     }
 
@@ -48,8 +49,8 @@ public class Item implements DomainEntity {
         this.content = content;
     }
 
-    public void setConnections(List<Integer> connections) {
-        this.connections = (ArrayList<Integer>) connections;
+    public void setConnections(List<Item> connections) {
+        this.connections = (ArrayList<Item>) connections;
     }
 
     public ItemCombinationQuestion getQuestionDetails() {

@@ -195,7 +195,7 @@ class UpdateMultipleOrderedChoiceQuestionTest extends SpockTest {
         quiz.setCourseExecution(externalCourseExecution)
         quizRepository.save(quiz)
 
-        QuizQuestion quizQuestion= new QuizQuestion()
+        QuizQuestion quizQuestion = new QuizQuestion()
         quizQuestion.setQuiz(quiz)
         quizQuestion.setQuestion(question)
         quizQuestionRepository.save(quizQuestion)

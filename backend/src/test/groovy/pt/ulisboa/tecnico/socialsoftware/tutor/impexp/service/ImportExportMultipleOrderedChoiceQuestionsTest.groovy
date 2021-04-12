@@ -56,7 +56,7 @@ class ImportExportMultipleOrderedChoiceQuestionsTest extends SpockTest {
         print questionsXml
         //and: 'a clean database'
         //questionService.removeQuestion(questionId)
-        //TODO
+
         when:
         questionService.importQuestionsFromXml(questionsXml)
 
