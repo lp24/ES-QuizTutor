@@ -100,7 +100,9 @@ class UpdateMultipleOrderedChoiceQuestionTest extends SpockTest {
         options.add(optionDto)
 
         optionDto = new OptionWithRelevanceDto(optionOK2)
+
         optionDto.setCorrect(true)
+
         optionDto.setRelevance(1)
         options.add(optionDto)
 
