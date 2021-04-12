@@ -21,7 +21,7 @@ class ExportMultipleOrderedChoiceQuestionWebServiceIT extends SpockTest{
     }
 
     def "a teacher exports questions"(){
-        given: 'a demon teacher'
+        given: 'a demo teacher'
         demoTeacherLogin()
         and: 'prepare request response'
         restClient.handler.failure = { resp, reader ->
@@ -43,7 +43,7 @@ class ExportMultipleOrderedChoiceQuestionWebServiceIT extends SpockTest{
     }
 
     def "a student exports questions"(){
-        given: 'a demon teacher'
+        given: 'a demo student'
         demoStudentLogin()
         and: 'prepare request response'
         restClient.handler.failure = { resp, reader ->
