@@ -1,6 +1,5 @@
 package pt.ulisboa.tecnico.socialsoftware.tutor.question.webservice
 
-import groovyx.net.http.ContentEncoding
 import groovyx.net.http.RESTClient
 import groovyx.net.http.HttpResponseException
 import org.apache.http.HttpStatus

@@ -1,6 +1,5 @@
 package pt.ulisboa.tecnico.socialsoftware.tutor.question.webservice
 
-import groovyx.net.http.ContentEncoding
 import com.fasterxml.jackson.databind.ObjectMapper
 import groovyx.net.http.RESTClient
 import groovyx.net.http.HttpResponseException
@@ -11,7 +10,6 @@ import pt.ulisboa.tecnico.socialsoftware.tutor.SpockTest
 import pt.ulisboa.tecnico.socialsoftware.tutor.auth.domain.AuthUser
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.OpenAnswerQuestion
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.Question
-import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.OpenAnswerQuestionDto
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.QuestionDto;
 import pt.ulisboa.tecnico.socialsoftware.tutor.user.domain.User
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.Course
@@ -29,14 +27,6 @@ class UpdateOpenAnswerQuestionWebServiceIT extends SpockTest {
     def questionDto
     def course
     def courseExecution
-
-    /*
-    @PutMapping("/questions/{questionId}")
-    @PreAuthorize("hasRole('ROLE_TEACHER') and hasPermission(#questionId, 'QUESTION.ACCESS')")
-    public QuestionDto updateQuestion(@PathVariable Integer questionId, @Valid @RequestBody QuestionDto question) {
-        return this.questionService.updateQuestion(questionId, question);
-    }
-     */
 
     def setup() {
         given: 'a rest client'
@@ -97,7 +87,47 @@ class UpdateOpenAnswerQuestionWebServiceIT extends SpockTest {
     }
 
     def "student cant remove question"(){
-        expect: true
+        given: "a student"
+        user = new User(USER_1_NAME, USER_1_EMAIL, USER_1_EMAIL,
+                User.Role.STUDENT, false, AuthUser.Type.TECNICO)
+        user.authUser.setPassword(passwordEncoder.encode(USER_1_PASSWORD))
+        user.addCourse(courseExecution)
+        courseExecution.addUser(user)
+        userRepository.save(user)
+        createdUserLogin(USER_1_EMAIL, USER_1_PASSWORD)
+
+        and:"an open answer question"
+        question = new Question()
+        question.setKey(1)
+        question.setTitle(QUESTION_1_TITLE)
+        question.setContent(QUESTION_1_CONTENT)
+        question.setStatus(Question.Status.AVAILABLE)
+        question.setCourse(course)
+        question.setQuestionDetails(new OpenAnswerQuestion())
+        question.getQuestionDetails().setCorrectAnswer(CORRECT_ANSWER)
+        questionRepository.save(question)
+
+        and: "an updated question"
+        questionDto = new QuestionDto(question)
+        questionDto.setTitle(QUESTION_2_TITLE)
+        questionDto.setContent(QUESTION_2_CONTENT)
+        questionDto.getQuestionDetailsDto().setCorrectAnswer(CORRECT_ANSWER_2)
+
+        when: "the service is invoked"
+        def mapper = new ObjectMapper()
+        response = restClient.put(
+                path: "/questions/"+ question.getId(),
+                body: mapper.writeValueAsString(questionDto),
+                requestContentType: "application/json"
+        )
+
+        then: "an exception is thrown"
+        def exception = thrown(HttpResponseException)
+        exception.response.status== HttpStatus.SC_FORBIDDEN
+
+        cleanup:
+        userRepository.deleteById(user.getId())
+        questionRepository.deleteById(question.getId())
     }
 
     def cleanup() {
