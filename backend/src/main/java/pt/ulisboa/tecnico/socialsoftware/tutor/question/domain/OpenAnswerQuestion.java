@@ -16,6 +16,22 @@ import java.util.List;
 @DiscriminatorValue(Question.QuestionTypes.OPEN_ANSWER_QUESTION)
 public class OpenAnswerQuestion extends QuestionDetails {
 
+
+    private String _correctAnswer;
+
+    public String getCorrectAnswer() {
+        return _correctAnswer;
+    }
+
+    public void setCorrectAnswer(String correctAnswer) {
+        _correctAnswer = correctAnswer;
+    }
+
+    public OpenAnswerQuestion(Question question, OpenAnswerQuestionDto questionDto) {
+        super(question);
+        setCorrectAnswer(questionDto.getCorrectAnswer());
+    }
+
     public OpenAnswerQuestion( ) {super(); }
 
     public OpenAnswerQuestion(Question question){
@@ -47,12 +63,15 @@ public class OpenAnswerQuestion extends QuestionDetails {
 
     public AnswerDetailsDto getEmptyAnswerDetailsDto(){return null;}
 
-    public String getCorrectAnswerRepresentation(){return null;}
+    public String getCorrectAnswerRepresentation(){
+        String correctAnswer = getCorrectAnswer();
+        return correctAnswer != null && correctAnswer != "" ? correctAnswer : "-";
+    }
 
     public String getAnswerRepresentation(List<Integer> selectedIds){return null;}
 
     public void update(OpenAnswerQuestionDto questionDetails) {
-        /*dummy*/
+        setCorrectAnswer(questionDetails.getCorrectAnswer());
     }
 
 }

@@ -44,6 +44,7 @@ class UpdateOpenAnswerQuestionTest extends SpockTest {
         question.setImage(image)
         def questionDetails = new OpenAnswerQuestion()
         question.setQuestionDetails(questionDetails)
+        question.getQuestionDetails().setCorrectAnswer(CORRECT_ANSWER)
         questionDetailsRepository.save(questionDetails)
         questionRepository.save(question)
     }
@@ -53,7 +54,7 @@ class UpdateOpenAnswerQuestionTest extends SpockTest {
         def questionDto = new QuestionDto(question)
         questionDto.setTitle(QUESTION_2_TITLE)
         questionDto.setContent(QUESTION_2_CONTENT)
-        questionDto.setQuestionDetailsDto(new OpenAnswerQuestionDto())
+        questionDto.getQuestionDetailsDto().setCorrectAnswer(CORRECT_ANSWER_2)
 
         when:
         questionService.updateQuestion(question.getId(), questionDto)
@@ -64,6 +65,7 @@ class UpdateOpenAnswerQuestionTest extends SpockTest {
         result.getId() == question.getId()
         result.getTitle() == QUESTION_2_TITLE
         result.getContent() == QUESTION_2_CONTENT
+        result.getQuestionDetails().getCorrectAnswer() == CORRECT_ANSWER_2
         and: 'are not changed'
         result.getStatus() == Question.Status.AVAILABLE
         result.getNumberOfAnswers() == 2
