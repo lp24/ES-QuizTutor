@@ -12,7 +12,7 @@ import pt.ulisboa.tecnico.socialsoftware.tutor.auth.domain.AuthUser
 import pt.ulisboa.tecnico.socialsoftware.tutor.user.domain.User
 
 @DataJpaTest
-class UpdateItemCombinationTest extends SpockTest{
+class UpdateItemCombinationQuestionTest extends SpockTest{
     def question
     def user
     def items
@@ -64,7 +64,7 @@ class UpdateItemCombinationTest extends SpockTest{
         questionService.updateQuestion(question.getId(), question.getQuestionDto())
 
         then: "the question is changed"
-        questionRepository.count() == 2L
+        questionRepository.count() == 1L
         def result = questionRepository.findAll().get(1)
         result.getId() == question.getId()
         result.getTitle() == QUESTION_2_TITLE
@@ -77,9 +77,11 @@ class UpdateItemCombinationTest extends SpockTest{
 
         def item1 = result.getQuestionDetails().getItems().get(0)
         def item2 = result.getQuestionDetails().getItems().get(1)
-        item1.getConnections() == "CONTENT3"
-        item2.getConnections() == "CONTENT4"
+        item1.getConnections() == "CONTENT4"
+        item2.getConnections() == "CONTENT3"
     }
+
+    // TODO Missing unsuccessful tests
 
     @TestConfiguration
     static class LocalBeanConfiguration extends BeanConfiguration {}
