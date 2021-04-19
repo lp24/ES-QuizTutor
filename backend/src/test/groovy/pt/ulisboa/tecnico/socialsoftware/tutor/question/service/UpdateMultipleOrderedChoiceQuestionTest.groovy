@@ -191,8 +191,8 @@ class UpdateMultipleOrderedChoiceQuestionTest extends SpockTest {
 
     def "update correct option in a question with answers"() {
         expect:true
+      
        /* given: "a question with answers"
-
         Quiz quiz = new Quiz()
         quiz.setKey(1)
         quiz.setType(Quiz.QuizType.GENERATED.toString())

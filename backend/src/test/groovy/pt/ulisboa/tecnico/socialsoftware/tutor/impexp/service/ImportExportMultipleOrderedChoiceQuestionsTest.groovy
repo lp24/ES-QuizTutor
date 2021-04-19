@@ -91,7 +91,6 @@ class ImportExportMultipleOrderedChoiceQuestionsTest extends SpockTest {
     def 'failed to export and import questions to xml'(){
         expect:true
        /* given: 'a xml with questions'
-
         def questionsXml = questionService.exportQuestionsToXml()
         questionsXml == null
 
