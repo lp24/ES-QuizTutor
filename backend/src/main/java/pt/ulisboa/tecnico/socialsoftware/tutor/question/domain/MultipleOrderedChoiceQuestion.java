@@ -133,7 +133,7 @@ public class MultipleOrderedChoiceQuestion extends QuestionDetails {
                 .filter(OptionWithRelevance::isCorrect)
                 .findAny().orElseThrow(() -> new TutorException(NO_CORRECT_OPTION))
                 .getSequence();
-    } //TODO
+    }
 
     @Override
     public void delete() {

@@ -45,7 +45,7 @@ class ImportExportMultipleOrderedChoiceQuestionsTest extends SpockTest {
         options.add(optionDto)
         questionDto.getQuestionDetailsDto().setOptions(options)
 
-        //questionId = questionService.createQuestion(externalCourse.getId(), questionDto).getId()
+       // questionId = questionService.createQuestion(externalCourse.getId(), questionDto).getId()
 
     }
 
@@ -56,7 +56,7 @@ class ImportExportMultipleOrderedChoiceQuestionsTest extends SpockTest {
         print questionsXml
         //and: 'a clean database'
         //questionService.removeQuestion(questionId)
-        //TODO
+
         when:
         questionService.importQuestionsFromXml(questionsXml)
 
@@ -90,7 +90,8 @@ class ImportExportMultipleOrderedChoiceQuestionsTest extends SpockTest {
 
     def 'failed to export and import questions to xml'(){
         expect:true
-        /*given: 'a xml with questions'
+       /* given: 'a xml with questions'
+
         def questionsXml = questionService.exportQuestionsToXml()
         questionsXml == null
 

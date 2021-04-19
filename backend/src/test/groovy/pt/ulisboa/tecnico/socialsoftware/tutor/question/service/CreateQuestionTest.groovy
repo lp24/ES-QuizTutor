@@ -4,6 +4,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.boot.test.context.TestConfiguration
 import pt.ulisboa.tecnico.socialsoftware.tutor.BeanConfiguration
 import pt.ulisboa.tecnico.socialsoftware.tutor.SpockTest
+import pt.ulisboa.tecnico.socialsoftware.tutor.answer.domain.CodeOrderAnswer
 import pt.ulisboa.tecnico.socialsoftware.tutor.exceptions.TutorException
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.CodeFillInQuestion
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.CodeOrderQuestion
@@ -28,6 +29,7 @@ class CreateQuestionTest extends SpockTest {
         questionDto.setContent(QUESTION_1_CONTENT)
         questionDto.setStatus(Question.Status.AVAILABLE.name())
         questionDto.setQuestionDetailsDto(new OpenAnswerQuestionDto())
+        questionDto.getQuestionDetailsDto().setCorrectAnswer(CORRECT_ANSWER)
 
         when:
         questionService.createQuestion(externalCourse.getId(), questionDto)
@@ -41,6 +43,7 @@ class CreateQuestionTest extends SpockTest {
         result.getTitle() == QUESTION_1_TITLE
         result.getContent() == QUESTION_1_CONTENT
         result.getImage() == null
+        result.getQuestionDetails().getCorrectAnswer()== CORRECT_ANSWER
     }
 
     def "create an open answer question with an image"() {
@@ -51,6 +54,7 @@ class CreateQuestionTest extends SpockTest {
         questionDto.setContent(QUESTION_1_CONTENT)
         questionDto.setStatus(Question.Status.AVAILABLE.name())
         questionDto.setQuestionDetailsDto(new OpenAnswerQuestionDto())
+        questionDto.getQuestionDetailsDto().setCorrectAnswer(CORRECT_ANSWER);
 
         and: 'an image'
         def image = new ImageDto()
@@ -72,6 +76,7 @@ class CreateQuestionTest extends SpockTest {
         result.getImage().getId() != null
         result.getImage().getUrl() == IMAGE_1_URL
         result.getImage().getWidth() == 20
+        result.getQuestionDetails().getCorrectAnswer() == CORRECT_ANSWER
     }
 
     def "create a multiple choice question with no image and one option"() {
@@ -579,6 +584,7 @@ class CreateQuestionTest extends SpockTest {
         result2.getQuestionDetails().getOptions().size() >= 2
         def exception = thrown(TutorException)
         exception.getErrorMessage() == ErrorMessage.NO_CORRECT_OPTION*/
+
         expect: true
     }
 
@@ -594,6 +600,7 @@ class CreateQuestionTest extends SpockTest {
         where:
         nonExistentId << [-1, 0, 200]
     }
+
 
     @TestConfiguration
     static class LocalBeanConfiguration extends BeanConfiguration {}

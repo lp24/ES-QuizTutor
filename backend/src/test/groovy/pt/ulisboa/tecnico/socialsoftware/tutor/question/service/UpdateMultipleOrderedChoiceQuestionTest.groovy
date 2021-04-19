@@ -85,6 +85,8 @@ class UpdateMultipleOrderedChoiceQuestionTest extends SpockTest {
     }
 
     def "update a question"() {
+        expect:true
+
         /*given: "a changed question"
         def questionDto = new QuestionDto(question)
         questionDto.setTitle(QUESTION_2_TITLE)
@@ -142,11 +144,12 @@ class UpdateMultipleOrderedChoiceQuestionTest extends SpockTest {
         def resOptionThree = result.getQuestionDetails().getOptions().stream().filter({ option -> option.getId() == optionKO.getId()}).findAny().orElse(null)
         resOptionThree.getContent() == OPTION_2_CONTENT
         resOptionThree.isCorrect()*/
-        expect:true
     }
 
     def "update question with missing data"() {
-       /* given: 'a question'
+        expect:true
+      /*  given: 'a question'
+
         def questionDto = new QuestionDto(question)
         questionDto.setTitle('     ')
 
@@ -156,10 +159,11 @@ class UpdateMultipleOrderedChoiceQuestionTest extends SpockTest {
         then: "the question an exception is thrown"
         def exception = thrown(TutorException)
         exception.getErrorMessage() == ErrorMessage.INVALID_TITLE_FOR_QUESTION*/
-        expect:true
     }
 
     def "update question with two options false"() {
+        expect:true
+
         /*given: 'a question'
         def questionDto = new QuestionDto(question)
         questionDto.setQuestionDetailsDto(new MultipleOrderedChoiceQuestionDto())
@@ -183,18 +187,19 @@ class UpdateMultipleOrderedChoiceQuestionTest extends SpockTest {
         then: "the question an exception is thrown"
         def exception = thrown(TutorException)
         exception.getErrorMessage() == ErrorMessage.AT_LEAST_ONE_CORRECT_OPTION_NEEDED*/
-        expect:true
     }
 
     def "update correct option in a question with answers"() {
-        /*given: "a question with answers"
+        expect:true
+       /* given: "a question with answers"
+
         Quiz quiz = new Quiz()
         quiz.setKey(1)
         quiz.setType(Quiz.QuizType.GENERATED.toString())
         quiz.setCourseExecution(externalCourseExecution)
         quizRepository.save(quiz)
 
-        QuizQuestion quizQuestion= new QuizQuestion()
+        QuizQuestion quizQuestion = new QuizQuestion()
         quizQuestion.setQuiz(quiz)
         quizQuestion.setQuestion(question)
         quizQuestionRepository.save(quizQuestion)
@@ -251,7 +256,11 @@ class UpdateMultipleOrderedChoiceQuestionTest extends SpockTest {
         then: "the question an exception is thrown"
         def exception = thrown(TutorException)
         exception.getErrorMessage() == ErrorMessage.CANNOT_CHANGE_ANSWERED_QUESTION*/
-        expect:true
+    }
+
+    def "update question by removing option"(){
+        expect: true
+
     }
 
     @TestConfiguration
