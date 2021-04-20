@@ -19,7 +19,8 @@ class ExportMultipleOrderedChoiceQuestionWebServiceIT extends SpockTest{
         and: 'the demo course execution'
         courseExecutionDto = courseService.getDemoCourse()
     }
-
+    
+    // You must create the questions you want to export
     def "a teacher exports questions"(){
         given: 'a demo teacher'
         demoTeacherLogin()
@@ -61,5 +62,8 @@ class ExportMultipleOrderedChoiceQuestionWebServiceIT extends SpockTest{
 
         then: "the request returns nothing"
         response.data == null
+        // Missing status validation = 403
     }
+    
+    // Missing more access control tests (such as teacher without permission)
 }

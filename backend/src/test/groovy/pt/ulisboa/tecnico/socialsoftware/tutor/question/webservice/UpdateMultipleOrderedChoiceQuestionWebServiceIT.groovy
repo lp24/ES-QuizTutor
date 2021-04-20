@@ -111,6 +111,7 @@ class UpdateMultipleOrderedChoiceQuestionWebServiceIT extends SpockTest {
          question.title == questionDto.getTitle()
          question.content == questionDto.getContent()
          question.numberOfCorrect == questionDto.getNumberOfCorrect()*/
+         // I'll have to evaluate the tets case for sucess with 0
     }
 
     def "demo student updates a multiple ordered choice question"() {
@@ -152,6 +153,8 @@ class UpdateMultipleOrderedChoiceQuestionWebServiceIT extends SpockTest {
         assert e.response.status == 403
 
        }
+       
+       // Missing more access control tests (such as teacher without permission)
 
     def cleanup() {
         courseRepository.delete(courseRepository.findById(externalCourse.id).get())

@@ -83,6 +83,9 @@ class CreateMultipleOrderedChoiceQuestionWebServiceIT extends SpockTest {
         question.title == questionDto.getTitle()
         question.content == questionDto.getContent()
         question.status == Question.Status.AVAILABLE.name()
+        // Must validate the PEM specific attributes (options with relevance)
+        
+        // Missing database validation (questions = 1, at least)
 
     }
 
@@ -104,9 +107,12 @@ class CreateMultipleOrderedChoiceQuestionWebServiceIT extends SpockTest {
         error.response.status == HttpStatus.SC_FORBIDDEN
 
     }
+    
+    // Missing more access control tests (such as teacher without permission)
 
     def cleanup(){
         // Nothing to Clean manually
+        // What about the question you just created?
     }
 
 }

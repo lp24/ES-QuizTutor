@@ -89,6 +89,8 @@ class RemoveMultipleOrderedChoiceQuestionWebServiceIT extends SpockTest{
         def error = thrown(HttpResponseException)
         error.response.status == HttpStatus.SC_FORBIDDEN
     }
+    
+    // Missing more access control tests (such as teacher without permission)
 
      def cleanup(){
          courseExecutionRepository.deleteById(courseExecution.getId())
