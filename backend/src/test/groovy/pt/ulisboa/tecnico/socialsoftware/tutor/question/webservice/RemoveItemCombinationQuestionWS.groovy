@@ -98,6 +98,8 @@ class RemoveItemCombinationQuestionWS extends SpockTest {
         and: "the question was not removed from the database"
         questionRepository.findAll().size()==1
     }
+    
+    // Missing more access control tests (such as teacher without permission)
 
     def cleanup() {
         userRepository.deleteById(user.getId())

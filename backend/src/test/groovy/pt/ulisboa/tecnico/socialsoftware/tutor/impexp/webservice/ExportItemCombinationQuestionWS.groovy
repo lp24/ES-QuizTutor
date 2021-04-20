@@ -96,6 +96,8 @@ class ExportItemCombinationQuestionWS extends SpockTest {
         def exception = thrown(HttpResponseException)
         exception.response.status== HttpStatus.SC_FORBIDDEN
     }
+    
+    // Missing more access control tests (such as teacher without permission)
 
     def cleanup() {
         userRepository.deleteById(user.getId())

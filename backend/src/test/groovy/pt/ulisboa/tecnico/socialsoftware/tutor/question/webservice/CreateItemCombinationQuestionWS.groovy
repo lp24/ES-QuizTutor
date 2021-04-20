@@ -45,7 +45,7 @@ class CreateItemCombinationQuestionWS extends SpockTest {
         createdUserLogin(USER_1_EMAIL, USER_1_PASSWORD)
     }
 
-    def "create an item combination question with two items and one connection"() {
+    def "create an item combination question with two items and one connection"() { //where is the connection?
         given: "a questionDto"
         def questionDto = new QuestionDto()
         questionDto.setKey(1)
@@ -79,6 +79,8 @@ class CreateItemCombinationQuestionWS extends SpockTest {
         question.title == questionDto.getTitle()
         question.content == questionDto.getContent()
         question.status == Question.Status.AVAILABLE.name()
+        // Must validate the PCI specific attributes (items)
+        // Missing database validation (questions = 1, at least)
     }
 
     def "create item combination question with invalid data"() {
@@ -136,6 +138,8 @@ class CreateItemCombinationQuestionWS extends SpockTest {
         def exception = thrown(HttpResponseException)
         exception.response.status== HttpStatus.SC_FORBIDDEN
     }
+    
+    // Missing more access control tests (such as teacher without permission)
 
     def cleanup() {
         userRepository.deleteById(teacher.getId())

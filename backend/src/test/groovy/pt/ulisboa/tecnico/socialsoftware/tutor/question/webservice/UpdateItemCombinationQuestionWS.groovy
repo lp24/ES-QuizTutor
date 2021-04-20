@@ -84,6 +84,7 @@ class UpdateItemCombinationQuestionWS extends SpockTest {
         items.add(itemTwoDto)
         questionDto.getQuestionDetailsDto().setItems(items)
 
+        // You are not updating a question, you are creating a new one. You need to change the path and the setup
         when: "it's created by a POST request"
         def mapper = new ObjectMapper()
         response = restClient.post(path: "/courses/" + course.getId() + "/questions",
@@ -99,6 +100,7 @@ class UpdateItemCombinationQuestionWS extends SpockTest {
         question.title == questionDto.getTitle()
         question.content == questionDto.getContent()
         question.status == Question.Status.AVAILABLE.name()
+        // Must validate the PCI specific attributes (items)
     }
 
     def "update an item combination question with with two items and one connection with a student"() {
@@ -137,6 +139,8 @@ class UpdateItemCombinationQuestionWS extends SpockTest {
         def exception = thrown(HttpResponseException)
         exception.response.status == HttpStatus.SC_BAD_REQUEST
     }
+    
+    // Missing more access control tests (such as teacher without permission)
 
     def cleanup() {
         userRepository.deleteById(teacher.getId())
