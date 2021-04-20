@@ -129,6 +129,8 @@ class UpdateOpenAnswerQuestionWebServiceIT extends SpockTest {
         userRepository.deleteById(user.getId())
         questionRepository.deleteById(question.getId())
     }
+    
+    // Missing more access control tests (such as teacher without permission)
 
     def cleanup() {
         courseExecutionRepository.deleteById(courseExecution.getId())

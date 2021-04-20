@@ -54,6 +54,7 @@ class CreateOpenAnswerQuestionWebServiceIT extends SpockTest {
         questionDto.setContent(QUESTION_1_CONTENT)
         questionDto.setStatus(Question.Status.AVAILABLE.name())
         questionDto.setQuestionDetailsDto(new OpenAnswerQuestionDto())
+        // Must include the open answer specific attributes (correct answer)
 
         when: "the service is invoked"
         def mapper = new ObjectMapper()
@@ -70,6 +71,8 @@ class CreateOpenAnswerQuestionWebServiceIT extends SpockTest {
         question.title == questionDto.getTitle()
         question.content == questionDto.getContent()
         question.status == Question.Status.AVAILABLE.name()
+        // Must validate the open answer specific attributes (correct answer)
+        // Missing database validation (questions = 1, at least)
 
         cleanup:
         userRepository.deleteById(user.getId())
@@ -105,6 +108,8 @@ class CreateOpenAnswerQuestionWebServiceIT extends SpockTest {
         cleanup:
         userRepository.deleteById(user.getId())
     }
+    
+    // Missing more access control tests (such as teacher without permission)
 
     def cleanup() {
         courseExecutionRepository.deleteById(courseExecution.getId())
