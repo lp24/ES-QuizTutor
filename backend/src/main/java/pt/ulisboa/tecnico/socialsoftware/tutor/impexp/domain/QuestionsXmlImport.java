@@ -1,5 +1,6 @@
 package pt.ulisboa.tecnico.socialsoftware.tutor.impexp.domain;
 
+import org.aspectj.apache.bcel.classfile.Module;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
@@ -147,7 +148,7 @@ public class QuestionsXmlImport {
             case Question.QuestionTypes.ITEM_COMBINATION_QUESTION:
                 questionDetailsDto = importItemCombinationQuestion(questionElement);
             case Question.QuestionTypes.OPEN_ANSWER_QUESTION:
-                                questionDetailsDto = importOpenAnswerQuestion();
+                questionDetailsDto = importOpenAnswerQuestion(questionElement);
                 break;
             default:
 
@@ -244,8 +245,10 @@ public class QuestionsXmlImport {
         return questionDto;
     }
 
-    private QuestionDetailsDto importOpenAnswerQuestion() {
-        return new OpenAnswerQuestionDto();
+    private QuestionDetailsDto importOpenAnswerQuestion(Element questionElement) {
+        OpenAnswerQuestionDto questionDto = new OpenAnswerQuestionDto();
+        questionDto.setCorrectAnswer(questionElement.getAttributeValue("correctAnswer"));
+        return questionDto;
     }
 
 }
