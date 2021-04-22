@@ -23,13 +23,13 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
 import { convertMarkDown } from '@/services/ConvertMarkdownService';
 import Question from '@/models/management/Question';
 import Image from '@/models/management/Image';
-import MultipleChoiceQuestionDetails from '@/models/management/questions/MultipleChoiceQuestionDetails';
-import MultipleChoiceAnswerDetails from '@/models/management/questions/MultipleChoiceAnswerDetails';
+import MultipleOrderedChoiceQuestionDetails from '@/models/management/questions/MultipleOrderedChoiceQuestionDetails';
+import MultipleOrderedChoiceAnswerDetails from '@/models/management/questions/MultipleOrderedChoiceAnswerDetails';
 
 @Component
-export default class MultipleChoiceView extends Vue {
-  @Prop() readonly questionDetails!: MultipleChoiceQuestionDetails;
-  @Prop() readonly answerDetails?: MultipleChoiceAnswerDetails;
+export default class MultipleOrderedChoiceView extends Vue {
+  @Prop() readonly questionDetails!: MultipleOrderedChoiceQuestionDetails;
+  @Prop() readonly answerDetails?: MultipleOrderedChoiceAnswerDetails;
 
   studentAnswered(option: number) {
     return this.answerDetails && this.answerDetails?.option.id === option
