@@ -106,7 +106,8 @@ describe('Manage Multiple Ordered Choice Questions Walk-through', () => {
       'Cypress Question Example - Content - 01'
     );
   });
-//TODO
+
+  // abrir pergunta com o botao do olho. TODO
   it.only('Can view question (with button)', function () {
     cy.get('tbody tr')
       .first()
@@ -115,13 +116,14 @@ describe('Manage Multiple Ordered Choice Questions Walk-through', () => {
       });
 
     validateQuestion(
-      'Cypress Question Example - 01',
-      'Cypress Question Example - Content - 01'
+      'Cypress PEM Question Example - 01',
+      'Cypress PEM Question Example - Content - 01'
     );
 
     cy.get('button').contains('close').click();
   });
-//TODO
+
+  //abrir pergunta com left-click em cima do texto/titulo da pergunta. TODO
   it.skip('Can view question (with click)', function () {
     cy.get('[data-cy="questionTitleGrid"]').first().click();
 

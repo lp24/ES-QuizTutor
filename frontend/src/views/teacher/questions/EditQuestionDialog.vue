@@ -86,15 +86,13 @@ import MultipleOrderedChoiceCreate from '@/components/multiple-ordered-choice/Mu
 import CodeFillInCreate from '@/components/code-fill-in/CodeFillInCreate.vue';
 import CodeOrderCreate from '@/components/code-order/CodeOrderCreate.vue';
 import { QuestionTypes, QuestionFactory } from '@/services/QuestionHelpers';
-import MultipleOrderedChoiceCreate from "@/components/multiple-ordered-choice/MultipleOrderedChoiceCreate.vue";
 
 @Component({
   components: {
     multiple_choice: MultipleChoiceCreate,
     multiple_ordered_choice: MultipleOrderedChoiceCreate,
     code_fill_in: CodeFillInCreate,
-    code_order: CodeOrderCreate,
-    multiple_ordered_choice: MultipleOrderedChoiceCreate
+    code_order: CodeOrderCreate
   },
 })
 export default class EditQuestionDialog extends Vue {
