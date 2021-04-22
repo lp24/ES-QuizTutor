@@ -256,6 +256,7 @@ class UpdateMultipleOrderedChoiceQuestionTest extends SpockTest {
 
     def "update question by removing option"(){
         expect: true
+
     }
 
     @TestConfiguration
