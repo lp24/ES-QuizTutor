@@ -3,7 +3,7 @@ import MultipleChoiceQuestionDetails from '@/models/management/questions/Multipl
 import MultipleChoiceAnswerDetails from '@/models/management/questions/MultipleChoiceAnswerDetails';
 import CodeFillInQuestionDetails from '@/models/management/questions/CodeFillInQuestionDetails';
 import CodeFillInAnswerDetails from '@/models/management/questions/CodeFillInAnswerDetails';
-
+import ItemCombinationQuestionDetails from '@/models/management/questions/ItemCombinationQuestionDetails';
 import AnswerDetails from '@/models/management/questions/AnswerDetails';
 import StatementQuestionDetails from '@/models/statement/questions/StatementQuestionDetails';
 import MultipleChoiceStatementQuestionDetails from '@/models/statement/questions/MultipleChoiceStatementQuestionDetails';
@@ -21,6 +21,7 @@ import CodeOrderStatementAnswerDetails from '@/models/statement/questions/CodeOr
 import CodeOrderStatementCorrectAnswerDetails from '@/models/statement/questions/CodeOrderStatementCorrectAnswerDetails';
 
 export enum QuestionTypes {
+  ItemCombination = 'item_combination_question'
   MultipleChoice = 'multiple_choice',
   CodeFillIn = 'code_fill_in',
   CodeOrder = 'code_order',
@@ -37,6 +38,8 @@ export function convertToLetter(number: number | null) {
 export abstract class QuestionFactory {
   static getFactory(type: string): QuestionFactory {
     switch (type) {
+      case QuestionTypes.ItemCombination:
+        return new ItemCombinationQuestionFactory();
       case QuestionTypes.MultipleChoice:
         return new MultipleChoiceQuestionFactory();
       case QuestionTypes.CodeFillIn:
@@ -126,5 +129,27 @@ class CodeOrderQuestionFactory extends QuestionFactory {
     details: any
   ): StatementCorrectAnswerDetails {
     return new CodeOrderStatementCorrectAnswerDetails(details);
+  }
+
+class ItemCombinationQuestionFactory extends QuestionFactory {
+  createEmptyQuestionDetails(): QuestionDetails {
+    return new ItemCombinationQuestionDetails();
+  }
+  createQuestionDetails(details: any): QuestionDetails {
+    return new ItemCombinationQuestionDetails(details);
+  }
+  createAnswerDetails(details: any): AnswerDetails {
+    return new ItemCombinationAnswerDetails(details);
+  }
+  createStatementQuestionDetails(details: any): StatementQuestionDetails {
+    return new ItemCombinationStatementQuestionDetails(details);
+  }
+  createStatementAnswerDetails(details: any): StatementAnswerDetails {
+    return new ItemCombinationStatementAnswerDetails(details);
+  }
+  createStatementCorrectAnswerDetails(
+    details: any
+  ): StatementCorrectAnswerDetails {
+    return new ItemCombinationStatementCorrectAnswerDetails(details);
   }
 }
