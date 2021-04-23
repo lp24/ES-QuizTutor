@@ -3,7 +3,7 @@ import QuestionDetails from '@/models/management/questions/QuestionDetails';
 import { QuestionTypes } from '@/services/QuestionHelpers';
 
 export default class ItemCombinationQuestionDetails extends QuestionDetails {
-  items: Item[] = [];
+  items: Item[] = [new Item(), new Item(), new Item(), new Item()]
 
   constructor(jsonObj?: ItemCombinationQuestionDetails) {
     super(QuestionTypes.ItemCombination);

@@ -84,6 +84,7 @@ import RemoteServices from '@/services/RemoteServices';
 import MultipleChoiceCreate from '@/components/multiple-choice/MultipleChoiceCreate.vue';
 import CodeFillInCreate from '@/components/code-fill-in/CodeFillInCreate.vue';
 import CodeOrderCreate from '@/components/code-order/CodeOrderCreate.vue';
+import ItemCombinationCreate from '@/components/item-combination/ItemCombinationCreate.vue';
 import { QuestionTypes, QuestionFactory } from '@/services/QuestionHelpers';
 
 @Component({
@@ -91,6 +92,7 @@ import { QuestionTypes, QuestionFactory } from '@/services/QuestionHelpers';
     multiple_choice: MultipleChoiceCreate,
     code_fill_in: CodeFillInCreate,
     code_order: CodeOrderCreate,
+    item_combination_question: ItemCombinationCreate,
   },
 })
 export default class EditQuestionDialog extends Vue {

@@ -3,7 +3,7 @@ import MultipleChoiceQuestionDetails from '@/models/management/questions/Multipl
 import MultipleChoiceAnswerDetails from '@/models/management/questions/MultipleChoiceAnswerDetails';
 import CodeFillInQuestionDetails from '@/models/management/questions/CodeFillInQuestionDetails';
 import CodeFillInAnswerDetails from '@/models/management/questions/CodeFillInAnswerDetails';
-import ItemCombinationQuestionDetails from '@/models/management/questions/ItemCombinationQuestionDetails';
+
 import AnswerDetails from '@/models/management/questions/AnswerDetails';
 import StatementQuestionDetails from '@/models/statement/questions/StatementQuestionDetails';
 import MultipleChoiceStatementQuestionDetails from '@/models/statement/questions/MultipleChoiceStatementQuestionDetails';
@@ -19,10 +19,14 @@ import CodeOrderAnswerDetails from '@/models/management/questions/CodeOrderAnswe
 import CodeOrderStatementQuestionDetails from '@/models/statement/questions/CodeOrderStatementQuestionDetails';
 import CodeOrderStatementAnswerDetails from '@/models/statement/questions/CodeOrderStatementAnswerDetails';
 import CodeOrderStatementCorrectAnswerDetails from '@/models/statement/questions/CodeOrderStatementCorrectAnswerDetails';
-
+import ItemCombinationQuestionDetails from '@/models/management/questions/ItemCombinationQuestionDetails';
+import ItemCombinationAnswerDetails from '@/models/management/questions/ItemCombinationAnswerDetails';
+import ItemCombinationStatementQuestionDetails from '@/models/statement/questions/ItemCombinationStatementQuestionDetails';
+import ItemCombinationStatementAnswerDetails from '@/models/statement/questions/ItemCombinationStatementAnswerDetails';
+import ItemCombinationStatementCorrectAnswerDetails from '@/models/statement/questions/ItemCombinationStatementCorrectAnswerDetails';
 
 export enum QuestionTypes {
-  ItemCombination = 'item_combination_question'
+  ItemCombination = 'item_combination_question',
   MultipleChoice = 'multiple_choice',
   CodeFillIn = 'code_fill_in',
   CodeOrder = 'code_order',
@@ -131,6 +135,7 @@ class CodeOrderQuestionFactory extends QuestionFactory {
   ): StatementCorrectAnswerDetails {
     return new CodeOrderStatementCorrectAnswerDetails(details);
   }
+ }
 
 class ItemCombinationQuestionFactory extends QuestionFactory {
   createEmptyQuestionDetails(): QuestionDetails {
@@ -154,3 +159,4 @@ class ItemCombinationQuestionFactory extends QuestionFactory {
     return new ItemCombinationStatementCorrectAnswerDetails(details);
   }
 }
+
