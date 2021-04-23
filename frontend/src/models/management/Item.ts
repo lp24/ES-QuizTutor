@@ -7,6 +7,10 @@ export default class Item {
       this.id = jsonObj.id;
       this.content = jsonObj.content;
         }
-      );
+      };
+
+      setAsNew(): void {
+          this.id = null;
+        }
  }
- }
+

@@ -20,6 +20,7 @@ import CodeOrderStatementQuestionDetails from '@/models/statement/questions/Code
 import CodeOrderStatementAnswerDetails from '@/models/statement/questions/CodeOrderStatementAnswerDetails';
 import CodeOrderStatementCorrectAnswerDetails from '@/models/statement/questions/CodeOrderStatementCorrectAnswerDetails';
 
+
 export enum QuestionTypes {
   ItemCombination = 'item_combination_question'
   MultipleChoice = 'multiple_choice',
