@@ -17,9 +17,7 @@ class CreateItemCombinationQuestionTest extends SpockTest {
     }
 
     def "create an item combination question with no items"() {
-        expect: true
-        /**
-        given: "a questionDto"
+        /*given: "a questionDto"
         def questionDto = new QuestionDto()
         questionDto.setKey(1)
         questionDto.setTitle(QUESTION_1_TITLE)
@@ -32,14 +30,12 @@ class CreateItemCombinationQuestionTest extends SpockTest {
 
         then: "exception is thrown"
         def exception = thrown(TutorException)
-        exception.getErrorMessage() == ErrorMessage.NOT_ENOUGH_ITEMS
-         **/
+        exception.getErrorMessage() == ErrorMessage.NOT_ENOUGH_ITEMS*/
+        expect: true
     }
 
     def "create an item combination question with only one item"() {
-        expect: true
-        /**
-        given: "a questionDto"
+        /*given: "a questionDto"
         def questionDto = new QuestionDto()
         questionDto.setKey(1)
         questionDto.setTitle(QUESTION_1_TITLE)
@@ -59,8 +55,8 @@ class CreateItemCombinationQuestionTest extends SpockTest {
 
         then: "exception is thrown"
         def exception = thrown(TutorException)
-        exception.getErrorMessage() == ErrorMessage.NOT_ENOUGH_ITEMS
-         **/
+        exception.getErrorMessage() == ErrorMessage.NOT_ENOUGH_ITEMS*/
+        expect: true
     }
 
     def "create an item combination question with two items and no connections"() {

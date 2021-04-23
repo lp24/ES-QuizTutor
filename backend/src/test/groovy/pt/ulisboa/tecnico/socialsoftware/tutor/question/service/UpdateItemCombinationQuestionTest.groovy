@@ -12,7 +12,7 @@ import pt.ulisboa.tecnico.socialsoftware.tutor.auth.domain.AuthUser
 import pt.ulisboa.tecnico.socialsoftware.tutor.user.domain.User
 
 @DataJpaTest
-class UpdateItemCombinationQuestionTest extends SpockTest{
+class UpdateItemCombinationQuestionTest extends SpockTest {
     def question
     def user
     def items
@@ -48,9 +48,7 @@ class UpdateItemCombinationQuestionTest extends SpockTest{
     }
 
     def "update an item combination question"() {
-        expect: true
-        /**
-        given: "an updated question"
+        /*given: "an updated question"
         question.setTitle(QUESTION_2_TITLE)
         question.setContent(QUESTION_2_CONTENT)
         question.setQuestionDetailsDto(new ItemCombinationQuestionDto())
@@ -80,8 +78,8 @@ class UpdateItemCombinationQuestionTest extends SpockTest{
         def item1 = result.getQuestionDetails().getItems().get(0)
         def item2 = result.getQuestionDetails().getItems().get(1)
         item1.getConnections() == "CONTENT4"
-        item2.getConnections() == "CONTENT3"
-         **/
+        item2.getConnections() == "CONTENT3"*/
+        expect: true
     }
 
     // TODO Missing unsuccessful tests
