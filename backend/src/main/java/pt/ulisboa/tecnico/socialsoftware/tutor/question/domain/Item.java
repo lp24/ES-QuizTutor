@@ -2,6 +2,7 @@ package pt.ulisboa.tecnico.socialsoftware.tutor.question.domain;
 
 import pt.ulisboa.tecnico.socialsoftware.tutor.impexp.domain.DomainEntity;
 import pt.ulisboa.tecnico.socialsoftware.tutor.impexp.domain.Visitor;
+import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.ItemDto;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -22,11 +23,16 @@ public class Item implements DomainEntity {
     @JoinColumn(name = "question_details_id")
     private ItemCombinationQuestion questionDetails;
 
-    private ArrayList<Item> connections = new ArrayList<>();
+    private ArrayList<Integer> connections = new ArrayList<>();
 
     public Item(Integer id, String content) {
         this.id = id;
         this.content = content;
+    }
+
+    public Item(ItemDto item) {
+        setContent(item.getContent());
+        setConnections(item.getConnections());
     }
 
     public Integer getId() {
@@ -37,7 +43,7 @@ public class Item implements DomainEntity {
         return content;
     }
 
-    public List<Item> getConnections() {
+    public List<Integer> getConnections() {
         return connections;
     }
 
@@ -49,8 +55,25 @@ public class Item implements DomainEntity {
         this.content = content;
     }
 
-    public void setConnections(List<Item> connections) {
-        this.connections = (ArrayList<Item>) connections;
+    public void setConnections(List<Integer> connections) {
+        this.connections = (ArrayList<Integer>) connections;
+    }
+
+    public void addConnection(int itemId) {
+        this.connections.add(itemId);
+    }
+
+    public void remove() {
+        this.questionDetails = null;
+    }
+
+    public boolean checkConnection(int connection) {
+        for (int element : this.connections) {
+            if (element == connection) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public ItemCombinationQuestion getQuestionDetails() {
