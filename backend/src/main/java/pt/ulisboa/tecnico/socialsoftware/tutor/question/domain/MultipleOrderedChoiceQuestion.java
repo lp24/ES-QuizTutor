@@ -34,7 +34,7 @@ public class MultipleOrderedChoiceQuestion extends QuestionDetails {
         return options;
     }
 
-    public void setOptions(List<OptionWithRelevanceDto> options) {
+    /* public void setOptions(List<OptionWithRelevanceDto> options) {
 
         int index = 0;
         for (OptionWithRelevanceDto optionWithRelevanceDto : options) {
@@ -52,7 +52,38 @@ public class MultipleOrderedChoiceQuestion extends QuestionDetails {
                 option.setCorrect(optionWithRelevanceDto.isCorrect());
             }
         }
-    }
+    } */
+
+    public void setOptions(List<OptionWithRelevanceDto> optionWithRelevanceDtos) {
+
+           if (optionWithRelevanceDtos.stream().filter(OptionWithRelevanceDto::isCorrect).count() < 2) {
+                       throw new TutorException(AT_LEAST_TWO_CORRECT_OPTIONS_NEEDED);
+           }
+
+           for (OptionWithRelevanceDto optionWithRelevanceDto: optionWithRelevanceDtos) {
+                if(optionWithRelevanceDto.isCorrect()) {
+                    if(optionWithRelevanceDto.getRelevance()<=0) {
+                        throw new TutorException(RELEVANCE_FOR_CORRECT_OPTIONS_NEEDED);
+                    }
+                }
+                else{
+                    if(optionWithRelevanceDto.getRelevance()!=0) {
+                          throw new TutorException(RELEVANCE_FOR_WRONG_OPTIONS_NOT_NEEDED);
+                    }
+                }
+           } //TODO
+
+           for (OptionWithRelevance optionWithRelevance: this.options) {
+               optionWithRelevance.remove();
+           }
+           this.options.clear();
+
+           int index = 0;
+           for (OptionWithRelevanceDto optionWithRelevanceDto : optionWithRelevanceDtos) {
+               optionWithRelevanceDto.setSequence(index++);
+               new OptionWithRelevance(optionWithRelevanceDto).setQuestionDetails(this);
+           }
+        }
 
     public void addOption(OptionWithRelevance option) {
         options.add(option);
