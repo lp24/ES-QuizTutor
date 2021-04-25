@@ -21,8 +21,7 @@ import java.util.List;
 @DiscriminatorValue(Question.QuestionTypes.ITEM_COMBINATION_QUESTION)
 public class ItemCombinationQuestion extends QuestionDetails {
 
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "questionDetails", fetch = FetchType.EAGER)
-    private final ArrayList<Item> items = new ArrayList<>();
+    private ArrayList<Item> items = new ArrayList<>();
 
     public ItemCombinationQuestion() {
     }
