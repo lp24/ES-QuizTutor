@@ -50,7 +50,7 @@ public class OptionWithRelevance implements DomainEntity {
         setSequence(option.getSequence());
         setContent(option.getContent());
         setCorrect(option.isCorrect());
-     //   setRelevance(option.setRelevance());
+        setRelevance(option.getRelevance());
     }
 
     @Override
