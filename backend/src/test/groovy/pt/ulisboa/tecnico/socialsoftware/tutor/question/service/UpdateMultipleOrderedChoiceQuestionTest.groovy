@@ -86,7 +86,6 @@ class UpdateMultipleOrderedChoiceQuestionTest extends SpockTest {
 
     def "update a question"() {
         expect:true
-
         /*given: "a changed question"
         def questionDto = new QuestionDto(question)
         questionDto.setTitle(QUESTION_2_TITLE)
@@ -149,7 +148,6 @@ class UpdateMultipleOrderedChoiceQuestionTest extends SpockTest {
     def "update question with missing data"() {
         expect:true
       /*  given: 'a question'
-
         def questionDto = new QuestionDto(question)
         questionDto.setTitle('     ')
 
@@ -163,7 +161,6 @@ class UpdateMultipleOrderedChoiceQuestionTest extends SpockTest {
 
     def "update question with two options false"() {
         expect:true
-
         /*given: 'a question'
         def questionDto = new QuestionDto(question)
         questionDto.setQuestionDetailsDto(new MultipleOrderedChoiceQuestionDto())
@@ -192,7 +189,6 @@ class UpdateMultipleOrderedChoiceQuestionTest extends SpockTest {
     def "update correct option in a question with answers"() {
         expect:true
        /* given: "a question with answers"
-
         Quiz quiz = new Quiz()
         quiz.setKey(1)
         quiz.setType(Quiz.QuizType.GENERATED.toString())
