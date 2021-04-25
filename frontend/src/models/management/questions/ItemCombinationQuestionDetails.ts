@@ -17,9 +17,7 @@ export default class ItemCombinationQuestionDetails extends QuestionDetails {
     }
 
      setAsNew(): void {
-         this.items.forEach((item) => {
-           item.setAsNew();
-         });
+         return;
        }
      }
 

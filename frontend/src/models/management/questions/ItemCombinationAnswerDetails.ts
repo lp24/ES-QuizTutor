@@ -1,3 +1,4 @@
+import Association from '@/models/management/Association';
 import AnswerDetails from '@/models/management/questions/AnswerDetails';
 import { QuestionTypes } from '@/services/QuestionHelpers';
 import ItemCombinationQuestionDetails from '@/models/management/questions/ItemCombinationQuestionDetails';
@@ -21,6 +22,6 @@ export default class ItemCombinationAnswerType extends AnswerDetails {
 
   answerRepresentation(questionDetails: ItemCombinationQuestionDetails): string {
     //TODO
-    return this.associations;
+    return "string";
   }
 }

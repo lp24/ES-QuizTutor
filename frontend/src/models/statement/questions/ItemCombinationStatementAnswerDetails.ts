@@ -7,12 +7,12 @@ export default class ItemCombinationStatementAnswerDetails extends StatementAnsw
   constructor(jsonObj?: ItemCombinationStatementAnswerDetails) {
     super(QuestionTypes.ItemCombination);
     if (jsonObj) {
-      this.connectedItems = jsonObj.connectedItems || [];
+
     }
   }
 
   isQuestionAnswered(): boolean {
-    return this.selectedAnswer != null && this.selectedAnswer.length > 0;
+    return false;
   }
 
   isAnswerCorrect(): boolean {
