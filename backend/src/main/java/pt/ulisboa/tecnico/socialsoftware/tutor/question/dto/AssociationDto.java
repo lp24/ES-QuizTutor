@@ -1,25 +1,22 @@
 package pt.ulisboa.tecnico.socialsoftware.tutor.question.dto;
 
-import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.Item;
-
 import java.io.Serializable;
-import javax.persistence.*;
 
 public class AssociationDto implements Serializable {
 
-    private Item itemOne;
-    private Item itemTwo;
+    private Integer itemOne;
+    private Integer itemTwo;
 
     public AssociationDto() {}
 
-    public AssociationDto(Item itemOne, Item itemTwo) {
+    public AssociationDto(Integer itemOne, Integer itemTwo) {
         this.itemOne = itemOne;
         this.itemTwo = itemTwo;
     }
 
-    public Item getItemOne() {return itemOne;}
+    public Integer getItemOne() {return itemOne;}
 
-    public Item getItemTwo() {return itemTwo;}
+    public Integer getItemTwo() {return itemTwo;}
 
     @Override
     public String toString() {

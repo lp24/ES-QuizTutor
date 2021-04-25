@@ -1,6 +1,7 @@
 package pt.ulisboa.tecnico.socialsoftware.tutor.question.dto;
 
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.Item;
+import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.Association;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -8,7 +9,7 @@ import java.util.List;
 
 public class ItemDto implements Serializable {
     private Integer id;
-    private ArrayList<Integer> connections = new ArrayList<>();
+    private ArrayList<AssociationDto> connections = new ArrayList<>();
     private String content;
 
     public ItemDto() { }
@@ -24,15 +25,19 @@ public class ItemDto implements Serializable {
     }
 
     public void addConnection(Integer id) {
-        connections.add(id);
+        connections.add(new AssociationDto(this.id, id));
     }
 
     public void setContent(String content) {
         this.content = content;
     }
 
-    public void setConnections(List<Integer> connections) {
-        this.connections = (ArrayList<Integer>) connections;
+    public void setConnections(List<Association> associations) {
+        if (associations != null) {
+            for (Association connection : associations) {
+                addConnection(connection.getItemTwo());
+            }
+        }
     }
 
     public Integer getId() {
@@ -43,13 +48,13 @@ public class ItemDto implements Serializable {
         return content;
     }
 
-    public List<Integer> getConnections() {
+    public List<AssociationDto> getConnections() {
         return connections;
     }
 
-    public boolean checkConnection(int connection) {
-        for (int element : this.connections) {
-            if (element == connection) {
+    public boolean checkConnection(AssociationDto connection) {
+        for (AssociationDto association : this.connections) {
+            if (association == connection) {
                 return true;
             }
         }

@@ -3,6 +3,7 @@ package pt.ulisboa.tecnico.socialsoftware.tutor.question.domain;
 import pt.ulisboa.tecnico.socialsoftware.tutor.impexp.domain.DomainEntity;
 import pt.ulisboa.tecnico.socialsoftware.tutor.impexp.domain.Visitor;
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.ItemDto;
+import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.AssociationDto;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class Item implements DomainEntity {
     @JoinColumn(name = "question_details_id")
     private ItemCombinationQuestion questionDetails;
 
-    private ArrayList<Integer> connections = new ArrayList<>();
+    private ArrayList<Association> connections = new ArrayList<>();
 
     public Item(Integer id, String content) {
         this.id = id;
@@ -43,7 +44,7 @@ public class Item implements DomainEntity {
         return content;
     }
 
-    public List<Integer> getConnections() {
+    public List<Association> getConnections() {
         return connections;
     }
 
@@ -51,25 +52,38 @@ public class Item implements DomainEntity {
         this.id = id;
     }
 
+    public void setAsLeft() {
+        this.id = this.id % 100;
+    }
+
+    public void setAsRight() {
+        if (this.id % 100 == this.id)
+            this.id = this.id + 100;
+    }
+
     public void setContent(String content) {
         this.content = content;
     }
 
-    public void setConnections(List<Integer> connections) {
-        this.connections = (ArrayList<Integer>) connections;
+    public void setConnections(List<AssociationDto> associations) {
+        if (associations != null) {
+            for (AssociationDto connection : associations) {
+                addConnection(connection.getItemTwo());
+            }
+        }
     }
 
     public void addConnection(int itemId) {
-        this.connections.add(itemId);
+        this.connections.add(new Association(this.id, itemId));
     }
 
     public void remove() {
         this.questionDetails = null;
     }
 
-    public boolean checkConnection(int connection) {
-        for (int element : this.connections) {
-            if (element == connection) {
+    public boolean checkConnection(Association connection) {
+        for (Association association : this.connections) {
+            if (association == connection) {
                 return true;
             }
         }

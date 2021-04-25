@@ -13,15 +13,16 @@ import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.QuestionDetailsDto;
 
 import static pt.ulisboa.tecnico.socialsoftware.tutor.exceptions.ErrorMessage.*;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @DiscriminatorValue(Question.QuestionTypes.ITEM_COMBINATION_QUESTION)
 public class ItemCombinationQuestion extends QuestionDetails {
-    private ArrayList<Item> items = new ArrayList<>();
+
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "questionDetails", fetch = FetchType.EAGER)
+    private final ArrayList<Item> items = new ArrayList<>();
 
     public ItemCombinationQuestion() {
     }

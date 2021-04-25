@@ -5,10 +5,10 @@ import pt.ulisboa.tecnico.socialsoftware.tutor.impexp.domain.Visitor;
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.AssociationDto;
 
 public class Association implements DomainEntity {
-    private Item itemOne;
-    private Item itemTwo;
+    private Integer itemOne;
+    private Integer itemTwo;
 
-    public Association(Item itemOne, Item itemTwo) {
+    public Association(Integer itemOne, Integer itemTwo) {
         this.itemOne = itemOne;
         this.itemTwo = itemTwo;
     }
@@ -18,11 +18,11 @@ public class Association implements DomainEntity {
         this.itemTwo = association.getItemTwo();
     }
 
-    public Item getItemOne() {
+    public Integer getItemOne() {
         return itemOne;
     }
 
-    public Item getItemTwo() {
+    public Integer getItemTwo() {
         return itemTwo;
     }
 
