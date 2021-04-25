@@ -81,9 +81,9 @@ public class Item implements DomainEntity {
         this.questionDetails = null;
     }
 
-    public boolean checkConnection(Association connection) {
+    public boolean checkConnection(int connection) {
         for (Association association : this.connections) {
-            if (association == connection) {
+            if (association.getItemTwo() == connection) {
                 return true;
             }
         }

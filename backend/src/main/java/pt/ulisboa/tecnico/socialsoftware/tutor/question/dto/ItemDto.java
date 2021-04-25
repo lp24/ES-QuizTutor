@@ -52,9 +52,9 @@ public class ItemDto implements Serializable {
         return connections;
     }
 
-    public boolean checkConnection(AssociationDto connection) {
+    public boolean checkConnection(int connection) {
         for (AssociationDto association : this.connections) {
-            if (association == connection) {
+            if (association.getItemTwo() == connection) {
                 return true;
             }
         }
