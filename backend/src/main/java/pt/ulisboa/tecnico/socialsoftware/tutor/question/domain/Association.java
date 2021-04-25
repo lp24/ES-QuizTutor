@@ -7,6 +7,8 @@ import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.AssociationDto;
 public class Association implements DomainEntity {
     private Integer itemOne;
     private Integer itemTwo;
+	
+	public Association() {}
 
     public Association(Integer itemOne, Integer itemTwo) {
         this.itemOne = itemOne;
