@@ -69,17 +69,20 @@ describe('Manage Multiple Ordered Choice Questions Walk-through', () => {
 
     cy.get('span.headline').should('contain', 'New Question');
 
+    //TODO: escolher o tipo de questao PEM
+    cy.get('[data-cy="questionTypeInput"]')
+        .type('multiple_ordered_choice', { force: true })
+        .click({ force: true });
+    cy.wait(1000);
+
     cy.get(
       '[data-cy="questionTitleTextArea"]'
-    ).type('Cypress Question Example - 01', { force: true });
+    ).type('Cypress PEM Question Example - 01', { force: true });
     cy.get(
       '[data-cy="questionQuestionTextArea"]'
-    ).type('Cypress Question Example - Content - 01', { force: true });
+    ).type('Cypress PEM Question Example - Content - 01', { force: true });
 
-    /* data-cy="questionOptionsInput" esta no MultipleChoiceCreate.vue.
-       Se calhar é melhor mudar "questionOptionsInput" para outro nome no MultipleOrderedChoiceCreate.vue?
-       TODO
-    */
+    // NAO ALTERAR data-cy="questionOptionsInput" no MOCQCreate.vue. Mesmo q esta igual no MultipleChoiceCreate.vue.
     cy.get('[data-cy="questionOptionsInput"')
       .should('have.length', 4)
       .each(($el, index, $list) => {
@@ -99,16 +102,16 @@ describe('Manage Multiple Ordered Choice Questions Walk-through', () => {
 
     cy.get('[data-cy="questionTitleGrid"]')
       .first()
-      .should('contain', 'Cypress Question Example - 01');
+      .should('contain', 'Cypress PEM Question Example - 01');
 
     validateQuestionFull(
-      'Cypress Question Example - 01',
-      'Cypress Question Example - Content - 01'
+      'Cypress PEM Question Example - 01',
+      'Cypress PEM Question Example - Content - 01'
     );
   });
 
-  // abrir pergunta com o botao do olho. TODO
-  it('Can view a multiple ordered choice question (with button)', function () {
+  // TODO: abrir pergunta com o botao do olho.
+  it.skip('Can view a multiple ordered choice question (with button)', function () {
     cy.get('tbody tr')
       .first()
       .within(($list) => {
@@ -123,8 +126,8 @@ describe('Manage Multiple Ordered Choice Questions Walk-through', () => {
     cy.get('button').contains('close').click();
   });
 
-  //abrir pergunta com left-click em cima do texto/titulo da pergunta. TODO
-  it('Can view a multiple ordered choice question (with click)', function () {
+  //TODO: abrir pergunta com left-click em cima do texto/titulo da pergunta.
+  it.skip('Can view a multiple ordered choice question (with click)', function () {
     cy.get('[data-cy="questionTitleGrid"]').first().click();
 
     validateQuestion(
@@ -234,7 +237,7 @@ describe('Manage Multiple Ordered Choice Questions Walk-through', () => {
 
     cy.get('[data-cy="questionTitleGrid"]')
       .first()
-      .should('contain', 'Cypress Question Example - 01 - Edited - DUP');
+      .should('contain', 'Cypress PEM Question Example - 01 - Edited - DUP');
 
     validateQuestionFull(
       'Cypress PEM Question Example - 01 - Edited - DUP',
@@ -264,9 +267,9 @@ describe('Manage Multiple Ordered Choice Questions Walk-through', () => {
 
     cy.get(
       '[data-cy="questionTitleTextArea"]'
-    ).type('Cypress Question Example - 01 (2 Options)', { force: true });
+    ).type('Cypress PEM Question Example - 01 (2 Options)', { force: true });
     cy.get('[data-cy="questionQuestionTextArea"]').type(
-      'Cypress Question Example - Content - 01 (2 Options)',
+      'Cypress PEM Question Example - Content - 01 (2 Options)',
       {
         force: true,
       }
@@ -289,11 +292,11 @@ describe('Manage Multiple Ordered Choice Questions Walk-through', () => {
 
     cy.get('[data-cy="questionTitleGrid"]')
       .first()
-      .should('contain', 'Cypress Question Example - 01');
+      .should('contain', 'Cypress PEM Question Example - 01');
 
     validateQuestionFull(
-      'Cypress Question Example - 01 (2 Options)',
-      'Cypress Question Example - Content - 01 (2 Options)',
+      'Cypress PEM Question Example - 01 (2 Options)',
+      'Cypress PEM Question Example - Content - 01 (2 Options)',
       'Option2 ',
       0
     );
@@ -312,7 +315,7 @@ describe('Manage Multiple Ordered Choice Questions Walk-through', () => {
       '[data-cy="questionTitleTextArea"]'
     ).type('Cypress PEM Question Example - 01 (10 Options)', { force: true });
     cy.get('[data-cy="questionQuestionTextArea"]').type(
-      'Cypress Question Example - Content - 01 (10 Options)',
+      'Cypress PEM Question Example - Content - 01 (10 Options)',
       {
         force: true,
       }

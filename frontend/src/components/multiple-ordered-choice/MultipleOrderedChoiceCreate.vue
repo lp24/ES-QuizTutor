@@ -7,7 +7,7 @@
     <v-row
         v-for="(option, index) in sQuestionDetails.options"
         :key="index"
-        data-cy="questionOrderedOptionsInput"
+        data-cy="questionOptionsInput"
     >
       <v-col cols="9">
         <v-textarea
@@ -68,10 +68,9 @@
 
 <script lang="ts">
 import { Component, Model, PropSync, Vue, Watch } from 'vue-property-decorator';
-import MultipleChoiceQuestionDetails from '@/models/management/questions/MultipleChoiceQuestionDetails';
-import Option from '@/models/management/Option';
 import OptionWithRelevance from '@/models/management/OptionWithRelevance';
 import MultipleOrderedChoiceQuestionDetails from '@/models/management/questions/MultipleOrderedChoiceQuestionDetails';
+
 @Component
 export default class MultipleOrderedChoiceCreate extends Vue {
   @PropSync('questionDetails', { type: MultipleOrderedChoiceQuestionDetails })
