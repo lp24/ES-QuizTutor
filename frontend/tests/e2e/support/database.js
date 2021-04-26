@@ -131,7 +131,6 @@ Cypress.Commands.add('cleanMultipleChoiceQuestionsByName', (questionName) => {
 });
 
 
-//os nomes das tabelas estam nas anotacoes JPA do backend
 Cypress.Commands.add('cleanMultipleOrderedChoiceQuestionsByName', questionName => {
   dbCommand(`WITH toDelete AS (SELECT qt.id as question_id FROM questions qt JOIN question_details qd ON qd.question_id = qt.id and qd.question_type='multiple_ordered_choice' where title like '%${questionName}%')
                   , opt AS (DELETE FROM option_with_relevance WHERE question_details_id IN (SELECT qd.id FROM toDelete JOIN question_details qd on qd.question_id = toDelete.question_id)) 
