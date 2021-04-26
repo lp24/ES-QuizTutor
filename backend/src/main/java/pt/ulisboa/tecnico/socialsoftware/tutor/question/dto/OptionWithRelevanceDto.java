@@ -8,7 +8,7 @@ import java.io.Serializable;
 import static pt.ulisboa.tecnico.socialsoftware.tutor.exceptions.ErrorMessage.INVALID_SEQUENCE_FOR_OPTION;
 
 public class OptionWithRelevanceDto implements Serializable {
-    private Integer relevance;
+    private Integer relevance = 0;
     private Integer id;
     private Integer sequence;
     private boolean correct;
