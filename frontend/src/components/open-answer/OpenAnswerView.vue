@@ -1,25 +1,22 @@
 <template>
-  <div id="ViewOpenAnswerAnswer">
-    <BaseCodeEditor
-      ref="myCmView"
-      :code.sync="questionDetails.code"
-      :language.sync="questionDetails.language"
-      :editable="false"
-    />
-  </div>
+  <v-card-text class="text-left">
+    <div v-html="convertMarkDown(studentAnswered())" />
+  </v-card-text>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
 import { convertMarkDown } from '@/services/ConvertMarkdownService';
-import Image from '@/models/management/Image';
-import OpenAnswerQuestionDetails from '@/models/management/questions/OpenAnswerQuestionDetails';
+import { Component, Vue, Prop } from 'vue-property-decorator';
 import OpenAnswerAnswerDetails from '@/models/management/questions/OpenAnswerAnswerDetails';
+import Image from '@/models/management/Image';
 
 @Component
 export default class OpenAnswerView extends Vue {
-  @Prop() readonly questionDetails!: OpenAnswerQuestionDetails;
   @Prop() readonly answerDetails?: OpenAnswerAnswerDetails;
+
+  studentAnswered() {
+    return this.answerDetails?.answer;
+  }
 
   convertMarkDown(text: string, image: Image | null = null): string {
     return convertMarkDown(text, image);

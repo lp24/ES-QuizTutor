@@ -13,7 +13,7 @@ export default class OpenAnswerAnswerType extends AnswerDetails {
   }
 
   isCorrect(questionDetails: OpenAnswerQuestionDetails): boolean {
-    return false;
+    return true;
   }
 
   answerRepresentation(questionDetails: OpenAnswerQuestionDetails): string {
