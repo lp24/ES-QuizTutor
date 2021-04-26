@@ -7,15 +7,15 @@
 <script lang="ts">
 import { convertMarkDown } from '@/services/ConvertMarkdownService';
 import { Component, Vue, Prop } from 'vue-property-decorator';
-import OpenAnswerAnswerDetails from '@/models/management/questions/OpenAnswerAnswerDetails';
+import OpenAnswerQuestionDetails from '@/models/management/questions/OpenAnswerQuestionDetails';
 import Image from '@/models/management/Image';
 
 @Component
 export default class OpenAnswerView extends Vue {
-  @Prop() readonly answerDetails?: OpenAnswerAnswerDetails;
+  @Prop() readonly questionDetails?: OpenAnswerQuestionDetails;
 
   studentAnswered() {
-    return this.answerDetails?.answer;
+    return this.questionDetails?.correctAnswer;
   }
 
   convertMarkDown(text: string, image: Image | null = null): string {

@@ -16,6 +16,6 @@ export default class OpenAnswerStatementAnswerDetails extends StatementAnswerDet
   }
 
   isAnswerCorrect(): boolean {
-    return true;
+    return false;
   }
 }

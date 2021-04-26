@@ -1,12 +1,12 @@
 <template>
   <div class="open-answer-answer">
-    <v-row data-cy="questionAnswer">
+    <v-row>
       <v-col>
         <v-textarea
-          :label="`Answer`"
-          :data-cy="`Answer`"
+          v-model="sQuestionDetails.correctAnswer"
+          label="Answer"
+          data-cy="Answer"
           rows="4"
-          auto-grow
         ></v-textarea>
       </v-col>
     </v-row>
