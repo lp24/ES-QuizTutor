@@ -1,18 +1,24 @@
 package pt.ulisboa.tecnico.socialsoftware.tutor.question.dto;
 
-import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.Item;
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.ItemCombinationQuestion;
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.Question;
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.QuestionDetails;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ItemCombinationQuestionDto extends QuestionDetailsDto {
-    private ArrayList<ItemDto> items = new ArrayList<>();
+    private List<ItemDto> items = new ArrayList<>();
+
+    public ItemCombinationQuestionDto() { }
+
+    public ItemCombinationQuestionDto(ItemCombinationQuestion question) {
+        this.items = question.getItems().stream().map(ItemDto::new).collect(Collectors.toList());
+    }
 
     public void setItems(List<ItemDto> items) {
-        this.items = (ArrayList<ItemDto>) items;
+        this.items = items;
     }
 
     public List<ItemDto> getItems() {

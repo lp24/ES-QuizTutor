@@ -5,17 +5,17 @@
       <v-col cols="2"> Relevance </v-col>
     </v-row>
     <v-row
-        v-for="(option, index) in sQuestionDetails.options"
-        :key="index"
-        data-cy="questionOptionsInput"
+      v-for="(option, index) in sQuestionDetails.options"
+      :key="index"
+      data-cy="questionOrderedOptionsInput"
     >
       <v-col cols="9">
         <v-textarea
-            v-model="option.content"
-            :label="`OptionWithRelevance ${index + 1}`"
-            :data-cy="`OptionWithRelevance${index + 1}`"
-            rows="1"
-            auto-grow
+          v-model="option.content"
+          :label="`OptionWithRelevance ${index + 1}`"
+          :data-cy="`OptionWithRelevance${index + 1}`"
+          rows="1"
+          auto-grow
         ></v-textarea>
       </v-col>
       <v-col cols="1">
@@ -33,6 +33,7 @@
         <v-text-field
           v-model="option.relevance"
           :data-cy="`Relevanc${index + 1}`"
+
         ></v-text-field>
       </v-col>
       <v-col v-if="sQuestionDetails.options.length > 2">
@@ -53,7 +54,7 @@
       </v-col>
     </v-row>
 
-<!--  OptionWith Relevance-->
+    <!--  OptionWith Relevance-->
 
     <v-row>
       <v-btn
