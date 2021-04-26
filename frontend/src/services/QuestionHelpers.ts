@@ -1,15 +1,20 @@
 import QuestionDetails from '@/models/management/questions/QuestionDetails';
 import MultipleChoiceQuestionDetails from '@/models/management/questions/MultipleChoiceQuestionDetails';
 import MultipleChoiceAnswerDetails from '@/models/management/questions/MultipleChoiceAnswerDetails';
+import MultipleOrderedChoiceQuestionDetails from '@/models/management/questions/MultipleOrderedChoiceQuestionDetails';
+import MultipleOrderedChoiceAnswerDetails from '@/models/management/questions/MultipleOrderedChoiceAnswerDetails';
 import CodeFillInQuestionDetails from '@/models/management/questions/CodeFillInQuestionDetails';
 import CodeFillInAnswerDetails from '@/models/management/questions/CodeFillInAnswerDetails';
 
 import AnswerDetails from '@/models/management/questions/AnswerDetails';
 import StatementQuestionDetails from '@/models/statement/questions/StatementQuestionDetails';
 import MultipleChoiceStatementQuestionDetails from '@/models/statement/questions/MultipleChoiceStatementQuestionDetails';
+import MultipleOrderedChoiceStatementQuestionDetails from '@/models/statement/questions/MultipleOrderedChoiceStatementQuestionDetails';
 import StatementAnswerDetails from '@/models/statement/questions/StatementAnswerDetails';
 import MultipleChoiceStatementCorrectAnswerDetails from '@/models/statement/questions/MultipleChoiceStatementCorrectAnswerDetails';
+import MultipleOrderedChoiceStatementCorrectAnswerDetails from '@/models/statement/questions/MultipleOrderedChoiceStatementCorrectAnswerDetails';
 import MultipleChoiceStatementAnswerDetails from '@/models/statement/questions/MultipleChoiceStatementAnswerDetails';
+import MultipleOrderedChoiceStatementAnswerDetails from '@/models/statement/questions/MultipleOrderedChoiceStatementAnswerDetails';
 import StatementCorrectAnswerDetails from '@/models/statement/questions/StatementCorrectAnswerDetails';
 import CodeFillInStatementQuestionDetails from '@/models/statement/questions/CodeFillInStatementQuestionDetails';
 import CodeFillInStatementAnswerDetails from '@/models/statement/questions/CodeFillInStatementAnswerDetails';
@@ -27,6 +32,7 @@ import OpenAnswerStatementCorrectAnswerDetails from '@/models/statement/question
 
 export enum QuestionTypes {
   MultipleChoice = 'multiple_choice',
+  MultipleOrderedChoice = 'multiple_ordered_choice',
   CodeFillIn = 'code_fill_in',
   CodeOrder = 'code_order',
   OpenAnswer = 'open_answer',
@@ -45,6 +51,8 @@ export abstract class QuestionFactory {
     switch (type) {
       case QuestionTypes.MultipleChoice:
         return new MultipleChoiceQuestionFactory();
+      case QuestionTypes.MultipleOrderedChoice:
+        return new MultipleOrderedChoiceQuestionFactory();
       case QuestionTypes.CodeFillIn:
         return new CodeFillInQuestionFactory();
       case QuestionTypes.CodeOrder:
@@ -88,6 +96,29 @@ class MultipleChoiceQuestionFactory extends QuestionFactory {
     details: any
   ): StatementCorrectAnswerDetails {
     return new MultipleChoiceStatementCorrectAnswerDetails(details);
+  }
+}
+
+class MultipleOrderedChoiceQuestionFactory extends QuestionFactory {
+  createEmptyQuestionDetails(): QuestionDetails {
+    return new MultipleOrderedChoiceQuestionDetails();
+  }
+  createQuestionDetails(details: any): QuestionDetails {
+    return new MultipleOrderedChoiceQuestionDetails(details);
+  }
+  createAnswerDetails(details: any): AnswerDetails {
+    return new MultipleOrderedChoiceAnswerDetails(details);
+  }
+  createStatementQuestionDetails(details: any): StatementQuestionDetails {
+    return new MultipleOrderedChoiceStatementQuestionDetails(details);
+  }
+  createStatementAnswerDetails(details: any): StatementAnswerDetails {
+    return new MultipleOrderedChoiceStatementAnswerDetails(details);
+  }
+  createStatementCorrectAnswerDetails(
+    details: any
+  ): StatementCorrectAnswerDetails {
+    return new MultipleOrderedChoiceStatementCorrectAnswerDetails(details);
   }
 }
 
