@@ -429,7 +429,6 @@ Cypress.Commands.add(
         cy.get('[data-cy="managementMenuButton"]').click();
         cy.get('[data-cy="questionsTeacherMenuButton"]').click();
         cy.get('[data-cy="newQuestionButton"]').click();
-        // escolhe o tipo de questao pem
         cy.get('[data-cy="questionTypeInput"]')
             .type('multiple_ordered_choice', { force: true })
             .click({ force: true });
@@ -559,4 +558,15 @@ Cypress.Commands.add('deleteQuestion', (questionTitle) => {
     .should('have.length', 10)
     .find('[data-cy="deleteQuestionButton"]')
     .click();
+});
+
+Cypress.Commands.add('deleteLastQuestion',() => {
+  cy.route('DELETE', '/questions/*').as('deleteQuestion');
+  cy.get('tbody tr')
+    .first()
+    .within(($list) => {
+      cy.get('button').contains('delete').click();
+    });    
+  cy.wait('@deleteQuestion').its('status').should('eq', 200);
+
 });

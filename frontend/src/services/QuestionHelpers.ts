@@ -29,6 +29,11 @@ import ItemCombinationAnswerDetails from '@/models/management/questions/ItemComb
 import ItemCombinationStatementQuestionDetails from '@/models/statement/questions/ItemCombinationStatementQuestionDetails';
 import ItemCombinationStatementAnswerDetails from '@/models/statement/questions/ItemCombinationStatementAnswerDetails';
 import ItemCombinationStatementCorrectAnswerDetails from '@/models/statement/questions/ItemCombinationStatementCorrectAnswerDetails';
+import OpenAnswerQuestionDetails from '@/models/management/questions/OpenAnswerQuestionDetails';
+import OpenAnswerAnswerDetails from '@/models/management/questions/OpenAnswerAnswerDetails';
+import OpenAnswerStatementQuestionDetails from '@/models/statement/questions/OpenAnswerStatementQuestionDetails';
+import OpenAnswerStatementAnswerDetails from '@/models/statement/questions/OpenAnswerStatementAnswerDetails';
+import OpenAnswerStatementCorrectAnswerDetails from '@/models/statement/questions/OpenAnswerStatementCorrectAnswerDetails';
 
 export enum QuestionTypes {
   ItemCombination = 'item_combination_question',
@@ -36,6 +41,7 @@ export enum QuestionTypes {
   MultipleOrderedChoice = 'multiple_ordered_choice',
   CodeFillIn = 'code_fill_in',
   CodeOrder = 'code_order',
+  OpenAnswer = 'open_answer',
 }
 
 export function convertToLetter(number: number | null) {
@@ -59,6 +65,8 @@ export abstract class QuestionFactory {
         return new CodeFillInQuestionFactory();
       case QuestionTypes.CodeOrder:
         return new CodeOrderQuestionFactory();
+      case QuestionTypes.OpenAnswer:
+        return new OpenAnswerQuestionFactory();
       default:
         throw new Error('Unknown question type.');
     }
@@ -191,3 +199,25 @@ class ItemCombinationQuestionFactory extends QuestionFactory {
   }
 }
 
+class OpenAnswerQuestionFactory extends QuestionFactory {
+  createEmptyQuestionDetails(): QuestionDetails {
+    return new OpenAnswerQuestionDetails();
+  }
+  createQuestionDetails(details: any): QuestionDetails {
+    return new OpenAnswerQuestionDetails(details);
+  }
+  createAnswerDetails(details: any): AnswerDetails {
+    return new OpenAnswerAnswerDetails(details);
+  }
+  createStatementQuestionDetails(details: any): StatementQuestionDetails {
+    return new OpenAnswerStatementQuestionDetails(details);
+  }
+  createStatementAnswerDetails(details: any): StatementAnswerDetails {
+    return new OpenAnswerStatementAnswerDetails(details);
+  }
+  createStatementCorrectAnswerDetails(
+    details: any
+  ): StatementCorrectAnswerDetails {
+    return new OpenAnswerStatementCorrectAnswerDetails(details);
+  }
+}

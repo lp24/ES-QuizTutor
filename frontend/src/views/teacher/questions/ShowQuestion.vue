@@ -21,6 +21,7 @@ import MultipleOrderedChoiceView from '@/components/multiple-ordered-choice/Mult
 import CodeFillInView from '@/components/code-fill-in/CodeFillInView.vue';
 import CodeOrderView from '@/components/code-order/CodeOrderView.vue';
 import ItemCombinationView from '@/components/item-combination/ItemCombinationView.vue';
+import OpenAnswerView from '@/components/open-answer/OpenAnswerView.vue';
 import AnswerDetails from '@/models/management/questions/AnswerDetails';
 
 @Component({
@@ -29,6 +30,7 @@ import AnswerDetails from '@/models/management/questions/AnswerDetails';
     code_fill_in: CodeFillInView,
     code_order: CodeOrderView,
     item_combination_question: ItemCombinationView,
+    open_answer: OpenAnswerView,
     multiple_ordered_choice: MultipleOrderedChoiceView,
   },
 })
