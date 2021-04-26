@@ -6,6 +6,7 @@ describe('Manage Open Answer Questions Walk-through', () => {
                 cy.get('.headline').should('contain', title);
                 cy.get('span > p').should('contain', content);
                 //FIXME: verify answer
+                //cy.get('[data-cy="Answer"]').should('contain',answer);
             });
     }
 
@@ -195,6 +196,7 @@ describe('Manage Open Answer Questions Walk-through', () => {
           'Edited PRA Content Example'
         );
         //FIXME: Verify Answer
+        //cy.get('[data-cy="Answer"]').should('have.value','Edited PRA Answer Example');
     
         cy.route('POST', '/courses/*/questions/').as('postQuestion');    
         cy.get('button').contains('Save').click();
