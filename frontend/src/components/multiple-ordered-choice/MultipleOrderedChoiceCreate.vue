@@ -20,9 +20,9 @@
       </v-col>
       <v-col cols="1">
         <v-switch
-            v-model="option.correct"
-            inset
-            :data-cy="`Switch${index + 1}`"
+          v-model="option.correct"
+          inset
+          :data-cy="`Switch${index + 1}`"
         />
       </v-col>
       <v-col
@@ -31,21 +31,20 @@
           md="1"
       >
         <v-text-field
-            v-model="option.relevance"
-            :data-cy="`Relevanc${index + 1}`"
-
+          v-model="option.relevance"
+          :data-cy="`Relevanc${index + 1}`"
         ></v-text-field>
       </v-col>
       <v-col v-if="sQuestionDetails.options.length > 2">
         <v-tooltip bottom>
           <template v-slot:activator="{ on }">
             <v-icon
-                :data-cy="`Delete${index + 1}`"
-                small
-                class="ma-1 action-button"
-                v-on="on"
-                @click="removeOption(index)"
-                color="red"
+              :data-cy="`Delete${index + 1}`"
+              small
+              class="ma-1 action-button"
+              v-on="on"
+              @click="removeOption(index)"
+              color="red"
             >
               close</v-icon>
           </template>
@@ -54,13 +53,15 @@
       </v-col>
     </v-row>
 
+<!--  OptionWith Relevance-->
+
     <v-row>
       <v-btn
-          class="ma-auto"
-          color="blue darken-1"
-          @click="addOption"
-          data-cy="addOptionMultipleOrderedChoice"
-      >Add Option</v-btn
+        class="ma-auto"
+        color="blue darken-1"
+        @click="addOption"
+        data-cy="addOptionMultipleOrderedChoice"
+        >Add Option</v-btn
       >
     </v-row>
   </div>
@@ -78,6 +79,7 @@ export default class MultipleOrderedChoiceCreate extends Vue {
   addOption() {
     this.sQuestionDetails.options.push(new OptionWithRelevance());
   }
+
   removeOption(index: number) {
     this.sQuestionDetails.options.splice(index, 1);
   }

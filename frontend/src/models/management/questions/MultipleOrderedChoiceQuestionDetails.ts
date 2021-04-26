@@ -16,8 +16,7 @@ export default class MultipleOrderedChoiceQuestionDetails extends QuestionDetail
       console.log(jsonObj);
 
       this.options = jsonObj.options.map(
-        (options: OptionWithRelevance) =>
-          new OptionWithRelevance(options)
+        (options: OptionWithRelevance) => new OptionWithRelevance(options)
       );
     }
   }
