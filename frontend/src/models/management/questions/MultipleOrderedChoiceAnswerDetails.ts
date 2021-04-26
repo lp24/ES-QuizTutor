@@ -1,14 +1,14 @@
-import Option from '@/models/management/Option';
+import OptionWithRelevance from '@/models/management/OptionWithRelevance';
 import AnswerDetails from '@/models/management/questions/AnswerDetails';
 import { QuestionTypes, convertToLetter } from '@/services/QuestionHelpers';
 
 export default class MultipleOrderedChoiceAnswerType extends AnswerDetails {
-  option!: Option;
+  option!: OptionWithRelevance;
 
   constructor(jsonObj?: MultipleOrderedChoiceAnswerType) {
     super(QuestionTypes.MultipleOrderedChoice);
     if (jsonObj) {
-      this.option = new Option(jsonObj.option);
+      this.option = new OptionWithRelevance(jsonObj.option);
     }
   }
 

@@ -42,20 +42,20 @@ Used on:
 
 <script lang="ts">
 import { Component, Vue, Prop, Model, Emit } from 'vue-property-decorator';
-import MultipleChoiceStatementQuestionDetails from '@/models/statement/questions/MultipleChoiceStatementQuestionDetails';
+import MultipleOrderedChoiceStatementQuestionDetails from '@/models/statement/questions/MultipleOrderedChoiceStatementQuestionDetails';
 import { convertMarkDown } from '@/services/ConvertMarkdownService';
 import Image from '@/models/management/Image';
-import MultipleChoiceStatementAnswerDetails from '@/models/statement/questions/MultipleChoiceStatementAnswerDetails';
-import MultipleChoiceStatementCorrectAnswerDetails from '@/models/statement/questions/MultipleChoiceStatementCorrectAnswerDetails';
+import MultipleOrderedChoiceStatementAnswerDetails from '@/models/statement/questions/MultipleOrderedChoiceStatementAnswerDetails';
+import MultipleOrderedChoiceStatementCorrectAnswerDetails from '@/models/statement/questions/MultipleOrderedChoiceStatementCorrectAnswerDetails';
 
 @Component
-export default class MultipleChoiceAnswer extends Vue {
-  @Prop(MultipleChoiceStatementQuestionDetails)
-  readonly questionDetails!: MultipleChoiceStatementQuestionDetails;
-  @Prop(MultipleChoiceStatementAnswerDetails)
-  answerDetails!: MultipleChoiceStatementAnswerDetails;
-  @Prop(MultipleChoiceStatementCorrectAnswerDetails)
-  readonly correctAnswerDetails?: MultipleChoiceStatementCorrectAnswerDetails;
+export default class MultipleOrderedChoiceAnswer extends Vue {
+  @Prop(MultipleOrderedChoiceStatementQuestionDetails)
+  readonly questionDetails!: MultipleOrderedChoiceStatementQuestionDetails;
+  @Prop(MultipleOrderedChoiceStatementAnswerDetails)
+  answerDetails!: MultipleOrderedChoiceStatementAnswerDetails;
+  @Prop(MultipleOrderedChoiceStatementCorrectAnswerDetails)
+  readonly correctAnswerDetails?: MultipleOrderedChoiceStatementCorrectAnswerDetails;
 
   get isReadonly() {
     return !!this.correctAnswerDetails;
