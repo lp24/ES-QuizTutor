@@ -75,30 +75,30 @@ class RemoveMultipleOrderedChoiceQuestionTest extends SpockTest {
     }
 
     def "remove a question that has options with relevance"() {
-        /* given: "a question with options with relevance"
-         def OptionWithRelevanceDto1 = new OptionWithRelevanceDto()
-         def OptionWithRelevanceDto2 = new OptionWithRelevanceDto()
-         OptionWithRelevanceDto1.setContent(OPTION_1_CONTENT)
-         OptionWithRelevanceDto2.setContent(OPTION_2_CONTENT)
-         OptionWithRelevanceDto1.setRelevance(OPTION_1_RELEVANCE)
-         OptionWithRelevanceDto2.setRelevance(OPTION_2_RELEVANCE)
-         OptionWithRelevanceDto1.setCorrect(true)
-         OptionWithRelevanceDto2.setCorrect(true)
-         def options = new ArrayList<OptionWithRelevanceDto>()
-         options.add(OptionWithRelevanceDto1)
-         options.add(OptionWithRelevanceDto2)
-         questionDto.getQuestionDetailsDto().setOptions(options)
+       /* given: "a question with options with relevance"
+        def OptionWithRelevanceDto1 = new OptionWithRelevanceDto()
+        def OptionWithRelevanceDto2 = new OptionWithRelevanceDto()
+        OptionWithRelevanceDto1.setContent(OPTION_1_CONTENT)
+        OptionWithRelevanceDto2.setContent(OPTION_2_CONTENT)
+        OptionWithRelevanceDto1.setRelevance(OPTION_1_RELEVANCE)
+        OptionWithRelevanceDto2.setRelevance(OPTION_2_RELEVANCE)
+        OptionWithRelevanceDto1.setCorrect(true)
+        OptionWithRelevanceDto2.setCorrect(true)
+        def options = new ArrayList<OptionWithRelevanceDto>()
+        options.add(OptionWithRelevanceDto1)
+        options.add(OptionWithRelevanceDto2)
+        questionDto.getQuestionDetailsDto().setOptions(options)
 
-         when:
-         questionService.removeQuestion(question.getId())
+        when:
+        questionService.removeQuestion(question.getId())
 
-         then: "the question is removeQuestion"
-         questionRepository.count() == 0L
-         imageRepository.count() == 0L
-         optionRepository.count() == 0L*/
+        then: "the question is removeQuestion"
+        questionRepository.count() == 0L
+        imageRepository.count() == 0L
+        optionRepository.count() == 0L*/
         expect: true
     }
-
+    
     def "remove a question used in a quiz"() {
         given: "a question with answers"
         Quiz quiz = new Quiz()

@@ -584,7 +584,8 @@ class CreateQuestionTest extends SpockTest {
         result2.getQuestionDetails().getOptions().size() >= 2
         def exception = thrown(TutorException)
         exception.getErrorMessage() == ErrorMessage.NO_CORRECT_OPTION*/
-        expect : true
+
+        expect: true
     }
 
     @Unroll
