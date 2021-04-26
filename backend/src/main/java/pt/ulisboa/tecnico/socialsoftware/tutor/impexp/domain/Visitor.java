@@ -28,6 +28,8 @@ public interface Visitor {
 
     default void visitItem(Item item) {}
 
+    default void visitAssociation(Association association) {}
+
     default void visitQuiz(Quiz quiz) {}
 
     default void visitQuizQuestion(QuizQuestion quizQuestion) {}
