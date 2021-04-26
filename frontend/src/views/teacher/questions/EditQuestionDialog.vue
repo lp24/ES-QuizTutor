@@ -91,8 +91,9 @@ import { QuestionTypes, QuestionFactory } from '@/services/QuestionHelpers';
   components: {
     multiple_ordered_choice: MultipleOrderedChoiceCreate,
     multiple_choice: MultipleChoiceCreate,
+    multiple_ordered_choice: MultipleOrderedChoiceCreate,
     code_fill_in: CodeFillInCreate,
-    code_order: CodeOrderCreate,
+    code_order: CodeOrderCreate
   },
 })
 export default class EditQuestionDialog extends Vue {
