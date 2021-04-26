@@ -85,6 +85,7 @@ import MultipleChoiceCreate from '@/components/multiple-choice/MultipleChoiceCre
 import MultipleOrderedChoiceCreate from '@/components/multiple-ordered-choice/MultipleOrderedChoiceCreate.vue';
 import CodeFillInCreate from '@/components/code-fill-in/CodeFillInCreate.vue';
 import CodeOrderCreate from '@/components/code-order/CodeOrderCreate.vue';
+import OpenAnswerCreate from '@/components/open-answer/OpenAnswerCreate.vue';
 import { QuestionTypes, QuestionFactory } from '@/services/QuestionHelpers';
 
 @Component({
@@ -93,7 +94,8 @@ import { QuestionTypes, QuestionFactory } from '@/services/QuestionHelpers';
     multiple_choice: MultipleChoiceCreate,
     multiple_ordered_choice: MultipleOrderedChoiceCreate,
     code_fill_in: CodeFillInCreate,
-    code_order: CodeOrderCreate
+    code_order: CodeOrderCreate,
+    open_answer: OpenAnswerCreate,
   },
 })
 export default class EditQuestionDialog extends Vue {
