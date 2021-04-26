@@ -28,7 +28,7 @@ import AnswerDetails from '@/models/management/questions/AnswerDetails';
     multiple_choice: MultipleChoiceView,
     code_fill_in: CodeFillInView,
     code_order: CodeOrderView,
-    item_combination_question: ItemCombinationView
+    item_combination_question: ItemCombinationView,
     multiple_ordered_choice: MultipleOrderedChoiceView,
   },
 })
