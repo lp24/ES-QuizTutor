@@ -5,17 +5,17 @@
       <v-col cols="2"> Relevance </v-col>
     </v-row>
     <v-row
-      v-for="(option, index) in sQuestionDetails.options"
-      :key="index"
-      data-cy="questionOrderedOptionsInput"
+        v-for="(option, index) in sQuestionDetails.options"
+        :key="index"
+        data-cy="questionOptionsInput"
     >
       <v-col cols="9">
         <v-textarea
-          v-model="option.content"
-          :label="`OptionWithRelevance ${index + 1}`"
-          :data-cy="`OptionWithRelevance${index + 1}`"
-          rows="1"
-          auto-grow
+            v-model="option.content"
+            :label="`OptionWithRelevance ${index + 1}`"
+            :data-cy="`OptionWithRelevance${index + 1}`"
+            rows="1"
+            auto-grow
         ></v-textarea>
       </v-col>
       <v-col cols="1">
@@ -26,14 +26,13 @@
         />
       </v-col>
       <v-col
-        cols="1"
-        sm="2"
-        md="1"
+          cols="1"
+          sm="2"
+          md="1"
       >
         <v-text-field
           v-model="option.relevance"
           :data-cy="`Relevanc${index + 1}`"
-
         ></v-text-field>
       </v-col>
       <v-col v-if="sQuestionDetails.options.length > 2">
@@ -53,7 +52,8 @@
         </v-tooltip>
       </v-col>
     </v-row>
-    <!--  OptionWith Relevance-->
+
+<!--  OptionWith Relevance-->
 
     <v-row>
       <v-btn
@@ -69,8 +69,6 @@
 
 <script lang="ts">
 import { Component, Model, PropSync, Vue, Watch } from 'vue-property-decorator';
-import MultipleChoiceQuestionDetails from '@/models/management/questions/MultipleChoiceQuestionDetails';
-import Option from '@/models/management/Option';
 import OptionWithRelevance from '@/models/management/OptionWithRelevance';
 import MultipleOrderedChoiceQuestionDetails from '@/models/management/questions/MultipleOrderedChoiceQuestionDetails';
 
@@ -78,7 +76,6 @@ import MultipleOrderedChoiceQuestionDetails from '@/models/management/questions/
 export default class MultipleOrderedChoiceCreate extends Vue {
   @PropSync('questionDetails', { type: MultipleOrderedChoiceQuestionDetails })
   sQuestionDetails!: MultipleOrderedChoiceQuestionDetails;
-
   addOption() {
     this.sQuestionDetails.options.push(new OptionWithRelevance());
   }
@@ -88,3 +85,5 @@ export default class MultipleOrderedChoiceCreate extends Vue {
   }
 }
 </script>
+
+

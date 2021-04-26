@@ -1,4 +1,3 @@
-import Option from '@/models/management/Option';
 import OptionWithRelevance from '@/models/management/OptionWithRelevance';
 import QuestionDetails from '@/models/management/questions/QuestionDetails';
 import { QuestionTypes } from '@/services/QuestionHelpers';
@@ -14,6 +13,8 @@ export default class MultipleOrderedChoiceQuestionDetails extends QuestionDetail
   constructor(jsonObj?: MultipleOrderedChoiceQuestionDetails) {
     super(QuestionTypes.MultipleOrderedChoice);
     if (jsonObj) {
+      console.log(jsonObj);
+
       this.options = jsonObj.options.map(
         (options: OptionWithRelevance) => new OptionWithRelevance(options)
       );
