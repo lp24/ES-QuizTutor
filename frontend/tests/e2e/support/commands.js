@@ -429,7 +429,6 @@ Cypress.Commands.add(
         cy.get('[data-cy="managementMenuButton"]').click();
         cy.get('[data-cy="questionsTeacherMenuButton"]').click();
         cy.get('[data-cy="newQuestionButton"]').click();
-        // escolhe o tipo de questao pem
         cy.get('[data-cy="questionTypeInput"]')
             .type('multiple_ordered_choice', { force: true })
             .click({ force: true });
