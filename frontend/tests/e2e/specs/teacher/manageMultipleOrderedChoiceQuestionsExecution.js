@@ -37,6 +37,7 @@ describe('Manage Multiple Ordered Choice Questions Walk-through', () => {
   }
 
   before(() => {
+    cy.cleanMultipleChoiceQuestionsByName('Cypress Question Example');
     cy.cleanMultipleOrderedChoiceQuestionsByName('Cypress Multiple Ordered Choice Question Example');
   });
   after(() => {
@@ -111,7 +112,7 @@ describe('Manage Multiple Ordered Choice Questions Walk-through', () => {
   });
 
   // TODO: abrir pergunta com o botao do olho.
-  it.skip('Can view a multiple ordered choice question (with button)', function () {
+  it('Can view a multiple ordered choice question (with button)', function () {
     cy.get('tbody tr')
       .first()
       .within(($list) => {
