@@ -422,6 +422,29 @@ Cypress.Commands.add(
   }
 );
 
+
+Cypress.Commands.add(
+    'createMultipleOrderedChoiceQuestion',
+    (title, question, option1, option2, option3, option4) => {
+        cy.get('[data-cy="managementMenuButton"]').click();
+        cy.get('[data-cy="questionsTeacherMenuButton"]').click();
+        cy.get('[data-cy="newQuestionButton"]').click();
+        // escolhe o tipo de questao pem
+        cy.get('[data-cy="questionTypeInput"]')
+            .type('multiple_ordered_choice', { force: true })
+            .click({ force: true });
+        cy.get('[data-cy="questionTitleTextArea"]').type(title);
+        cy.get('[data-cy="questionQuestionTextArea"]').type(question);
+        cy.get('[data-cy="Option1"]').type(option1);
+        cy.get('[data-cy="Option2"]').type(option2);
+        cy.get('[data-cy="Switch2"]').click({ force: true });
+        cy.get('[data-cy="Option3"]').type(option3);
+        cy.get('[data-cy="Option4"]').type(option4);
+        cy.get('[data-cy="Switch4"]').click({ force: true });
+        cy.get('[data-cy="saveQuestionButton"]').click();
+    }
+);
+
 Cypress.Commands.add(
   'createQuizzWith2Questions',
   (quizTitle, questionTitle, questionTitle2) => {
@@ -503,9 +526,10 @@ Cypress.Commands.add('replyToDiscussion', (discussionContent, replyContent) => {
     .children()
     .should('have.length', 8)
     .find('[data-cy="showDiscussionButton"]')
+    .should('be.visible')
     .click();
 
-  cy.get('[data-cy="replyTextArea"]').type(replyContent);
+  cy.get('[data-cy="replyTextArea"]').should('be.visible').type(replyContent);
   cy.get('[data-cy="submitReplyButton"]').click();
 });
 
