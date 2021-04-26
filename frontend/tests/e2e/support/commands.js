@@ -536,3 +536,14 @@ Cypress.Commands.add('deleteQuestion', (questionTitle) => {
     .find('[data-cy="deleteQuestionButton"]')
     .click();
 });
+
+Cypress.Commands.add('deleteLastQuestion',() => {
+  cy.route('DELETE', '/questions/*').as('deleteQuestion');
+  cy.get('tbody tr')
+    .first()
+    .within(($list) => {
+      cy.get('button').contains('delete').click();
+    });    
+  cy.wait('@deleteQuestion').its('status').should('eq', 200);
+
+});
