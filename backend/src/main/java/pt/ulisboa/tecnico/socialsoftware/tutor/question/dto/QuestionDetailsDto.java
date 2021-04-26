@@ -15,6 +15,7 @@ import static pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.Question.Q
         include = JsonTypeInfo.As.PROPERTY,
         defaultImpl = MultipleChoiceQuestionDto.class,
         property = "type")
+
 @JsonSubTypes({
         @JsonSubTypes.Type(value = MultipleChoiceQuestionDto.class, name = MULTIPLE_CHOICE_QUESTION),
         @JsonSubTypes.Type(value = MultipleOrderedChoiceQuestionDto.class, name = MULTIPLE_ORDERED_CHOICE_QUESTION),

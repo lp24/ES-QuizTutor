@@ -9,6 +9,8 @@ import javax.persistence.Transient;
 
 import javax.persistence.Transient;
 
+import javax.persistence.Transient;
+
 public class MultipleChoiceStatementAnswerDetailsDto extends StatementAnswerDetailsDto {
     private Integer optionId;
 
