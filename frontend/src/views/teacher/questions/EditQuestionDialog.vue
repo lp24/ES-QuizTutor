@@ -89,6 +89,7 @@ import { QuestionTypes, QuestionFactory } from '@/services/QuestionHelpers';
 
 @Component({
   components: {
+    multiple_ordered_choice: MultipleOrderedChoiceCreate,
     multiple_choice: MultipleChoiceCreate,
     multiple_ordered_choice: MultipleOrderedChoiceCreate,
     code_fill_in: CodeFillInCreate,
