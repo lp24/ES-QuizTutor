@@ -12,7 +12,7 @@ import pt.ulisboa.tecnico.socialsoftware.tutor.auth.domain.AuthUser
 import pt.ulisboa.tecnico.socialsoftware.tutor.user.domain.User
 
 @DataJpaTest
-class UpdateItemCombinationQuestionTest extends SpockTest{
+class UpdateItemCombinationQuestionTest extends SpockTest {
     def question
     def user
     def items
