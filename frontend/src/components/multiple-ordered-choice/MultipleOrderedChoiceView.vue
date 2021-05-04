@@ -1,6 +1,7 @@
 <template>
   <ul>
     <li v-for="option in questionDetails.options" :key="option.id">
+      <!-- You should have updated this to include relevance -->
       <span
         v-if="option.correct"
         v-html="

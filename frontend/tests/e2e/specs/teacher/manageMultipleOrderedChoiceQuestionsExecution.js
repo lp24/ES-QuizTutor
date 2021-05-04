@@ -1,4 +1,5 @@
 describe('Manage Multiple Ordered Choice Questions Walk-through', () => {
+  // New validate question must include the relevance
   function validateQuestion(
     title,
     content,

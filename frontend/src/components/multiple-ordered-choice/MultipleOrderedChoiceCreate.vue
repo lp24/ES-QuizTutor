@@ -1,3 +1,4 @@
+<!-- It does not make sense to create a new view that simply extends the one that already existed. -->
 <template>
   <div class="multiple-ordered-choice-options">
     <v-row>
@@ -10,6 +11,7 @@
       data-cy="questionOrderedOptionsInput"
     >
       <v-col cols="9">
+        <!-- The label should have been Option (as before) -->
         <v-textarea
           v-model="option.content"
           :label="`OptionWithRelevance ${index + 1}`"
@@ -30,9 +32,10 @@
           sm="2"
           md="1"
       >
+        <!-- This should not be mandatory - multiple ordered question does not require mandatory order and should have default 0 -->
         <v-text-field
           v-model="option.relevance"
-          :data-cy="`Relevanc${index + 1}`"
+          :data-cy="`Relevance${index + 1}`"
 
         ></v-text-field>
       </v-col>
