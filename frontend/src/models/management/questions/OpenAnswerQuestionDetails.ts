@@ -2,7 +2,7 @@ import QuestionDetails from '@/models/management/questions/QuestionDetails';
 import { QuestionTypes } from '@/services/QuestionHelpers';
 
 export default class OpenAnswerQuestionDetails extends QuestionDetails {
-  correctAnswer: string = '';
+  correctAnswer: string = ''; // This is not optional
 
   constructor(jsonObj?: OpenAnswerQuestionDetails) {
     super(QuestionTypes.OpenAnswer);
