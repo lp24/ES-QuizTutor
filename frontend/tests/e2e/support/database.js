@@ -123,7 +123,7 @@ Cypress.Commands.add('cleanMultipleChoiceQuestionsByName', questionName => {
 
 Cypress.Commands.add('cleanMultipleOrderedChoiceQuestionsByName', questionName => {
   dbCommand(`WITH toDelete AS (SELECT qt.id as question_id FROM questions qt JOIN question_details qd ON qd.question_id = qt.id and qd.question_type='multiple_ordered_choice' where title like '%${questionName}%')
-                  , opt AS (DELETE FROM option_with_relevance WHERE question_details_id IN (SELECT qd.id FROM toDelete JOIN question_details qd on qd.question_id = toDelete.question_id)) 
+                  , opt AS (DELETE FROM options_with_relevance WHERE questions_details_id IN (SELECT qd.id FROM toDelete JOIN question_details qd on qd.question_id = toDelete.question_id)) 
                   , det AS (DELETE FROM question_details WHERE question_id in (SELECT question_id FROM toDelete))
                 DELETE FROM questions WHERE id IN (SELECT question_id FROM toDelete);`);
 });

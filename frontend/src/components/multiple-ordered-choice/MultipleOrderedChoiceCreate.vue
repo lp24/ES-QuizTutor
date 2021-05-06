@@ -12,8 +12,8 @@
       <v-col cols="9">
         <v-textarea
           v-model="option.content"
-          :label="`OptionWithRelevance ${index + 1}`"
-          :data-cy="`OptionWithRelevance${index + 1}`"
+          :label="`Option${index + 1}`"
+          :data-cy="`Option${index + 1}`"
           rows="1"
           auto-grow
         ></v-textarea>
@@ -32,7 +32,7 @@
       >
         <v-text-field
           v-model="option.relevance"
-          :data-cy="`Relevanc${index + 1}`"
+          :data-cy="`Relevance${index + 1}`"
 
         ></v-text-field>
       </v-col>
