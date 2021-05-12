@@ -4,6 +4,7 @@ import QuestionDetails from '@/models/management/questions/QuestionDetails';
 import { QuestionFactory } from '@/services/QuestionHelpers';
 import { ISOtoString } from '@/services/ConvertDateService';
 import MultipleChoiceQuestionDetails from './questions/MultipleChoiceQuestionDetails';
+import MultipleOrderedChoiceQuestionDetails from '@/models/management/questions/MultipleOrderedChoiceQuestionDetails';
 
 export default class Question {
   id: number | null = null;
@@ -19,7 +20,7 @@ export default class Question {
   image: Image | null = null;
   sequence: number | null = null;
 
-  questionDetailsDto: QuestionDetails = new MultipleChoiceQuestionDetails();
+  questionDetailsDto: QuestionDetails = new MultipleOrderedChoiceQuestionDetails();
 
   topics: Topic[] = [];
 
