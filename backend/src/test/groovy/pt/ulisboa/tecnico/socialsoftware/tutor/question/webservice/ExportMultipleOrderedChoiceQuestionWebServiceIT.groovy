@@ -33,7 +33,7 @@ class ExportMultipleOrderedChoiceQuestionWebServiceIT extends SpockTest{
 
         when: "the web service is invoked"
         def map = restClient.get(
-                path: "/courses/" + courseExecutionDto.getCourseExecutionId() + "/questions/export",
+                path: "/questions/courses/"+courseExecutionDto.getCourseExecutionId()+"/export"                ,
                 requestContentType: "application/zip"
         )
 
@@ -55,7 +55,7 @@ class ExportMultipleOrderedChoiceQuestionWebServiceIT extends SpockTest{
 
         when: "the web service is invoked"
         def response = restClient.get(
-                path: "/courses/" + courseExecutionDto.getCourseExecutionId() + "/questions/export",
+                path: "/questions/courses/"+courseExecutionDto.getCourseExecutionId()+"/export"                ,
                 requestContentType: "application/zip"
         )
 
