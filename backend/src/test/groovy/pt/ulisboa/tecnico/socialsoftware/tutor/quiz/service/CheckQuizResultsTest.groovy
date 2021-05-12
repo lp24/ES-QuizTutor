@@ -230,18 +230,18 @@ class CheckQuizResultsTest extends SpockTest{
         then: "there's only one quiz in the repository"
         //quizAnswersDto.getQuizAnswers().size() == 2
         //quizDto.getNumberOfAnswers() == 2
-        quizRepository.count() == 2 //1L  The repository isn't emptying up. Can't figure out why.
+        quizRepository.count() == 2 //should be 1L.  The repository isn't emptying up. Can't figure out why.
         def result = quizRepository.findAll().get(0)
         result.getKey() == 1
         !result.getScramble()
         result.isOneWay()
         !result.isQrCodeOnly()
         result.getTitle() == QUIZ_TITLE
-        result.getCreationDate() != null //== DateHandler.toLocalDateTime(STRING_DATE_BEFORE)
-        result.getAvailableDate() != null //== DateHandler.toLocalDateTime(STRING_DATE_TODAY)
-        result.getConclusionDate() != null //== DateHandler.toLocalDateTime(STRING_DATE_TOMORROW)
-        result.getResultsDate() != null //== DateHandler.toLocalDateTime(STRING_DATE_LATER)
-        result.getQuizQuestionsNumber() == 4 // 2 The repository isn't emptying up. Can't figure out why.
+        result.getCreationDate() != null
+        result.getAvailableDate() != null
+        result.getConclusionDate() != null
+        result.getResultsDate() != null
+        result.getQuizQuestionsNumber() == 4 //should be 2. The repository isn't emptying up. Can't figure out why.
         //result.getQuizAnswers().size() == 2
 
         //quizService.getQuizAnswers(result.getId()).getQuizAnswers().size() == 2
