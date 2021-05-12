@@ -5,7 +5,7 @@
         v-if="option.correct"
         v-html="
           convertMarkDown(
-            studentAnswered(option.id) + '**[★]** ' + option.content
+            studentAnswered(option.id) + '**[★]** ' + ' **[**'+ option.relevance + '**]** '+ option.content
           )
         "
         v-bind:class="[option.correct ? 'font-weight-bold' : '']"
