@@ -11,11 +11,11 @@ import StatementQuestionDetails from '@/models/statement/questions/StatementQues
 import MultipleChoiceStatementQuestionDetails from '@/models/statement/questions/MultipleChoiceStatementQuestionDetails';
 import MultipleOrderedChoiceStatementQuestionDetails from '@/models/statement/questions/MultipleOrderedChoiceStatementQuestionDetails';
 import StatementAnswerDetails from '@/models/statement/questions/StatementAnswerDetails';
-import MultipleChoiceStatementCorrectAnswerDetails from '@/models/statement/questions/MultipleChoiceStatementCorrectAnswerDetails';
-import MultipleOrderedChoiceStatementCorrectAnswerDetails from '@/models/statement/questions/MultipleOrderedChoiceStatementCorrectAnswerDetails';
 import MultipleChoiceStatementAnswerDetails from '@/models/statement/questions/MultipleChoiceStatementAnswerDetails';
 import MultipleOrderedChoiceStatementAnswerDetails from '@/models/statement/questions/MultipleOrderedChoiceStatementAnswerDetails';
 import StatementCorrectAnswerDetails from '@/models/statement/questions/StatementCorrectAnswerDetails';
+import MultipleChoiceStatementCorrectAnswerDetails from '@/models/statement/questions/MultipleChoiceStatementCorrectAnswerDetails';
+import MultipleOrderedChoiceStatementCorrectAnswerDetails from '@/models/statement/questions/MultipleOrderedChoiceStatementCorrectAnswerDetails';
 import CodeFillInStatementQuestionDetails from '@/models/statement/questions/CodeFillInStatementQuestionDetails';
 import CodeFillInStatementAnswerDetails from '@/models/statement/questions/CodeFillInStatementAnswerDetails';
 import CodeFillInStatementCorrectAnswerDetails from '@/models/statement/questions/CodeFillInStatementCorrectAnswerDetails';

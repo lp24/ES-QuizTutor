@@ -77,6 +77,19 @@ public class MultipleOrderedChoiceQuestion extends QuestionDetails {
                 .orElse(null);
     }
 
+    /*public List<OptionWithRelevance> getCorrectOptionWithRelevance() {
+        return this.getOptions().stream()
+                .filter(OptionWithRelevance::isCorrect)
+                .collect(Collectors.toList());
+    }*/
+
+    public List<Integer> getCorrectOptionsId() {
+        return this.getOptions().stream()
+                .filter(OptionWithRelevance::isCorrect)
+                .map(OptionWithRelevance::getId)
+                .collect(Collectors.toList());
+    }  // TODO
+
     public void update(MultipleOrderedChoiceQuestionDto questionDetails) {
         setOptions(questionDetails.getOptions());
     }

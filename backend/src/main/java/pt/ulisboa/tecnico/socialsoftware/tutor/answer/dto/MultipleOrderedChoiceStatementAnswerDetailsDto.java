@@ -9,12 +9,6 @@ public class MultipleOrderedChoiceStatementAnswerDetailsDto extends StatementAns
     public MultipleOrderedChoiceStatementAnswerDetailsDto() {
     }
 
-    public MultipleOrderedChoiceStatementAnswerDetailsDto(MultipleChoiceAnswer questionAnswer) {
-        if (questionAnswer.getOption() != null) {
-            this.optionId = questionAnswer.getOption().getId();
-        }
-    }
-
     public MultipleOrderedChoiceStatementAnswerDetailsDto(MultipleOrderedChoiceAnswer questionAnswer) {
         if (questionAnswer.getOption() != null) {
             this.optionId = questionAnswer.getOption().getId();

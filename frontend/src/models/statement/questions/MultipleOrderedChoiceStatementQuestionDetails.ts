@@ -1,10 +1,10 @@
 import StatementQuestionDetails from '@/models/statement/questions/StatementQuestionDetails';
 import { QuestionTypes } from '@/services/QuestionHelpers';
-import StatementOption from '@/models/statement/StatementOption';
+import StatementOptionWithRelevance from '@/models/statement/StatementOptionWithRelevance';
 import { _ } from 'vue-underscore';
 
 export default class MultipleOrderedChoiceStatementQuestionDetails extends StatementQuestionDetails {
-  options: StatementOption[] = [];
+  options: StatementOptionWithRelevance[] = [];
 
   constructor(jsonObj?: MultipleOrderedChoiceStatementQuestionDetails) {
     super(QuestionTypes.MultipleOrderedChoice);
@@ -12,7 +12,7 @@ export default class MultipleOrderedChoiceStatementQuestionDetails extends State
       if (jsonObj.options) {
         this.options = _.shuffle(
           jsonObj.options.map(
-            (option: StatementOption) => new StatementOption(option)
+            (option: StatementOptionWithRelevance) => new StatementOptionWithRelevance(option)
           )
         );
       }
