@@ -221,26 +221,3 @@ class OpenAnswerQuestionFactory extends QuestionFactory {
     return new OpenAnswerStatementCorrectAnswerDetails(details);
   }
 }
-
-class OpenAnswerQuestionFactory extends QuestionFactory {
-  createEmptyQuestionDetails(): QuestionDetails {
-    return new OpenAnswerQuestionDetails();
-  }
-  createQuestionDetails(details: any): QuestionDetails {
-    return new OpenAnswerQuestionDetails(details);
-  }
-  createAnswerDetails(details: any): AnswerDetails {
-    return new OpenAnswerAnswerDetails(details);
-  }
-  createStatementQuestionDetails(details: any): StatementQuestionDetails {
-    return new OpenAnswerStatementQuestionDetails(details);
-  }
-  createStatementAnswerDetails(details: any): StatementAnswerDetails {
-    return new OpenAnswerStatementAnswerDetails(details);
-  }
-  createStatementCorrectAnswerDetails(
-    details: any
-  ): StatementCorrectAnswerDetails {
-    return new OpenAnswerStatementCorrectAnswerDetails(details);
-  }
-}
