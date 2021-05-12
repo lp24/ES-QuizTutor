@@ -122,6 +122,7 @@ import { Component, Model, Prop, Vue, Watch } from 'vue-property-decorator';
 import RemoteServices from '@/services/RemoteServices';
 import QuestionSubmission from '../../models/management/QuestionSubmission';
 import MultipleChoiceCreate from '@/components/multiple-choice/MultipleChoiceCreate.vue';
+import MultipleOrderedChoiceCreate from '@/components/multiple-ordered-choice/MultipleOrderedChoiceCreate.vue';
 import CodeFillInCreate from '@/components/code-fill-in/CodeFillInCreate.vue';
 import CodeOrderCreate from '@/components/code-order/CodeOrderCreate.vue';
 import { QuestionTypes, QuestionFactory } from '@/services/QuestionHelpers';
@@ -129,6 +130,7 @@ import { QuestionTypes, QuestionFactory } from '@/services/QuestionHelpers';
 @Component({
   components: {
     multiple_choice: MultipleChoiceCreate,
+    multiple_ordered_choice: MultipleOrderedChoiceCreate,
     code_fill_in: CodeFillInCreate,
     code_order: CodeOrderCreate,
   },
