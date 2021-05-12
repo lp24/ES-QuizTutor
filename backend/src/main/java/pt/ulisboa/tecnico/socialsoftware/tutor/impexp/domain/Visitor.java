@@ -81,4 +81,7 @@ public interface Visitor {
     default void visitOption(OptionWithRelevance option){}
 
     default void visitQuestionDetails(OpenAnswerQuestion question) {}
+
+    default void visitAnswerDetails(OpenAnswerAnswer answer) {}
+
 }
