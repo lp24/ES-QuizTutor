@@ -57,7 +57,7 @@ class CreateOpenAnswerQuestionWebServiceIT extends SpockTest {
 
         when: "the service is invoked"
         def mapper = new ObjectMapper()
-        response = restClient.post(path: "/courses/" + course.getId() + "/questions",
+        response = restClient.post(path: "/questions/courses/" + course.getId(),
                 body: mapper.writeValueAsString(questionDto), requestContentType: "application/json")
 
         then: "check the response status"
@@ -95,7 +95,7 @@ class CreateOpenAnswerQuestionWebServiceIT extends SpockTest {
 
         when: "creation is requested"
         def mapper = new ObjectMapper()
-        response = restClient.post(path: "/courses/" + course.getId() + "/questions",
+        response = restClient.post(path: "/questions/courses/" + course.getId(),
                 body: mapper.writeValueAsString(questionDto), requestContentType: "application/json")
 
         then: "an exception is thrown"
