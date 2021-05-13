@@ -15,9 +15,6 @@ import pt.ulisboa.tecnico.socialsoftware.tutor.quiz.dto.QuizDto
 class ExportQuizTest extends SpockTest {
 
     def quiz
-    def creationDate
-    def availableDate
-    def conclusionDate
 
     def setup(){
         createExternalCourseAndExecution()
