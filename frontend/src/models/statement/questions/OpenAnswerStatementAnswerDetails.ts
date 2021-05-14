@@ -1,21 +1,22 @@
 import StatementAnswerDetails from '@/models/statement/questions/StatementAnswerDetails';
 import { QuestionTypes } from '@/services/QuestionHelpers';
+import OpenAnswerStatementCorrectAnswerDetails from '@/models/statement/questions/OpenAnswerStatementCorrectAnswerDetails';
 
 export default class OpenAnswerStatementAnswerDetails extends StatementAnswerDetails {
-  public selectedAnswer: string | null = null;
+  public studentAnswer: string | null = null;
 
   constructor(jsonObj?: OpenAnswerStatementAnswerDetails) {
     super(QuestionTypes.OpenAnswer);
     if (jsonObj) {
-      this.selectedAnswer = jsonObj.selectedAnswer || this.selectedAnswer;
+      this.studentAnswer = jsonObj.studentAnswer;
     }
   }
 
   isQuestionAnswered(): boolean {
-    return this.selectedAnswer != null && this.selectedAnswer.length > 0;
+    return this.studentAnswer != null && this.studentAnswer.length > 0;
   }
 
-  isAnswerCorrect(): boolean {
-    return false;
+  isAnswerCorrect(correctAnswerDetails:OpenAnswerStatementCorrectAnswerDetails): boolean {
+    return correctAnswerDetails.correctAnswer===this.studentAnswer;
   }
 }

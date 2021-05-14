@@ -3,24 +3,24 @@ package pt.ulisboa.tecnico.socialsoftware.tutor.answer.dto;
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.OpenAnswerQuestion;
 
 public class OpenAnswerCorrectAnswerDto extends CorrectAnswerDetailsDto {
-    private String answerString;
+    private String correctAnswer;
 
-    public String getAnswerString() {
-        return answerString;
+    public String getCorrectAnswer() {
+        return correctAnswer;
     }
 
-    public void setAnswerString(String answerString) {
-        this.answerString = answerString;
+    public void setCorrectAnswer(String correctAnswer) {
+        this.correctAnswer = correctAnswer;
     }
 
     public OpenAnswerCorrectAnswerDto(OpenAnswerQuestion question) {
-        setAnswerString(question.getCorrectAnswer());
+        setCorrectAnswer(question.getCorrectAnswer());
     }
 
     @Override
     public String toString() {
         return "OpenAnswerCorrectAnswerDto{" +
-                "correctAnswer=" + getAnswerString() +
+                "correctAnswer=" + getCorrectAnswer() +
                 '}';
     }
 }

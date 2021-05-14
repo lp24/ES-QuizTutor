@@ -13,27 +13,27 @@ import java.util.Arrays;
 @DiscriminatorValue(Question.QuestionTypes.OPEN_ANSWER_QUESTION)
 public class OpenAnswerAnswerItem extends QuestionAnswerItem {
 
-    public String getAnswerString() {
-        return answerString;
+    public String getStudentAnswer() {
+        return studentAnswer;
     }
 
-    public void setAnswerString(String answerString) {
-        this.answerString = answerString;
+    public void setStudentAnswer(String studentAnswer) {
+        this.studentAnswer = studentAnswer;
     }
 
-    private String answerString;
+    private String studentAnswer;
 
     public OpenAnswerAnswerItem() {
     }
 
     public OpenAnswerAnswerItem(String username, int quizId, StatementAnswerDto answer, OpenAnswerStatementAnswerDetailsDto detailsDto) {
         super(username, quizId, answer);
-        this.setAnswerString(detailsDto.getAnswerString());
+        this.setStudentAnswer(detailsDto.getStudentAnswer());
     }
 
     @Override
     public String getAnswerRepresentation(QuestionDetails questionDetails) {
-        return this.getAnswerString() != null ? questionDetails.getAnswerRepresentation(Arrays.asList()) : "-";
+        return this.getStudentAnswer() != null ? questionDetails.getAnswerRepresentation(Arrays.asList()) : "-";
     }
 
 }
