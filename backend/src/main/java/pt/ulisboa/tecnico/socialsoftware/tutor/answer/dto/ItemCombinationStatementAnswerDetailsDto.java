@@ -4,7 +4,8 @@ package pt.ulisboa.tecnico.socialsoftware.tutor.answer.dto;
 import pt.ulisboa.tecnico.socialsoftware.tutor.answer.domain.AnswerDetails;
 import pt.ulisboa.tecnico.socialsoftware.tutor.answer.domain.ItemCombinationAnswer;
 import pt.ulisboa.tecnico.socialsoftware.tutor.answer.domain.QuestionAnswer;
-
+import pt.ulisboa.tecnico.socialsoftware.tutor.answer.domain.ItemCombinationAnswerItem;
+import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.Item;
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.ItemCombinationQuestion;
 
 import pt.ulisboa.tecnico.socialsoftware.tutor.answer.domain.QuestionAnswerItem;
@@ -54,7 +55,7 @@ public class ItemCombinationStatementAnswerDetailsDto extends StatementAnswerDet
 
     @Override
     public void update(ItemCombinationQuestion question) {
-        createdItemCombinationAnswer.setItem(question, this);
+        return;
     }
 
     @Override
