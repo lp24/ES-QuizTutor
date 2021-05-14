@@ -9,8 +9,9 @@
     </v-row>
     <v-row>
       <v-col>
-        <span>
-          <b> Submitted: </b>{{this.answerDetails.studentAnswer}}
+        <b> Submitted: </b>
+        <span data-cy="studentAnswerResult">
+          {{this.answerDetails.studentAnswer}}
         </span>
       </v-col>
     </v-row>

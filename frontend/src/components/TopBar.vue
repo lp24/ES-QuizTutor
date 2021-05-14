@@ -132,7 +132,7 @@
             </v-btn>
           </template>
           <v-list dense>
-            <v-list-item to="/student/available">
+            <v-list-item to="/student/available" data-cy="StudentAvailableQuizzes">
               <v-list-item-action>
                 <v-icon>assignment</v-icon>
               </v-list-item-action>
