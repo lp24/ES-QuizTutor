@@ -131,7 +131,41 @@ class ConcludeQuizWithMultipleOrderedChoiceQuestionTest extends SpockTest {
         correctAnswerDto.getSequence() == 0
         correctAnswerDto.getCorrectAnswerDetails().getCorrectOptionId() == option1.getId()
     }
-    
+
+  
+    def 'conclude completed quiz'() {
+        given:  'a completed quiz'
+        quizAnswer.completed = true
+        and: 'an answer'
+        def statementQuizDto = new StatementQuizDto()
+        statementQuizDto.id = quiz.getId()
+        statementQuizDto.quizAnswerId = quizAnswer.getId()
+        def statementAnswerDto = new StatementAnswerDto()
+        def multipleOrderedChoiceAnswerDto = new MultipleOrderedChoiceStatementAnswerDetailsDto()
+        multipleOrderedChoiceAnswerDto.setOptionId(option1.getId())
+        statementAnswerDto.setAnswerDetails(multipleOrderedChoiceAnswerDto)
+        statementAnswerDto.setSequence(0)
+        statementAnswerDto.setTimeTaken(100)
+        statementAnswerDto.setQuestionAnswerId(quizAnswer.getQuestionAnswers().get(0).getId())
+        statementQuizDto.getAnswers().add(statementAnswerDto)
+
+        when:
+        def correctAnswers = answerService.concludeQuiz(statementQuizDto)
+
+        then: 'nothing occurs'
+        quizAnswer.getAnswerDate() == null
+        questionAnswerRepository.findAll().size() == 1
+        def questionAnswer = questionAnswerRepository.findAll().get(0)
+        questionAnswer.getQuizAnswer() == quizAnswer
+        quizAnswer.getQuestionAnswers().contains(questionAnswer)
+        questionAnswer.getQuizQuestion() == quizQuestion
+        quizQuestion.getQuestionAnswers().contains(questionAnswer)
+        questionAnswer.getAnswerDetails() == null
+        and: 'the return value is OK'
+        correctAnswers.size() == 0
+    }
+
+
     @TestConfiguration
     static class LocalBeanConfiguration extends BeanConfiguration {}
 }

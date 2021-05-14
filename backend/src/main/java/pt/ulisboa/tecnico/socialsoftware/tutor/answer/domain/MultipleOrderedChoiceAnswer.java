@@ -21,7 +21,7 @@ import static pt.ulisboa.tecnico.socialsoftware.tutor.exceptions.ErrorMessage.QU
 @DiscriminatorValue(Question.QuestionTypes.MULTIPLE_ORDERED_CHOICE_QUESTION)
 public class MultipleOrderedChoiceAnswer extends AnswerDetails {
     @ManyToOne
-    @JoinColumn(name = "option_id")
+    @JoinColumn(name = "option_relevance_id")
     private OptionWithRelevance option;
 
     public MultipleOrderedChoiceAnswer() {
@@ -43,7 +43,9 @@ public class MultipleOrderedChoiceAnswer extends AnswerDetails {
 
     public void setOption(OptionWithRelevance option) {
         this.option = option;
-
+        /*System.out.println("\n\n\n\n\n");
+        System.out.println(option);
+        System.out.println("\n\n\n\n\n");*/
         if (option != null)
             option.addQuestionAnswer(this);
     }
@@ -58,7 +60,10 @@ public class MultipleOrderedChoiceAnswer extends AnswerDetails {
             if (this.getOption() != null) {
                 this.getOption().getQuestionAnswers().remove(this);
             }
-
+            /*System.out.println("\n\n\n\n\n");
+            System.out.println(option);
+            System.out.println("\n\n\n\n\n");
+*/
             this.setOption(option);
         } else {
             this.setOption(null);
