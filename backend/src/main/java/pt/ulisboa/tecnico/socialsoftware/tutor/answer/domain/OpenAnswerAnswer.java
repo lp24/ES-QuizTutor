@@ -17,7 +17,7 @@ import static pt.ulisboa.tecnico.socialsoftware.tutor.exceptions.ErrorMessage.QU
 @Entity
 @DiscriminatorValue(Question.QuestionTypes.OPEN_ANSWER_QUESTION)
 public class OpenAnswerAnswer extends AnswerDetails {
-    private String answerString;
+    private String studentAnswer;
     public OpenAnswerAnswer() {
         super();
     }
@@ -27,21 +27,21 @@ public class OpenAnswerAnswer extends AnswerDetails {
     }
     public OpenAnswerAnswer(QuestionAnswer questionAnswer, String answer){
         super(questionAnswer);
-        this.setAnswerString(answer);
+        this.setStudentAnswer(answer);
     }
 
-    private void setAnswerString(String answer) {
-        this.answerString=answer;
+    public void setStudentAnswer(String answer) {
+        this.studentAnswer=answer;
     }
 
-    public String getAnswerString(){
-        return answerString;
+    public String getStudentAnswer(){
+        return studentAnswer;
     }
 
     @Override
     public boolean isCorrect() {
-        return getAnswerString() != null;
-        //FIXME: compare to right answer
+        return getStudentAnswer() != null && 
+		getStudentAnswer().equals(((OpenAnswerQuestion)getQuestionAnswer().getQuizQuestion().getQuestion().getQuestionDetails()).getCorrectAnswer());
     }
 
     @Override
@@ -51,12 +51,12 @@ public class OpenAnswerAnswer extends AnswerDetails {
 
     @Override
     public boolean isAnswered() {
-        return this.getAnswerString() != null;
+        return this.getStudentAnswer() != null;
     }
 
     @Override
     public String getAnswerRepresentation() {
-        return this.getAnswerString() != null ? getAnswerString() : "-";
+        return this.getStudentAnswer() != null ? getStudentAnswer() : "-";
     }
 
     @Override
@@ -69,10 +69,7 @@ public class OpenAnswerAnswer extends AnswerDetails {
         visitor.visitAnswerDetails(this);
     }
 
-    public void setAnswerString(OpenAnswerQuestion question) {
-        setAnswerString(question.getCorrectAnswer());
-    }
     public void remove() {
-        answerString=null;
+        studentAnswer=null;
     }
 }

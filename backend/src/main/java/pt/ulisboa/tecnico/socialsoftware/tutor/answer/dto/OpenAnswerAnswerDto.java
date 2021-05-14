@@ -3,21 +3,21 @@ package pt.ulisboa.tecnico.socialsoftware.tutor.answer.dto;
 import pt.ulisboa.tecnico.socialsoftware.tutor.answer.domain.OpenAnswerAnswer;
 
 public class OpenAnswerAnswerDto extends AnswerDetailsDto {
-    private String answerString;
-    public String getAnswerString() {
-        return answerString;
+    private String studentAnswer;
+    public String getStudentAnswer() {
+        return studentAnswer;
     }
 
-    public void setAnswerString(String answerString) {
-        this.answerString = answerString;
+    public void setStudentAnswer(String studentAnswer) {
+        this.studentAnswer = studentAnswer;
     }
 
     public OpenAnswerAnswerDto() {
     }
 
     public OpenAnswerAnswerDto(OpenAnswerAnswer answer) {
-        if (answer.getAnswerString() != null){
-            this.setAnswerString(answer.getAnswerString());
+        if (answer.getStudentAnswer() != null){
+            this.setStudentAnswer(answer.getStudentAnswer());
         }
     }
 

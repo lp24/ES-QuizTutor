@@ -2,9 +2,11 @@ import StatementCorrectAnswerDetails from '@/models/statement/questions/Statemen
 import { QuestionTypes } from '@/services/QuestionHelpers';
 
 export default class OpenAnswerStatementCorrectAnswerDetails extends StatementCorrectAnswerDetails {
+  public correctAnswer: String | null = null;
   constructor(jsonObj?: OpenAnswerStatementCorrectAnswerDetails) {
     super(QuestionTypes.OpenAnswer);
     if (jsonObj) {
+      this.correctAnswer = jsonObj.correctAnswer;
     }
   }
 }

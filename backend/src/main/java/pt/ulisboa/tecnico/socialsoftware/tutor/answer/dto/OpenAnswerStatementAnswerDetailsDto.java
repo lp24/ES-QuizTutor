@@ -6,22 +6,22 @@ import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.OpenAnswerQuestio
 import javax.persistence.Transient;
 
 public class OpenAnswerStatementAnswerDetailsDto extends StatementAnswerDetailsDto {
-    private String answerString;
+    private String studentAnswer;
 
-    public String getAnswerString() {
-        return answerString;
+    public String getStudentAnswer() {
+        return studentAnswer;
     }
 
-    public void setAnswerString(String answerString) {
-        this.answerString = answerString;
+    public void setStudentAnswer(String studentAnswer) {
+        this.studentAnswer = studentAnswer;
     }
 
     public OpenAnswerStatementAnswerDetailsDto() {
     }
 
     public OpenAnswerStatementAnswerDetailsDto(OpenAnswerAnswer questionAnswer) {
-        if (questionAnswer.getAnswerString() != null) {
-            setAnswerString(questionAnswer.getAnswerString());
+        if (questionAnswer.getStudentAnswer() != null) {
+            setStudentAnswer(questionAnswer.getStudentAnswer());
         }
     }
 
@@ -37,7 +37,7 @@ public class OpenAnswerStatementAnswerDetailsDto extends StatementAnswerDetailsD
 
     @Override
     public boolean emptyAnswer() {
-        return getAnswerString() == null;
+        return getStudentAnswer() == null;
     }
 
     @Override
@@ -47,13 +47,13 @@ public class OpenAnswerStatementAnswerDetailsDto extends StatementAnswerDetailsD
 
     @Override
     public void update(OpenAnswerQuestion question) {
-        createdOpenAnswerAnswer.setAnswerString(question);
+        createdOpenAnswerAnswer.setStudentAnswer(studentAnswer);
     }
 
     @Override
     public String toString() {
         return "OpenAnswerStatementAnswerDto{" +
-                "answer=" + getAnswerString() +
+                "answer=" + getStudentAnswer() +
                 '}';
     }
 }
