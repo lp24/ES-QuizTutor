@@ -176,6 +176,9 @@ class SpockTest extends Specification {
     OptionRepository optionRepository
 
     @Autowired
+    OptionWithRelevanceRepository optionWithRelevanceRepository
+
+    @Autowired
     QuestionAnswerRepository questionAnswerRepository
 
     @Autowired

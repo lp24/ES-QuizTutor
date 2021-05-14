@@ -15,6 +15,7 @@ import static pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.Question.Q
         property = "type")
 @JsonSubTypes({
         @JsonSubTypes.Type(value = MultipleChoiceCorrectAnswerDto.class, name = MULTIPLE_CHOICE_QUESTION),
+        @JsonSubTypes.Type(value = MultipleOrderedChoiceCorrectAnswerDto.class, name = MULTIPLE_ORDERED_CHOICE_QUESTION),
         @JsonSubTypes.Type(value = CodeFillInCorrectAnswerDto.class, name = CODE_FILL_IN_QUESTION),
         @JsonSubTypes.Type(value = CodeOrderCorrectAnswerDto.class, name = CODE_ORDER_QUESTION),
         @JsonSubTypes.Type(value = OpenAnswerCorrectAnswerDto.class, name = OPEN_ANSWER_QUESTION),

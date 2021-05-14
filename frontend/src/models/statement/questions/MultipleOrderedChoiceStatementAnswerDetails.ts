@@ -1,9 +1,9 @@
 import StatementAnswerDetails from '@/models/statement/questions/StatementAnswerDetails';
 import { QuestionTypes } from '@/services/QuestionHelpers';
-import MultipleChoiceStatementCorrectAnswerDetails from '@/models/statement/questions/MultipleChoiceStatementCorrectAnswerDetails';
+import MultipleOrderedChoiceStatementCorrectAnswerDetails from '@/models/statement/questions/MultipleOrderedChoiceStatementCorrectAnswerDetails';
 
 export default class MultipleOrderedChoiceStatementAnswerDetails extends StatementAnswerDetails {
-  public optionId: number | null = null;
+  public optionId: number | null = null; //TODO Doubt SHould this be an array instead???
 
   constructor(jsonObj?: MultipleOrderedChoiceStatementAnswerDetails) {
     super(QuestionTypes.MultipleOrderedChoice);
@@ -17,7 +17,7 @@ export default class MultipleOrderedChoiceStatementAnswerDetails extends Stateme
   }
 
   isAnswerCorrect(
-    correctAnswerDetails: MultipleChoiceStatementCorrectAnswerDetails
+    correctAnswerDetails: MultipleOrderedChoiceStatementCorrectAnswerDetails
   ): boolean {
     return (
       !!correctAnswerDetails &&
