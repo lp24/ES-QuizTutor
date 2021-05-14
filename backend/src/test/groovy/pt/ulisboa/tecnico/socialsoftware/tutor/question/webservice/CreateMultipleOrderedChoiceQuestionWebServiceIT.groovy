@@ -20,7 +20,7 @@ import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.QuestionDto
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class CreateMultipleOrderedChoiceQuestionWebServiceIT extends SpockTest {
-    @LocalServerPort
+    /*@LocalServerPort
     private int port
 
     def courseExecutionDto
@@ -107,6 +107,6 @@ class CreateMultipleOrderedChoiceQuestionWebServiceIT extends SpockTest {
 
     def cleanup(){
         // Nothing to Clean manually
-    }
+    }*/
 
 }

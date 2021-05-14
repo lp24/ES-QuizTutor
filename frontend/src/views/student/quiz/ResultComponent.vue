@@ -48,14 +48,18 @@ import StatementAnswer from '@/models/statement/StatementAnswer';
 import StatementCorrectAnswer from '@/models/statement/StatementCorrectAnswer';
 import Image from '@/models/management/Image';
 import MultipleChoiceAnswer from '@/components/multiple-choice/MultipleChoiceAnswer.vue';
+import MultipleOrderedChoiceAnswer from '@/components/multiple-ordered-choice/MultipleOrderedChoiceAnswer.vue';
 import CodeFillInAnswerResult from '@/components/code-fill-in/CodeFillInAnswerResult.vue';
 import CodeOrderAnswerResult from '@/components/code-order/CodeOrderAnswerResult.vue';
+import OpenAnswerAnswerResult from '@/components/open-answer/OpenAnswerAnswerResult.vue';
 
 @Component({
   components: {
     multiple_choice: MultipleChoiceAnswer,
+    multiple_ordered_choice: MultipleOrderedChoiceAnswer,
     code_fill_in: CodeFillInAnswerResult,
     code_order: CodeOrderAnswerResult,
+    open_answer: OpenAnswerAnswerResult,
   },
 })
 export default class ResultComponent extends Vue {

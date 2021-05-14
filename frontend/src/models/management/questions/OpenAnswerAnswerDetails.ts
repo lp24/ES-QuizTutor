@@ -3,20 +3,20 @@ import { QuestionTypes } from '@/services/QuestionHelpers';
 import OpenAnswerQuestionDetails from '@/models/management/questions/OpenAnswerQuestionDetails';
 
 export default class OpenAnswerAnswerType extends AnswerDetails {
-  correctAnswer: string = '';
+  studentAnswer: string = '';
 
   constructor(jsonObj?: OpenAnswerAnswerType) {
     super(QuestionTypes.OpenAnswer);
     if (jsonObj) {
-      this.correctAnswer = jsonObj.correctAnswer;
+      this.studentAnswer = jsonObj.studentAnswer;
     }
   }
 
   isCorrect(questionDetails: OpenAnswerQuestionDetails): boolean {
-    return false;
+    return this.studentAnswer===questionDetails.correctAnswer;
   }
 
   answerRepresentation(questionDetails: OpenAnswerQuestionDetails): string {
-    return this.correctAnswer;
+    return this.studentAnswer;
   }
 }

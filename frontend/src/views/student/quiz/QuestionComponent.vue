@@ -33,20 +33,25 @@
 </template>
 
 <script lang="ts">
+
 import { Component, Vue, Prop, Model, Emit } from 'vue-property-decorator';
 import StatementQuestion from '@/models/statement/StatementQuestion';
 import Image from '@/models/management/Image';
 import { convertMarkDown } from '@/services/ConvertMarkdownService';
 import MultipleChoiceAnswer from '@/components/multiple-choice/MultipleChoiceAnswer.vue';
+import MultipleOrderedChoiceAnswer from '@/components/multiple-ordered-choice/MultipleOrderedChoiceAnswer.vue';
 import StatementAnswer from '@/models/statement/StatementAnswer';
 import CodeFillInAnswer from '@/components/code-fill-in/CodeFillInAnswer.vue';
 import CodeOrderAnswer from '@/components/code-order/CodeOrderAnswer.vue';
+import OpenAnswerAnswer from '@/components/open-answer/OpenAnswerAnswer.vue';
 
 @Component({
   components: {
     multiple_choice: MultipleChoiceAnswer,
+    multiple_ordered_choice: MultipleOrderedChoiceAnswer,
     code_fill_in: CodeFillInAnswer,
     code_order: CodeOrderAnswer,
+    open_answer: OpenAnswerAnswer,
   },
 })
 export default class QuestionComponent extends Vue {
@@ -57,20 +62,20 @@ export default class QuestionComponent extends Vue {
   @Prop() readonly backsies!: boolean;
   hover: boolean = false;
 
-  @Emit()
-  increaseOrder() {
-    return 1;
-  }
+    @Emit()
+    increaseOrder() {
+      return 1;
+    }
 
-  @Emit()
-  decreaseOrder() {
-    return 1;
-  }
+    @Emit()
+    decreaseOrder() {
+      return 1;
+    }
 
-  convertMarkDown(text: string, image: Image | null = null): string {
-    return convertMarkDown(text, image);
+    convertMarkDown(text: string, image: Image | null = null): string {
+      return convertMarkDown(text, image);
+    }
+
   }
-}
 </script>
-
 <style lang="scss" scoped />

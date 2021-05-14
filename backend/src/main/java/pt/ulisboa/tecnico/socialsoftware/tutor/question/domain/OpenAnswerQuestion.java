@@ -1,9 +1,6 @@
 package pt.ulisboa.tecnico.socialsoftware.tutor.question.domain;
 
-import pt.ulisboa.tecnico.socialsoftware.tutor.answer.dto.AnswerDetailsDto;
-import pt.ulisboa.tecnico.socialsoftware.tutor.answer.dto.CorrectAnswerDetailsDto;
-import pt.ulisboa.tecnico.socialsoftware.tutor.answer.dto.StatementAnswerDetailsDto;
-import pt.ulisboa.tecnico.socialsoftware.tutor.answer.dto.StatementQuestionDetailsDto;
+import pt.ulisboa.tecnico.socialsoftware.tutor.answer.dto.*;
 import pt.ulisboa.tecnico.socialsoftware.tutor.impexp.domain.Visitor;
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.Updator;
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.OpenAnswerQuestionDto;
@@ -55,13 +52,13 @@ public class OpenAnswerQuestion extends QuestionDetails {
     }
 
 
-    public CorrectAnswerDetailsDto getCorrectAnswerDetailsDto(){return null;}
+    public CorrectAnswerDetailsDto getCorrectAnswerDetailsDto(){return new OpenAnswerCorrectAnswerDto(this);}
 
-    public StatementQuestionDetailsDto getStatementQuestionDetailsDto(){return null;}
+    public StatementQuestionDetailsDto getStatementQuestionDetailsDto(){return new OpenAnswerStatementQuestionDetailsDto(this);}
 
-    public StatementAnswerDetailsDto getEmptyStatementAnswerDetailsDto(){return null;}
+    public StatementAnswerDetailsDto getEmptyStatementAnswerDetailsDto(){return new OpenAnswerStatementAnswerDetailsDto();}
 
-    public AnswerDetailsDto getEmptyAnswerDetailsDto(){return null;}
+    public AnswerDetailsDto getEmptyAnswerDetailsDto(){return new OpenAnswerAnswerDto();}
 
     public String getCorrectAnswerRepresentation(){
         String correctAnswer = getCorrectAnswer();

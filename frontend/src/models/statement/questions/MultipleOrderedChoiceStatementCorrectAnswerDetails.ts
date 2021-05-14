@@ -3,6 +3,7 @@ import { QuestionTypes } from '@/services/QuestionHelpers';
 
 export default class MultipleOrderedChoiceStatementCorrectAnswerDetails extends StatementCorrectAnswerDetails {
   public correctOptionId: number | null = null;
+  //TODO public correctRelevance: number | null = null;
 
   constructor(jsonObj?: MultipleOrderedChoiceStatementCorrectAnswerDetails) {
     super(QuestionTypes.MultipleOrderedChoice);
