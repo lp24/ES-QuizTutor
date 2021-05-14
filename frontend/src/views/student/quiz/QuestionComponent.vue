@@ -33,31 +33,32 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue, Prop, Model, Emit } from 'vue-property-decorator';
-  import StatementQuestion from '@/models/statement/StatementQuestion';
-  import Image from '@/models/management/Image';
-  import { convertMarkDown } from '@/services/ConvertMarkdownService';
-  import MultipleChoiceAnswer from '@/components/multiple-choice/MultipleChoiceAnswer.vue';
-  import StatementAnswer from '@/models/statement/StatementAnswer';
-  import CodeFillInAnswer from '@/components/code-fill-in/CodeFillInAnswer.vue';
-  import CodeOrderAnswer from '@/components/code-order/CodeOrderAnswer.vue';
-  import OpenAnswerAnswer from '@/components/open-answer/OpenAnswerAnswer.vue';
 
-  @Component({
-    components: {
-      multiple_choice: MultipleChoiceAnswer,
-      code_fill_in: CodeFillInAnswer,
-      code_order: CodeOrderAnswer,
-      open_answer: OpenAnswerAnswer,
-    },
-  })
-  export default class QuestionComponent extends Vue {
-    @Model('questionOrder', Number) questionOrder: number | undefined;
-    @Prop(StatementQuestion) readonly question: StatementQuestion | undefined;
-    @Prop(StatementAnswer) answer: StatementAnswer | undefined;
-    @Prop() readonly questionNumber!: number;
-    @Prop() readonly backsies!: boolean;
-    hover: boolean = false;
+import { Component, Vue, Prop, Model, Emit } from 'vue-property-decorator';
+import StatementQuestion from '@/models/statement/StatementQuestion';
+import Image from '@/models/management/Image';
+import { convertMarkDown } from '@/services/ConvertMarkdownService';
+import MultipleChoiceAnswer from '@/components/multiple-choice/MultipleChoiceAnswer.vue';
+import StatementAnswer from '@/models/statement/StatementAnswer';
+import CodeFillInAnswer from '@/components/code-fill-in/CodeFillInAnswer.vue';
+import CodeOrderAnswer from '@/components/code-order/CodeOrderAnswer.vue';
+import OpenAnswerAnswer from '@/components/open-answer/OpenAnswerAnswer.vue';
+
+@Component({
+  components: {
+    multiple_choice: MultipleChoiceAnswer,
+    code_fill_in: CodeFillInAnswer,
+    code_order: CodeOrderAnswer,
+    open_answer: OpenAnswerAnswer,
+  },
+})
+export default class QuestionComponent extends Vue {
+  @Model('questionOrder', Number) questionOrder: number | undefined;
+  @Prop(StatementQuestion) readonly question: StatementQuestion | undefined;
+  @Prop(StatementAnswer) answer: StatementAnswer | undefined;
+  @Prop() readonly questionNumber!: number;
+  @Prop() readonly backsies!: boolean;
+  hover: boolean = false;
 
     @Emit()
     increaseOrder() {
