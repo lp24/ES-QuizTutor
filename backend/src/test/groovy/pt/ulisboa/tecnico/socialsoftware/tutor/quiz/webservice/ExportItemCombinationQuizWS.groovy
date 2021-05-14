@@ -89,10 +89,4 @@ class ExportQuizWebServiceIT extends SpockTest{
         assert map['reader'] != null*/
 
     }
-
-    def cleanup(){
-        userRepository.deleteById(user.getId())
-        courseExecutionRepository.deleteById(externalCourseExecution.getId())
-        courseRepository.deleteById(externalCourse.getId())
-    }
 }
