@@ -83,4 +83,7 @@ public interface Visitor {
     default void visitQuestionDetails(OpenAnswerQuestion question) {}
 
     default void visitAnswerDetails(ItemCombinationAnswer answer) {}
+    
+    default void visitAnswerDetails(OpenAnswerAnswer answer) {}
+
 }
