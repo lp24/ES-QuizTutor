@@ -1,37 +1,27 @@
-package pt.ulisboa.tecnico.socialsoftware.tutor.question.webservice
+package pt.ulisboa.tecnico.socialsoftware.tutor.answer.webservice
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import groovy.json.JsonOutput
-import groovyx.net.http.HttpResponseException
 import groovyx.net.http.RESTClient
-import org.apache.http.HttpStatus
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.web.server.LocalServerPort
 import pt.ulisboa.tecnico.socialsoftware.tutor.SpockTest
-import pt.ulisboa.tecnico.socialsoftware.tutor.answer.domain.QuizAnswer
-import pt.ulisboa.tecnico.socialsoftware.tutor.answer.dto.MultipleChoiceStatementAnswerDetailsDto
 import pt.ulisboa.tecnico.socialsoftware.tutor.answer.dto.MultipleOrderedChoiceStatementAnswerDetailsDto
 import pt.ulisboa.tecnico.socialsoftware.tutor.answer.dto.StatementAnswerDto
 import pt.ulisboa.tecnico.socialsoftware.tutor.answer.dto.StatementQuizDto
 import pt.ulisboa.tecnico.socialsoftware.tutor.auth.domain.AuthUser
 import pt.ulisboa.tecnico.socialsoftware.tutor.execution.domain.CourseExecution
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.Course
-import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.MultipleChoiceQuestion
-import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.Option
-import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.OptionWithRelevance
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.domain.Question
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.MultipleOrderedChoiceQuestionDto
-import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.OptionDto
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.OptionWithRelevanceDto
 import pt.ulisboa.tecnico.socialsoftware.tutor.question.dto.QuestionDto
-import pt.ulisboa.tecnico.socialsoftware.tutor.question.repository.OptionWithRelevanceRepository
 import pt.ulisboa.tecnico.socialsoftware.tutor.quiz.domain.Quiz
 import pt.ulisboa.tecnico.socialsoftware.tutor.quiz.dto.QuizDto
 import pt.ulisboa.tecnico.socialsoftware.tutor.user.domain.User
 import pt.ulisboa.tecnico.socialsoftware.tutor.utils.DateHandler
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class ConcludeQuizWithMultipleOrderedChoiceQuestionWebServiceIT extends SpockTest {
+class CheckQuizResultsWithMultipleOrderedChoiceQuestionWebServiceIT extends SpockTest {
     @LocalServerPort
     private int port
 
@@ -39,11 +29,9 @@ class ConcludeQuizWithMultipleOrderedChoiceQuestionWebServiceIT extends SpockTes
     def courseExecution
     def student
     def teacher
-
     def questionDto
     def response
     def question
-
     def quizDto
     def quizAnswer
     def options
@@ -52,7 +40,6 @@ class ConcludeQuizWithMultipleOrderedChoiceQuestionWebServiceIT extends SpockTes
     def setup() {
         given: 'a rest client'
         restClient = new RESTClient("http://localhost:" + port)
-
         course = new Course(COURSE_1_NAME, Course.Type.EXTERNAL)
         courseRepository.save(course)
         courseExecution = new CourseExecution(course, COURSE_1_ACRONYM, COURSE_1_ACADEMIC_TERM, Course.Type.EXTERNAL, LOCAL_DATE_TOMORROW)
@@ -110,21 +97,6 @@ class ConcludeQuizWithMultipleOrderedChoiceQuestionWebServiceIT extends SpockTes
 
         quizDto2 = quizService.createQuiz(courseExecution.getId(),quizDto)
 
-        student = new User(USER_2_NAME, USER_2_EMAIL, USER_2_EMAIL,
-                User.Role.STUDENT, false, AuthUser.Type.TECNICO)
-        student.authUser.setPassword(passwordEncoder.encode(USER_2_PASSWORD))
-        student.addCourse(courseExecution)
-        courseExecution.addUser(student)
-        userRepository.save(student)
-        createdUserLogin(USER_2_EMAIL, USER_2_PASSWORD)
-    }
-
-    def "student answer a quiz with multiple ordered quiz questions"(){
-
-        expect: true
-        /*given: 'a quiz'
-
-
         def statementQuizDto = new StatementQuizDto()
         statementQuizDto.id = quizDto2.getId()
         //statementQuizDto.quizAnswerId = quizAnswer.getId()
@@ -137,23 +109,35 @@ class ConcludeQuizWithMultipleOrderedChoiceQuestionWebServiceIT extends SpockTes
         //statementAnswerDto.setQuestionAnswerId(quizAnswer.getQuestionAnswers().get(0).getId())
         statementQuizDto.getAnswers().add(statementAnswerDto)
 
+        answerService.concludeQuiz(statementQuizDto)
 
+        student = new User(USER_2_NAME, USER_2_EMAIL, USER_2_EMAIL,
+                User.Role.STUDENT, false, AuthUser.Type.TECNICO)
+        student.authUser.setPassword(passwordEncoder.encode(USER_2_PASSWORD))
+        student.addCourse(courseExecution)
+        courseExecution.addUser(student)
+        userRepository.save(student)
+        createdUserLogin(USER_2_EMAIL, USER_2_PASSWORD)
+    }
+
+    def "student answer a quiz with multiple ordered quiz questions"(){
+        expect: true
+        /*given: 'a quiz'
         when: 'the web service is invoked'
         def mapper = new ObjectMapper()
         def jsonStr = mapper.writeValueAsString(statementQuizDto)
        // def object = mapper.readValue(jsonStr, QuestionDto.class)
+       // @GetMapping("/answers/{executionId}/quizzes/solved")
 
-        response = restClient.post(
-                path: '/quizzes/'+quizDto2.getId() + '/conclude',
-                body: jsonStr,
+        response = restClient.get(
+                path: '/answers/'+ courseExecution.getId() + '/quizzes/solved',
                 requestContentType: 'application/json'
         )
 
         then: "the request returns OK"
-        response.status == 200
+        response.status == 200*/
 
-        and: "if it responds with the correct questionDto"
-
+        /*and: "if it responds with the correct questionDto"
         def question = response.data
         question.id != null
         question.title == questionDto.getTitle()
